@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "360219296327",
+    "project_id": "qismati-app",
+    "storage_bucket": "qismati-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:360219296327:android:73d9bf60b8166f46f4a762",
+        "android_client_info": {
+          "package_name": "com.example.qismati"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "360219296327-g7hg07jfjh9en8daiej77opoau8k69r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCb_L_8LhKQL3RajXeYi78mVZsB0jpX508"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "360219296327-g7hg07jfjh9en8daiej77opoau8k69r7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "360219296327-13mug560brrkor8us9u4n32ed62cjqs6.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.qismati"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
