@@ -7,7 +7,7 @@
  * See a full list of supported triggers at https://firebase.google.com/docs/functions
  */
 
-import { CallableRequest, onCall } from "firebase-functions/v2/https";
+import { CallableRequest, onCall, HttpsError } from "firebase-functions/v2/https";
 import * as functions from "firebase-functions";
 import * as logger from "firebase-functions/logger";
 import * as admin from 'firebase-admin';   // admin sdk required to interact with the firebase services
@@ -83,40 +83,43 @@ export const createUserProfile = onCall(async (request: CallableRequest<User>) =
   // check if the user email is verified
   const userRecord = await admin.auth().getUser(uid);
   if (!userRecord.emailVerified) {
-    throw new functions.https.HttpsError('unauthenticated', 'Email not verified yet, \
-      please verify your email before proceeding to create a profile');
+    throw new HttpsError('unauthenticated', 'Email not verified yet, please verify your email before proceeding to create a profile');
   }
   
   const data = request.data;
   
   // validate user data
   if (!data.gender || (data.gender !== 'male' && data.gender !== 'female')) {
-    throw new functions.https.HttpsError('invalid-argument', `Invalid Gender, Choose \
-      either male or female`);
+    throw new HttpsError('invalid-argument', `Invalid Gender, Choose either male or female`);
   }
 
   // All common fields exist
   genderCommonUserFieldsList.forEach(field => {
     if (!data[field]) {
-      throw new functions.https.HttpsError('invalid-argument', `Field ${field} is required`);
+      throw new HttpsError('invalid-argument', `Field ${field} is required`);
     }
   });
 
+  if (data.age < 18) {
+    throw new HttpsError('invalid-argument', 'You must be 18 years or older to create a profile');
+  }
+
   // male should have the beard field
   if (data.gender === 'male' && data.beard === undefined) {
-    throw new functions.https.HttpsError('invalid-argument', 'Field beard is required');
+    throw new HttpsError('invalid-argument', 'Field beard is required');
   }
   
   // female should have the veil field
   if (data.gender === 'female' && data.veil === undefined) {
-    throw new functions.https.HttpsError('invalid-argument', 'Field veil is required');
+    throw new HttpsError('invalid-argument', 'Field veil is required');
   }
 
   // Create a new user profile
   const userProfile = await admin.firestore().collection('users').doc(uid).create(data);
-  
+
   return {
     "message": "profile created successfully",
     ...userProfile
   };
 });
+
