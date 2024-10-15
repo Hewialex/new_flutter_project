@@ -11,10 +11,10 @@ import { CallableRequest, onCall, HttpsError } from "firebase-functions/v2/https
 import * as functions from "firebase-functions";
 import * as logger from "firebase-functions/logger";
 import * as admin from 'firebase-admin';   // admin sdk required to interact with the firebase services
+import * as path from "path";
 
-// Start writing functions
-// https://firebase.google.com/docs/functions/typescript
-
+// library for image resizing
+const sharp = require("sharp");
 
 admin.initializeApp();
 admin.firestore().settings({ ignoreUndefinedProperties: true });
@@ -123,3 +123,46 @@ export const createUserProfile = onCall(async (request: CallableRequest<User>) =
   };
 });
 
+
+/**
+ * When an image is uploaded in the Storage bucket,
+ * generate a blurred thumbnail image automatically using sharp.
+ */
+exports.generateThumbnail = functions.storage.object().onFinalize(async (object) => {
+  const fileBucket = object.bucket!; // Storage bucket containing the file.
+  const filePath = object.name!; // File path in the bucket.
+  const contentType = object.contentType!; // File content type.
+
+    // Exit if this is triggered on a file that is not an image.
+    if (!contentType.startsWith("image/")) {
+      return logger.log("This is not an image.");
+    }
+
+    const fileName = path.basename(filePath);
+    // if upload was made to the thumbnail folder, exit
+    if (filePath.includes("userProfileImages/thumbnails")) {
+      return logger.log("Ignoring a thumbnail upload.");
+    }
+
+    // Download file from bucket.
+    const bucket = admin.storage().bucket(fileBucket);
+    const downloadResponse = await bucket.file(filePath).download();
+    const imageBuffer = downloadResponse[0];
+    logger.log("User Image downloaded!");
+
+    // Generate a thumbnail using sharp.
+    const thumbnailBuffer = await sharp(imageBuffer).blur(10).toBuffer();
+    
+    logger.log("Blurred thumbnail created from user image!");
+
+    // I want to store it in an adjacent folder named thumbnailUserProfileImages
+    const thumbFilePath = path.join(path.dirname(filePath), 'thumbnails', fileName);
+    
+    // upload the thumbnail
+    const metadata = {contentType: contentType};
+    await bucket.file(thumbFilePath).save(thumbnailBuffer, {
+      metadata: metadata,
+    });
+
+    return logger.log("Blurred thumbnail uploaded from user profile!");
+});
