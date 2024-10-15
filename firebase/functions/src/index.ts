@@ -151,7 +151,7 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async (object)
     logger.log("User Image downloaded!");
 
     // Generate a thumbnail using sharp.
-    const thumbnailBuffer = await sharp(imageBuffer).blur(10).toBuffer();
+    const thumbnailBuffer = await sharp(imageBuffer).blur(20).toBuffer();
     
     logger.log("Blurred thumbnail created from user image!");
 
