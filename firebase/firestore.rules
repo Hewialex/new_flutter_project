@@ -12,7 +12,6 @@ service cloud.firestore {
       return request.auth.token.email_verified;
     }
 
-
     // user collection
     match /users/{uid} {
       function isOwner() {
@@ -29,7 +28,7 @@ service cloud.firestore {
 
       function profileViewIsPublic() {
         // in the settings collection, the
-        return 
+        return true;
       }
 
       // user can write their own data only
@@ -38,8 +37,8 @@ service cloud.firestore {
 
       allow update: if isSignedIn() && isOwner() && genderIsNotModified();
 
-      // only owner can read self profile. we'll
-      allow get: if isSignedIn() && isVerifiedEmail() && (isOwner() || );
+      // only owner can read self profile. we'll add more rules later
+      allow get: if isSignedIn() && isVerifiedEmail() && isOwner();
 
       allow list;
     }
@@ -88,7 +87,7 @@ service cloud.firestore {
 
     allow update, delete: if isSignedIn() && isCommentOwner(); // only signed in user can update or delete
 
-    allow list: isSignedIn() && isVerifiedEmail(); // anyone can get a list of comments
+    allow list: if isSignedIn() && isVerifiedEmail(); // anyone can get a list of comments
   }
 
   // notification collections
@@ -103,7 +102,7 @@ service cloud.firestore {
     allow update:
       if isSignedIn() && isVerifiedEmail() && isNotificationOwner() &&
       // user can only update the read status field of the notification
-      (request.resource.data.keys().hasOnly(['read'])  request.resource.data.read == true);
+      request.resource.data.keys().hasOnly(['read']);
   }
 
   match /favoritedUsersList/{favoritedUserId}/favoritedBy/{favoritedByUserId} {
@@ -221,5 +220,9 @@ service cloud.firestore {
     // created automatically when user is created
     // delete is also automatically done when user is deleted
     allow create, delete: if false;
+  }
+
+  match /{document=**} {
+    allow read, write: if true;
   }
 }
