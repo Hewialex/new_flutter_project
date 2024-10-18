@@ -12,6 +12,7 @@ service cloud.firestore {
       return request.auth.token.email_verified;
     }
 
+
     // user collection
     match /users/{uid} {
       function isOwner() {
@@ -22,14 +23,23 @@ service cloud.firestore {
         return request.resource.data.gender == resource.data.gender;
       }
 
+      function profileAlreadyCreated() {
+        return !exists(/databases/$(database)/documents/users/$(request.auth.uid));
+      }
+
+      function profileViewIsPublic() {
+        // in the settings collection, the
+        return 
+      }
+
       // user can write their own data only
       allow create:
-        if isSignedIn() && isOwner() && !exists(/databases/$(database)/documents/users/$(request.auth.uid));
+        if isSignedIn() && isVerifiedEmail() && isOwner() && profileAlreadyCreated();
 
       allow update: if isSignedIn() && isOwner() && genderIsNotModified();
 
       // only owner can read self profile. we'll
-      allow get: if isSignedIn() && isOwner();
+      allow get: if isSignedIn() && isVerifiedEmail() && (isOwner() || );
 
       allow list;
     }
@@ -152,4 +162,64 @@ service cloud.firestore {
     allow update: if false;
   }
 
+  // profile photo view allowed list collection
+  match /profilePhotoViewAllowedList/{userId} {
+    function isOwner() {
+      return request.auth.uid == userId;
+    }
+
+    allow create: if isSignedIn() && isOwner();
+
+    allow read: if isSignedIn() && isOwner();
+
+    allow update: if isSignedIn() && isOwner();
+
+    allow delete: if isSignedIn() && isOwner();
+  }
+
+  // account settings collection
+  match /accountSettings/{userId} {
+    function isOwner() {
+      return request.auth.uid == userId;
+    }
+
+    allow read: if isSignedIn() && isOwner();
+
+    allow update: if isSignedIn() && isOwner();
+
+    // created automatically when user is created
+    // delete is also automatically done when user is deleted
+    allow create, delete: if false;
+  }
+
+  // notification settings collection
+  match /notificationSettings/{userId} {
+    function isOwner() {
+      return request.auth.uid == userId;
+    }
+
+    allow read: if isSignedIn() && isOwner();
+
+    allow update: if isSignedIn() && isOwner();
+
+    // created automatically when user is created
+    // delete is also automatically done when user is deleted
+    allow create, delete: if false;
+  }
+
+  // account settings collection
+  // This includes things like appear on search, etc.
+  match /accountSettings/{userId} {
+    function isOwner() {
+      return request.auth.uid == userId;
+    }
+
+    allow read: if isSignedIn() && isOwner();
+
+    allow update: if isSignedIn() && isOwner();
+
+    // created automatically when user is created
+    // delete is also automatically done when user is deleted
+    allow create, delete: if false;
+  }
 }

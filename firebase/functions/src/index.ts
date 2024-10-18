@@ -13,17 +13,106 @@ import * as logger from "firebase-functions/logger";
 import * as admin from 'firebase-admin';   // admin sdk required to interact with the firebase services
 import * as path from "path";
 
+
 // library for image resizing
 const sharp = require("sharp");
 
 admin.initializeApp();
+
+// admin.(auth, "http://localhost:9099");
 admin.firestore().settings({ ignoreUndefinedProperties: true });
 
 
+const defaultNotificationSettings = {
+  // who added me to favorite list
+  addedToFavoriteList: true,
+  // when someone allows me to view their photo
+  allowedToViewMyPhoto: true,
+  // when I get new messages
+  newMessages: true,
+  // who saw my profile
+  profileViewed: true,
+  // who added me to their ignore list
+  addedToIgnoreList: true,
+}
+
+const defaultAccountSettings = {
+  // 
+}
+
+const defaultGeneralSettings = {
+  appearOnSearch: true, // appear on search results by default
+
+}
+
+// fired when a new user account is created
+export const userCreated = functions.auth.user().onCreate(async (user) => {
+  // create a users allowed to see my photo document with an empty list as a value
+  await admin.firestore().collection('profilePhotoViewAllowedList').doc(user.uid).create({
+    "allowedUsersIds": []
+  });
+
+  // create a list of users who current user can add to ignore list
+  await admin.firestore().collection('ignoredUsersList').doc(user.uid).create({
+    "ignoredUsersList": []
+  });
+  
+  // create a list of users who current user can add to favorite list
+  await admin.firestore().collection('likedUsersList').doc(user.uid).create({
+    "likedUsersList": []
+  });
+
+  // create a notification settings with default values
+  await admin.firestore().collection('notificationSettings').doc(user.uid).create(defaultNotificationSettings);
+
+  // create an account settings with default values
+  await admin.firestore().collection('accountSettings').doc(user.uid).create(defaultAccountSettings);
+
+  // create a general settings with default values
+  await admin.firestore().collection('generalSettings').doc(user.uid).create(defaultGeneralSettings);
+
+  // send a verification email if the user signed in with email and password
+  if (user.providerData.some(provider => provider.providerId === 'password') && !user.emailVerified) {
+    const verificationLink = await admin.auth().generateEmailVerificationLink(user.email!);
+
+    // send a verification email
+  }
+
+  // Must return a value or a promise
+  return new Promise((resolve, _) => {
+    resolve(logger.info('User created', user.email, user.uid));
+  });
+});
+
 // fired when a user account is deleted
-export const userDeleted = functions.auth.user().onDelete((user) => {
+export const userDeleted = functions.auth.user().onDelete(async (user) => {
   // delete user profile
-  admin.firestore().collection('users').doc(user.uid).delete();
+  await admin.firestore().collection('users').doc(user.uid).delete();
+
+  // delete the user's profile photo and it's thumbnail
+  await admin.storage().bucket().file(`userProfileImages/${user.uid}`).delete();
+  await admin.storage().bucket().file(`userProfileImages/thumbnails/${user.uid}`).delete();
+
+  // delete the profile photo from the allowed list of all users
+  await admin.firestore().collection('profilePhotoViewAllowedList').doc(user.uid).delete();
+
+  // delete the ignord users list of the deleted user
+  await admin.firestore().collection('ignoredUsersList').doc(user.uid).delete();
+
+  // delete the liked users list of the deleted user
+  await admin.firestore().collection('likedUsersList').doc(user.uid).delete();
+
+  // delete the notifications of the current user
+  await admin.firestore().collection('notificationSettings').doc(user.uid).delete();
+
+  // delete the account settings of the current user
+  await admin.firestore().collection('accountSettings').doc(user.uid).delete();
+
+  // delete the general settings of the current user
+  await admin.firestore().collection('generalSettings').doc(user.uid).delete();
+  
+  // // set the thumbnail of the user as the profile photo of the user
+  // await admin.auth().updateUser(user.uid, { photoURL: `https://firebasestorage.googleapis.com/v0/b/${admin.storage().bucket().name}/o/userProfileImages%2Fthumbnails%2Fdefault-profile-image.png?alt=media` })
 
   // Must return a value or a promise
   return new Promise((resolve, _) => {
