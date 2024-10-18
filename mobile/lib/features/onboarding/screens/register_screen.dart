@@ -12,6 +12,9 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
   bool isSelected = false;
+  bool isMaleSelected = false;
+  bool isFemaleSelected = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,13 +137,35 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 SizedBox(height: 18.h),
-                CustomButton(onPressed: () {}, text: "I'm Male"),
+                CustomButton(
+                  width: 280,
+                  height: 41,
+                  onPressed: () {
+                    setState(() {
+                      isMaleSelected = true;
+                      isFemaleSelected = false;
+                    });
+                  },
+                  text: "I'm Male",
+                  isInverted: !isMaleSelected,
+                ),
                 SizedBox(height: 20.h),
                 CustomButton(
-                  onPressed: () {},
+                  width: 280,
+                  height: 41,
+                  onPressed: () {
+                    setState(() {
+                      isFemaleSelected = true;
+                      isMaleSelected = false;
+                    });
+                  },
                   text: "I'm Female",
-                  isInverted: true,
+                  isInverted: !isFemaleSelected,
                 ),
+                (isSelected && (isFemaleSelected || isMaleSelected))
+                    ? TextButton(
+                        onPressed: () {}, child: const Text('Continue'))
+                    : Container()
               ],
             ),
           ),
