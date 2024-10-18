@@ -22,5 +22,27 @@
   ],
   "storage": {
     "rules": "storage.rules"
+  },
+  "emulators": {
+    "auth": {
+      "enabled": true,
+      "port": 9099
+    },
+    "functions": {
+      "enabled": true,
+      "port": 5003
+    },
+    "firestore": {
+      "enabled": true,
+      "port": 8080
+    },
+    "storage": {
+      "enabled": true,
+      "port": 9199
+    },
+    "ui": {
+      "enabled": true,
+      "port": 4000
+    }
   }
 }

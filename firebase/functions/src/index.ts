@@ -36,17 +36,14 @@ const defaultNotificationSettings = {
   addedToIgnoreList: true,
 }
 
-const defaultAccountSettings = {
-  // 
-}
+const defaultAccountSettings = {}
 
-const defaultGeneralSettings = {
-  appearOnSearch: true, // appear on search results by default
-
-}
+const defaultGeneralSettings = { appearOnSearch: true }
 
 // fired when a new user account is created
 export const userCreated = functions.auth.user().onCreate(async (user) => {
+  logger.log('User created', user.email, user.uid);
+
   // create a users allowed to see my photo document with an empty list as a value
   await admin.firestore().collection('profilePhotoViewAllowedList').doc(user.uid).create({
     "allowedUsersIds": []
@@ -56,7 +53,7 @@ export const userCreated = functions.auth.user().onCreate(async (user) => {
   await admin.firestore().collection('ignoredUsersList').doc(user.uid).create({
     "ignoredUsersList": []
   });
-  
+
   // create a list of users who current user can add to favorite list
   await admin.firestore().collection('likedUsersList').doc(user.uid).create({
     "likedUsersList": []
@@ -72,11 +69,11 @@ export const userCreated = functions.auth.user().onCreate(async (user) => {
   await admin.firestore().collection('generalSettings').doc(user.uid).create(defaultGeneralSettings);
 
   // send a verification email if the user signed in with email and password
-  if (user.providerData.some(provider => provider.providerId === 'password') && !user.emailVerified) {
-    const verificationLink = await admin.auth().generateEmailVerificationLink(user.email!);
+  // if (user.providerData.some(provider => provider.providerId === 'password') && !user.emailVerified) {
+  //   const verificationLink = await admin.auth().generateEmailVerificationLink(user.email!);
 
-    // send a verification email
-  }
+  //   // send a verification email
+  // }
 
   // Must return a value or a promise
   return new Promise((resolve, _) => {
@@ -86,6 +83,7 @@ export const userCreated = functions.auth.user().onCreate(async (user) => {
 
 // fired when a user account is deleted
 export const userDeleted = functions.auth.user().onDelete(async (user) => {
+  logger.log('User deleted', user.email, user.uid);
   // delete user profile
   await admin.firestore().collection('users').doc(user.uid).delete();
 
