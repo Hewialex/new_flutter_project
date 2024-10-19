@@ -238,7 +238,7 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async (object)
     logger.log("User Image downloaded!");
 
     // Generate a thumbnail using sharp.
-    const thumbnailBuffer = await sharp(imageBuffer).blur(20).toBuffer();
+    const thumbnailBuffer = await sharp(imageBuffer).blur(35).toBuffer();
     
     logger.log("Blurred thumbnail created from user image!");
 
@@ -252,4 +252,150 @@ exports.generateThumbnail = functions.storage.object().onFinalize(async (object)
     });
 
     return logger.log("Blurred thumbnail uploaded from user profile!");
+});
+
+type notificationType = 'like' | 'message' | 'profileViewed' | 'addedToFavoriteList' | 'addedToIgnoreList' | 'ignore';
+
+const pushNotification = async ({
+  userId,
+  notificationTitle,
+  notificationContent,
+  notificationType
+} : {
+  userId: string;
+  notificationTitle: string;
+  notificationContent: string;
+  notificationType: notificationType;
+}) => {
+
+  await admin.firestore().collection('notifications').add({
+    userId,
+    notificationTitle,
+    notificationContent,
+    notificationType,
+    read: false,
+    createdAt: admin.firestore.FieldValue.serverTimestamp()
+  });
+};
+
+
+/**
+ * When a user likes another user a chat room is created between them
+ * and the user who was liked is notified.
+ */
+exports.likeUser = onCall(async (request: CallableRequest<{ userId: string }>) => {
+  const uid: string = request.auth?.uid!;
+  const data = request.data;
+  const currUser = await admin.auth().getUser(uid);
+  
+  // check if the liked user exists
+  const likedUser = await admin.auth().getUser(data.userId);
+  if (!likedUser)
+    throw new HttpsError('not-found', 'User not found');
+
+  // add the liked user to the current user's liked users list
+  await admin.firestore().collection('likedUsersList').doc(uid).update({
+    likedUsersList: admin.firestore.FieldValue.arrayUnion(data.userId)
+  });
+
+  // check if the other user likes the current user
+  const likedUserLikedCurrentUser = await admin.firestore().collection('likedUsersList').doc(data.userId).get();
+
+  if (likedUserLikedCurrentUser.data()?.likedUsersList.includes(uid)) {
+    // create a chat room between the two users
+    await admin.firestore().collection('chatRooms').add({
+      users: [uid, data.userId],
+      archived: false,
+      createdAt: admin.firestore.FieldValue.serverTimestamp()
+    });
+
+    // notify the liked user
+    await pushNotification({
+      userId: data.userId,
+      notificationTitle: 'New Like',
+      notificationContent: `${currUser} liked you`,
+      notificationType: 'like'
+    });
+  }
+
+  await pushNotification({
+    userId: data.userId,
+    notificationTitle: 'New Like',
+    notificationContent: `${currUser} liked you`,
+    notificationType: 'like'
+  });
+});
+
+
+/**
+ * When a user dislikes/ignores another user, the other user is notified
+ * and removed from the liked list and added to the ignored list
+ */
+exports.ignoreUser = onCall(async (request: CallableRequest<{userId: string}>) => {
+  const uid: string = request.auth?.uid!;
+  const data = request.data;
+  const currUser = await admin.auth().getUser(uid);
+  
+  // check if the liked user exists
+  const dislikedUser = await admin.auth().getUser(data.userId);
+  if (!dislikedUser)
+    throw new HttpsError('not-found', 'User not found');
+
+  
+  // add the liked user to the current user's liked users list
+  await admin.firestore().collection('ignoredUsersList').doc(uid).update({
+    ignoredUsersList: admin.firestore.FieldValue.arrayUnion(data.userId)
+  });
+
+  // if these two users had a chat started archive the chat
+  const chatRoom = await admin.firestore().collection('chatRooms').where('users', 'array-contains', uid).where('users', 'array-contains', data.userId).get();
+
+  if (!chatRoom.empty) {
+    chatRoom.forEach(async doc => {
+      await doc.ref.update({ archived: true });
+    });
+  }
+
+
+  if (likedUserLikedCurrentUser.data()?.likedUsersList.includes(uid)) {
+    // create a chat room between the two users
+    await admin.firestore().collection('chatRooms');
+    // notify the liked user
+    await pushNotification({
+      userId: data.userId,
+      notificationTitle: 'New Like',
+      notificationContent: `${currUser} liked you`,
+      notificationType: 'like'
+    });
+  }
+
+  await pushNotification({
+    userId: data.userId,
+    notificationTitle: 'New Like',
+    notificationContent: `${currUser} liked you`,
+    notificationType: 'like'
+  });
+  
+});
+ 
+
+
+/**
+ * Send a message to a user, in a certain chat room
+ */
+exports.sendMessage = onCall(async (request: CallableRequest<{ chatRoomId: string, message: string }>) => {
+  // check if the chatroom exists
+  const chatRoom = await admin.firestore().collection('chatRooms').doc(request.data.chatRoomId).get();
+  if (!chatRoom.exists) {
+    throw new HttpsError('not-found', 'Chat room not found');
+  }
+
+  const uid: string = request.auth?.uid!;
+
+  // check if the user is part of the chat room
+  if (!chatRoom.data()?.users.includes(uid)) {
+    throw new HttpsError('permission-denied', 'You are not part of the chat room');
+  }
+
+  
 });

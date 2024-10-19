@@ -222,6 +222,24 @@ service cloud.firestore {
     allow create, delete: if false;
   }
 
+  // Chatrooms Collection
+  match /chatrooms/{chatroomId} {
+    function userIsPartOfChat(){
+      return request.auth.uid in get(/databases/$(database)/documents/chatrooms/$(chatroomId)).data.participants;
+    }
+
+    // chat room is created and archived by the server
+    allow read, write: return false;
+
+    // Messages subcollection rules
+    match /messages/{messageId} {
+      // Only participants can read/write messages
+      allow create, read: if isSignedIn() && userIsPartOfChat();
+      allow delete, update: if false;
+    }
+  }
+
+  // everything else
   match /{document=**} {
     allow read, write: if true;
   }

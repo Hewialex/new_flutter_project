@@ -7,5 +7,7 @@ class CustomColors {
   static const shadowBlue = Color(0xFFDBE2FF);
   static const textFieldBackground = Color(0xFFFDF5F7);
   static const textGray = Color(0xFF626262);
+  static const headingGray = Color(0xFF535353);
   static const textBlack = Color(0xFF494949);
+  static const searchBackground = Color(0xFFFDF5F7);
 }

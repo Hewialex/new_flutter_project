@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 
@@ -164,7 +165,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 (isSelected && (isFemaleSelected || isMaleSelected))
                     ? TextButton(
-                        onPressed: () {}, child: const Text('Continue'))
+                        onPressed: () {
+                          context.push('/login');
+                        },
+                        child: const Text('Continue'))
                     : Container()
               ],
             ),
