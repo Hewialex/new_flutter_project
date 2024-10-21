@@ -4,8 +4,10 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
-import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
+import 'package:qismati/features/auth/widgets/content_container.dart';
+import 'package:qismati/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -16,74 +18,64 @@ class LoginScreen extends StatelessWidget {
       backgroundColor: CustomColors.background,
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            alignment: Alignment.topCenter,
-            margin: EdgeInsets.only(top: 12.h),
-            child: Container(
-              width: 341.w,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(30.r),
+          child: ContentContainer(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const CustomTopBar(altRoute: Routes.register),
+                SizedBox(height: 47.h),
+                const CustomHeader(text: "Login here"),
+                Text(
+                  "Welcome back you've been missed!",
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    fontSize: 15.sp,
+                  ),
                 ),
-              ),
-              child: Column(
-                children: [
-                  const CustomTopBar(),
-                  SizedBox(height: 47.h),
-                  const CustomHeader(text: "Login here"),
-                  Text(
-                    "Enter email and password",
+                SizedBox(height: 175.h),
+                CustomButton(
+                  onPressed: () {
+                    context.push(Routes.loginWithPassword);
+                  },
+                  text: 'Sign in With Email',
+                  shadowColor: CustomColors.shadowBlue,
+                  elevation: 5,
+                  fontWeight: FontWeight.w600,
+                ),
+                SizedBox(height: 30.h),
+                CustomButton(
+                  onPressed: () {
+                    //
+                  },
+                  text: 'Sign in Via Google',
+                  shadowColor: CustomColors.shadowBlue,
+                  elevation: 5,
+                  fontWeight: FontWeight.w600,
+                ),
+                SizedBox(height: 30.h),
+                const Text("or"),
+                SizedBox(height: 30.h),
+                TextButton(
+                  onPressed: () async {
+                    final SharedPreferences prefs =
+                        await SharedPreferences.getInstance();
+                    final gender = prefs.getString('gender') ?? "Male";
+
+                    if (context.mounted) {
+                      context.push(Routes.signup, extra: gender);
+                    }
+                  },
+                  child: Text(
+                    "Create new account",
                     style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      fontSize: 15.sp,
+                      fontSize: 12.sp,
+                      fontWeight: FontWeight.w600,
+                      color: CustomColors.textBlack,
                     ),
                   ),
-                  SizedBox(height: 95.h),
-                  const CustomTextField(text: 'Email'),
-                  SizedBox(height: 29.h),
-                  const CustomTextField(text: 'Password', obsecureText: true),
-                  SizedBox(height: 25.h),
-                  Container(
-                    alignment: Alignment.centerRight,
-                    child: TextButton(
-                      onPressed: () {
-                        context.push('/forgotPassword');
-                      },
-                      child: Text(
-                        "Forgot your password?",
-                        style: TextStyle(
-                          color: CustomColors.primary,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 30.h),
-                  CustomButton(
-                    onPressed: () {
-                      context.go('/home');
-                    },
-                    text: 'Sign in',
-                    shadowColor: CustomColors.shadowBlue,
-                    elevation: 5,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  SizedBox(height: 30.h),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Create new account",
-                      style: TextStyle(
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w600,
-                        color: CustomColors.textBlack,
-                      ),
-                    ),
-                  )
-                ],
-              ),
+                ),
+                SizedBox(height: 30.h),
+              ],
             ),
           ),
         ),

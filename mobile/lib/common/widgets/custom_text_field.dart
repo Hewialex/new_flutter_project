@@ -6,15 +6,19 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.text,
+    this.trailingIcon,
     this.obsecureText = false,
+    this.readOnly = false,
     this.height = 50,
     this.width = 318,
   });
 
   final String text;
   final bool obsecureText;
+  final bool readOnly;
   final double width;
   final double height;
+  final Icon? trailingIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +32,7 @@ class CustomTextField extends StatelessWidget {
         ),
         child: TextField(
           obscureText: obsecureText,
+          readOnly: readOnly,
           decoration: InputDecoration(
             filled: true,
             fillColor: CustomColors
@@ -48,6 +53,7 @@ class CustomTextField extends StatelessWidget {
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
             hintText: text,
+            suffixIcon: trailingIcon,
           ),
         ),
       ),

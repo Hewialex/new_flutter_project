@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
+import 'package:qismati/routes.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -81,7 +83,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(height: 28.h),
                 SizedBox(
                   width: 299.w,
-                  height: 170.h,
                   child: Column(
                     children: [
                       Text(
@@ -165,8 +166,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 (isSelected && (isFemaleSelected || isMaleSelected))
                     ? TextButton(
-                        onPressed: () {
-                          context.push('/login');
+                        onPressed: () async {
+                          final SharedPreferences prefs =
+                              await SharedPreferences.getInstance();
+                          final gender = isMaleSelected ? "Male" : "Female";
+                          prefs.setString('gender', gender);
+
+                          if (context.mounted) {
+                            context.push(Routes.login);
+                          }
                         },
                         child: const Text('Continue'))
                     : Container()
