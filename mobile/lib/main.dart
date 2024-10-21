@@ -14,18 +14,20 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  // use firebase emulator_suite when app is in debug mode
   if (kDebugMode) {
     try {
-      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
-      FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5003);
-      await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
-      await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
-
+      await _connectToEmulator();
     } catch (e) {
       print('Error connecting to the emulator: $e');
     }
   }
 
   runApp(const QismatiApp());
+}
+
+Future<void> _connectToEmulator() async {
+  FirebaseFirestore.instance.useFirestoreEmulator('localhost', 8080);
+  FirebaseFunctions.instance.useFunctionsEmulator('localhost', 5003);
+  await FirebaseAuth.instance.useAuthEmulator('localhost', 9099);
+  await FirebaseStorage.instance.useStorageEmulator('localhost', 9199);
 }

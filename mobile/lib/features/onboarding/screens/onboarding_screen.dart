@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/features/onboarding/widgets/slide_point.dart';
+import 'package:qismati/routes.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -39,7 +40,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         currentIndex++;
       });
     } else {
-      context.go('/register');
+      context.go(Routes.register);
     }
   }
 
