@@ -356,28 +356,13 @@ exports.ignoreUser = onCall(async (request: CallableRequest<{userId: string}>) =
     });
   }
 
-
-  if (likedUserLikedCurrentUser.data()?.likedUsersList.includes(uid)) {
-    // create a chat room between the two users
-    await admin.firestore().collection('chatRooms');
-    // notify the liked user
-    await pushNotification({
-      userId: data.userId,
-      notificationTitle: 'New Like',
-      notificationContent: `${currUser} liked you`,
-      notificationType: 'like'
-    });
-  }
-
   await pushNotification({
     userId: data.userId,
     notificationTitle: 'New Like',
-    notificationContent: `${currUser} liked you`,
+    notificationContent: `${currUser} disliked you`,
     notificationType: 'like'
   });
-  
 });
- 
 
 
 /**
@@ -386,8 +371,13 @@ exports.ignoreUser = onCall(async (request: CallableRequest<{userId: string}>) =
 exports.sendMessage = onCall(async (request: CallableRequest<{ chatRoomId: string, message: string }>) => {
   // check if the chatroom exists
   const chatRoom = await admin.firestore().collection('chatRooms').doc(request.data.chatRoomId).get();
+
   if (!chatRoom.exists) {
     throw new HttpsError('not-found', 'Chat room not found');
+  }
+
+  if (chatRoom.data()?.archived) {
+    throw new HttpsError('permission-denied', 'Chat room is archived, you cannot send messages');
   }
 
   const uid: string = request.auth?.uid!;
@@ -397,5 +387,16 @@ exports.sendMessage = onCall(async (request: CallableRequest<{ chatRoomId: strin
     throw new HttpsError('permission-denied', 'You are not part of the chat room');
   }
 
-  
+  // create the chat message on firestore
+  const message = await admin.firestore().collection('chatRooms').doc(request.data.chatRoomId).collection('messages').add({
+    chatRoomId: request.data.chatRoomId,
+    message: request.data.message,
+    sender: uid,
+    createdAt: admin.firestore.FieldValue.serverTimestamp()
+  });
+
+  return {
+    "message": "message sent successfully",
+    ...message
+  };
 });
