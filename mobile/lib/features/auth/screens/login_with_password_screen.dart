@@ -19,6 +19,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<LoginBloc>();
+    final formKey = GlobalKey<FormState>();
 
     return BlocConsumer<LoginBloc, LoginState>(builder: (context, state) {
       switch (state) {
@@ -38,72 +39,104 @@ class LoginWithPasswordScreen extends StatelessWidget {
             body: SafeArea(
               child: SingleChildScrollView(
                 child: ContentContainer(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      const CustomTopBar(altRoute: Routes.register),
-                      SizedBox(height: 47.h),
-                      const CustomHeader(text: "Login here"),
-                      Text(
-                        "Enter email and password",
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 15.sp,
+                  child: Form(
+                    key: formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        const CustomTopBar(altRoute: Routes.register),
+                    
+                        SizedBox(height: 47.h),
+                    
+                        const CustomHeader(text: "Login here"),
+                    
+                        Text(
+                          "Enter email and password",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 15.sp,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 95.h),
-                      const CustomTextField(text: 'Email'),
-                      SizedBox(height: 29.h),
-                      const CustomTextField(
-                          text: 'Password', obsecureText: true),
-                      SizedBox(height: 25.h),
-                      Container(
-                        alignment: Alignment.centerRight,
-                        child: TextButton(
-                          onPressed: () {
-                            context.push(Routes.forgotPassword);
+                    
+                        SizedBox(height: 95.h),
+                    
+                        CustomTextField(
+                          text: 'Email',
+                          controller: state.emailController,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please enter your email';
+                            }
+                            return null;
                           },
-                          child: Text(
-                            "Forgot your password?",
-                            style: TextStyle(
-                              color: CustomColors.primary,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 14.sp,
+                        ),
+                    
+                        SizedBox(height: 29.h),
+                    
+                        CustomTextField(
+                          controller: state.passwordController,
+                          text: 'Password',
+                          obsecureText: true,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              // TODO: Add more password validation here for a 
+                              // better user experience
+                              return 'Please enter your password';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(height: 25.h),
+                        Container(
+                          alignment: Alignment.centerRight,
+                          child: TextButton(
+                            onPressed: () {
+                              context.push(Routes.forgotPassword);
+                            },
+                            child: Text(
+                              "Forgot your password?",
+                              style: TextStyle(
+                                color: CustomColors.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 14.sp,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      SizedBox(height: 30.h),
-                      CustomButton(
-                        onPressed: () {
-                          bloc.add(AttemptLogin());
-                        },
-                        text: 'Sign in',
-                        shadowColor: CustomColors.shadowBlue,
-                        elevation: 5,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      SizedBox(height: 30.h),
-                      TextButton(
-                        onPressed: () async {
-                          final SharedPreferences prefs =
-                              await SharedPreferences.getInstance();
-                          final gender = prefs.getString('gender');
-
-                          if (context.mounted) {
-                            context.push(Routes.signup, extra: gender);
-                          }
-                        },
-                        child: Text(
-                          "Create new account",
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            fontWeight: FontWeight.w600,
-                            color: CustomColors.textBlack,
-                          ),
+                        SizedBox(height: 30.h),
+                        CustomButton(
+                          onPressed: () {
+                            if (formKey.currentState!.validate()) {
+                              bloc.add(AttemptLogin());
+                            }
+                          },
+                          text: 'Sign in',
+                          shadowColor: CustomColors.shadowBlue,
+                          elevation: 5,
+                          fontWeight: FontWeight.w600,
                         ),
-                      )
-                    ],
+                        SizedBox(height: 30.h),
+                        TextButton(
+                          onPressed: () async {
+                            final SharedPreferences prefs =
+                                await SharedPreferences.getInstance();
+                            final gender = prefs.getString('gender');
+                    
+                            if (context.mounted) {
+                              context.push(Routes.signup, extra: gender);
+                            }
+                          },
+                          child: Text(
+                            "Create new account",
+                            style: TextStyle(
+                              fontSize: 12.sp,
+                              fontWeight: FontWeight.w600,
+                              color: CustomColors.textBlack,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
               ),

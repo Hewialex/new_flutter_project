@@ -6,9 +6,17 @@ class ReligionSection extends StatelessWidget {
   const ReligionSection({
     super.key,
     required this.nationality,
+    required this.religionCommitmentController,
+    required this.prayerController,
+    required this.smokingController,
+    required this.beardController,
   });
 
   final List<String> nationality;
+  final TextEditingController religionCommitmentController;
+  final TextEditingController prayerController;
+  final TextEditingController smokingController;
+  final TextEditingController beardController;
 
   @override
   Widget build(BuildContext context) {
@@ -20,32 +28,36 @@ class ReligionSection extends StatelessWidget {
           fontSize: 16.sp,
         ),
       ),
+
       SizedBox(height: 25.h),
+
       CustomDropdownMenu(
         values: nationality,
-        value: "",
-        onChanged: (value) {},
+        controller: religionCommitmentController,
         hintText: "Religion Commitment",
       ),
+
       SizedBox(height: 20.h),
+
       CustomDropdownMenu(
         values: nationality,
-        value: "",
-        onChanged: (value) {},
+        controller: prayerController,
         hintText: "Prayer",
       ),
+
       SizedBox(height: 20.h),
+
       CustomDropdownMenu(
         values: nationality,
-        value: "",
-        onChanged: (value) {},
+        controller: smokingController,
         hintText: "Smoking",
       ),
+
       SizedBox(height: 20.h),
+
       CustomDropdownMenu(
         values: nationality,
-        value: "",
-        onChanged: (value) {},
+        controller: beardController,
         hintText: "Beard",
       ),
     ]);

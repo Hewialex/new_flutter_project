@@ -4,7 +4,11 @@ import 'package:qismati/features/signup/widgets/description_text_field.dart';
 import 'package:qismati/features/signup/widgets/text_field_info.dart';
 
 class TalkAboutYourSelfSection extends StatelessWidget {
-  const TalkAboutYourSelfSection({super.key});
+  const TalkAboutYourSelfSection({super.key,
+    required this.aboutYourSelfController,
+  });
+  
+  final TextEditingController aboutYourSelfController;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +22,9 @@ class TalkAboutYourSelfSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.h),
-        const DescriptionTextField(),
+
+        DescriptionTextField(controller: aboutYourSelfController),
+
         SizedBox(height: 20.h),
         const TextFieldInfo(
           info:

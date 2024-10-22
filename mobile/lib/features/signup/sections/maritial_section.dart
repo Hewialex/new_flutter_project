@@ -7,8 +7,17 @@ class MaritialSection extends StatelessWidget {
   const MaritialSection({
     super.key,
     required this.nationality,
+    required this.maritialStatusController,
+    required this.marriageTypeController,
+    required this.ageController,
+    required this.childrenController,
   });
+
   final List<String> nationality;
+  final TextEditingController maritialStatusController;
+  final TextEditingController marriageTypeController;
+  final TextEditingController ageController;
+  final TextEditingController childrenController;
 
   @override
   Widget build(BuildContext context) {
@@ -24,21 +33,25 @@ class MaritialSection extends StatelessWidget {
         SizedBox(height: 25.h),
         CustomDropdownMenu(
           values: nationality,
-          value: '',
-          onChanged: (value) {},
+          controller: maritialStatusController,
           hintText: "Status",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
           values: nationality,
-          value: '',
-          onChanged: (value) {},
-          hintText: "Status",
+          controller: marriageTypeController,
+          hintText: "Marriage Type",
         ),
         SizedBox(height: 20.h),
-        const CustomTextField(text: 'Age'),
+        CustomTextField(
+          text: 'Age',
+          controller: ageController,
+        ),
         SizedBox(height: 20.h),
-        const CustomTextField(text: 'Children'),
+        CustomTextField(
+          text: 'Children',
+          controller: childrenController,
+        ),
       ],
     );
   }

@@ -10,17 +10,21 @@ class ChatCard extends StatelessWidget {
     required this.imageUrl,
     required this.name,
     required this.age,
-    required this.recentTextTime,
     required this.locationName,
     required this.onPressed,
+    this.excludeTextTime = false,
+    this.recentTextTime,
+    this.iconButton,
   });
 
   final String imageUrl;
   final String name;
   final int age;
-  final DateTime recentTextTime;
+  final DateTime? recentTextTime;
+  final bool excludeTextTime;
   final String locationName;
   final VoidCallback onPressed;
+  final IconButton? iconButton;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -82,17 +86,21 @@ class ChatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Text(
-                    DateFormat('h:m a').format(recentTextTime),
-                    style: GoogleFonts.lexend(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 9.sp,
-                        color: CustomColors.textGray,
-                      ),
-                    ),
-                  ),
+                  padding: excludeTextTime
+                      ? EdgeInsets.only(top: 2.h, left: 20.w)
+                      : EdgeInsets.only(top: 10.h),
+                  child: excludeTextTime
+                      ? iconButton
+                      : Text(
+                          DateFormat('h:m a').format(recentTextTime!),
+                          style: GoogleFonts.lexend(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 9.sp,
+                              color: CustomColors.textGray,
+                            ),
+                          ),
+                        ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 13.h, right: 10.w),
