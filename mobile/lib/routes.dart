@@ -16,4 +16,7 @@ class Routes {
   static const myProfile = '/myProfile';
   static const contactUs = '/contactUs';
   static const notification = '/notification';
+  static const membersPhoto = '/membersPhoto';
+  static const searchScreen = '/searchScreen';
+  static const favorite = '/favorites';
 }

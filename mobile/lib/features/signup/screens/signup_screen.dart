@@ -55,7 +55,6 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-    // final bloc = context.read<SignupBloc>();
 
     return BlocProvider<SignupBloc>(
       create: (context) => SignupBloc()..add(SignupReset()),
@@ -71,7 +70,11 @@ class SignupScreen extends StatelessWidget {
               ),
             );
           case SignupSuccess():
-            Future.microtask(() => context.go(Routes.home));
+            Future.microtask(() {
+              if (context.mounted) {
+                context.go(Routes.home);
+              }
+            });
             return Container();
           case SignupDefault():
             return Form(

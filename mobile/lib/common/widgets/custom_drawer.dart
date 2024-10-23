@@ -12,142 +12,146 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-        elevation: 4,
-        child: IconButton(
-          icon: Container(
-            margin: const EdgeInsets.symmetric(horizontal: 10),
-            padding: const EdgeInsets.all(0),
-            child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.only(top: 40),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // profile
-                    _drawerProfileSection(),
+      elevation: 4,
+      child: IconButton(
+        icon: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.all(0),
+          child: SingleChildScrollView(
+            child: Container(
+              padding: const EdgeInsets.only(top: 40),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  // profile
+                  _drawerProfileSection(),
 
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Home',
-                        icon: const Icon(Icons.home_outlined),
-                        onTap: () {},
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Notification',
-                        icon: const Icon(Icons.notifications_outlined),
-                        onTap: () {
-                          context.push(Routes.notification);
-                        },
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'My Profile',
-                        icon: const Icon(Icons.person_2_outlined),
-                        onTap: () {
-                          context.push(Routes.myProfile);
-                        },
-                      ),
-                    ),
-                    _buildExpandibleDrawerItem(_ExpandibleDrawerItem(
-                      title: 'Settings',
-                      icon: const Icon(Icons.settings_outlined),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Home',
+                      icon: const Icon(Icons.home_outlined),
                       onTap: () {},
-                      children: [
-                        _buildDrawerItem(
-                          _DrawerItem(
-                            title: 'Account Information',
-                            icon: const Icon(Icons.info_outlined),
-                            onTap: () {},
-                          ),
+                    ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Notification',
+                      icon: const Icon(Icons.notifications_outlined),
+                      onTap: () {
+                        context.push(Routes.notification);
+                      },
+                    ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'My Profile',
+                      icon: const Icon(Icons.person_2_outlined),
+                      onTap: () {
+                        context.push(Routes.myProfile);
+                      },
+                    ),
+                  ),
+                  _buildExpandibleDrawerItem(_ExpandibleDrawerItem(
+                    title: 'Settings',
+                    icon: const Icon(Icons.settings_outlined),
+                    onTap: () {},
+                    children: [
+                      _buildDrawerItem(
+                        _DrawerItem(
+                          title: 'Account Information',
+                          icon: const Icon(Icons.info_outlined),
+                          onTap: () {},
                         ),
-                        _buildDrawerItem(
-                          _DrawerItem(
-                            title: 'Profile Settings',
-                            icon: const Icon(Icons.settings_outlined),
-                            onTap: () {},
-                          ),
+                      ),
+                      _buildDrawerItem(
+                        _DrawerItem(
+                          title: 'Profile Settings',
+                          icon: const Icon(Icons.settings_outlined),
+                          onTap: () {},
                         ),
-                      ],
-                    )),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Search',
-                        icon: const Icon(Icons.search),
-                        onTap: () {},
                       ),
+                    ],
+                  )),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Search',
+                      icon: const Icon(Icons.search),
+                      onTap: () {
+                        context.push(Routes.searchScreen);
+                      },
                     ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Ignore List',
-                        icon: const Icon(Icons.thumb_down_outlined),
-                        onTap: () {},
-                      ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Ignore List',
+                      icon: const Icon(Icons.thumb_down_outlined),
+                      onTap: () {},
                     ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                          title: 'Who Favorited Me?',
-                          icon: const Icon(Icons.favorite_outline_rounded),
-                          onTap: () {}),
-                    ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Member Photo',
-                        icon: const Icon(Icons.person_outline_rounded),
-                        onTap: () {},
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Contact Us',
-                        icon: const Icon(Icons.phone_in_talk_sharp),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                        title: 'Who Favorited Me?',
+                        icon: const Icon(Icons.favorite_outline_rounded),
                         onTap: () {
-                          context.push(Routes.contactUs);
-                        },
-                      ),
+                          context.push(Routes.favorite);
+                        }),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Member Photo',
+                      icon: const Icon(Icons.person_outline_rounded),
+                      onTap: () {
+                        context.push(Routes.membersPhoto);
+                      },
                     ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Share App',
-                        icon: Transform.rotate(
-                          angle: -pi /
-                              2, // Rotate 90 degrees (pi/2 radians countreclockwise)
-                          child: const Icon(Icons.exit_to_app),
-                        ),
-                        onTap: () {},
-                      ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Contact Us',
+                      icon: const Icon(Icons.phone_in_talk_sharp),
+                      onTap: () {
+                        context.push(Routes.contactUs);
+                      },
                     ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'About Us',
-                        icon: const Icon(Icons.info_outline),
-                        onTap: () {
-                          context.push(Routes.aboutUs);
-
-                        },
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Share App',
+                      icon: Transform.rotate(
+                        angle: -pi /
+                            2, // Rotate 90 degrees (pi/2 radians countreclockwise)
+                        child: const Icon(Icons.exit_to_app),
                       ),
+                      onTap: () {},
                     ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Sign Out',
-                        icon: const Icon(Icons.exit_to_app),
-                        onTap: () {
-                          context.go(Routes.login);
-                        },
-                      ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'About Us',
+                      icon: const Icon(Icons.info_outline),
+                      onTap: () {
+                        context.push(Routes.aboutUs);
+                      },
                     ),
-                  ],
-                ),
+                  ),
+                  _buildDrawerItem(
+                    _DrawerItem(
+                      title: 'Sign Out',
+                      icon: const Icon(Icons.exit_to_app),
+                      onTap: () {
+                        context.go(Routes.login);
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-          onPressed: () {},
         ),
-      )
-    ;
+        onPressed: () {},
+      ),
+    );
   }
 
   Widget _buildDrawerItem(_DrawerItem option) {
@@ -249,3 +253,4 @@ class _DrawerItem {
     this.trailingIcon,
   });
 }
+

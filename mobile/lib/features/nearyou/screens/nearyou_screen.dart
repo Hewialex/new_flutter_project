@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_drawer.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
-import 'package:qismati/features/chat/widgets/chat_card.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/features/home/screens/home_screen.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/profile/screens/profile_screen.dart';
+import 'package:qismati/routes.dart';
 
 class NearYouScreen extends StatelessWidget {
   NearYouScreen({super.key});
@@ -56,7 +58,9 @@ class NearYouScreen extends StatelessWidget {
                 shape: BoxShape.circle,
               ),
               child: IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.push(Routes.notification);
+                },
                 icon: const Icon(
                   Icons.notifications,
                   color: Colors.white,
@@ -124,8 +128,17 @@ class NearYouScreen extends StatelessWidget {
                       children: [
                         InkWell(
                           onTap: () {},
-                          child: ChatCard(
-                            imageUrl: 'assets/images/female_avatar.png',
+                          child: CustomListCard(
+                            leading: ClipOval(
+                              child: Center(
+                                child: Image.asset(
+                                  'assets/images/female_avatar.png',
+                                  width: 60.w,
+                                  height: 60.h,
+                                  fit: BoxFit.contain,
+                                ),
+                              ),
+                            ),
                             name: e.name,
                             age: 20,
                             recentTextTime: DateTime.now(),

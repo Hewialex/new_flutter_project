@@ -5,7 +5,7 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/features/chat/widgets/chat_card.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -70,11 +70,9 @@ class NotificationScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 28.h),
-
-              ChatCard(
-                imageUrl: 'assets/images/mail.png',
-                iconButton:
-                    IconButton(
+              CustomListCard(
+                leading: const Icon(Icons.mail, color: CustomColors.primary),
+                iconButton: IconButton(
                   onPressed: () {},
                   icon: const Icon(Icons.more_vert_rounded),
                 ),
