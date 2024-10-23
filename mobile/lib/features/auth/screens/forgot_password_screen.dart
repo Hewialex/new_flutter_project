@@ -33,7 +33,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 19.h),
-                const CustomTextField(text: 'Email'),
+                CustomTextField(
+                  text: 'Email',
+                  controller: TextEditingController(),
+                ),
                 SizedBox(height: 51.h),
                 CustomButton(
                   onPressed: () {

@@ -4,23 +4,28 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:qismati/common/colors.dart';
 
-class ChatCard extends StatelessWidget {
-  const ChatCard({
+class CustomListCard extends StatelessWidget {
+  const CustomListCard({
     super.key,
-    required this.imageUrl,
     required this.name,
     required this.age,
-    required this.recentTextTime,
     required this.locationName,
     required this.onPressed,
+    this.leading,
+    this.excludeTextTime = false,
+    this.recentTextTime,
+    this.iconButton,
   });
 
-  final String imageUrl;
   final String name;
   final int age;
-  final DateTime recentTextTime;
+  final DateTime? recentTextTime;
+  final bool excludeTextTime;
   final String locationName;
   final VoidCallback onPressed;
+  final IconButton? iconButton;
+  final Widget? leading;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,27 +40,20 @@ class ChatCard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Padding(
-              padding: EdgeInsets.only(left: 10.w),
-              child: Container(
-                width: 70.w,
-                height: 70.h,
-                decoration: const BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white,
-                ),
-                child: ClipOval(
-                  child: Center(
-                    child: Image.asset(
-                      imageUrl,
-                      width: 60.w,
-                      height: 60.h,
-                      fit: BoxFit.contain,
+            leading != null
+                ? Padding(
+                    padding: EdgeInsets.only(left: 10.w),
+                    child: Container(
+                      width: 70.w,
+                      height: 70.h,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: Colors.white,
+                      ),
+                      child: leading,
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : Container(),
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -82,17 +80,21 @@ class ChatCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: 10.h),
-                  child: Text(
-                    DateFormat('h:m a').format(recentTextTime),
-                    style: GoogleFonts.lexend(
-                      textStyle: TextStyle(
-                        fontWeight: FontWeight.w300,
-                        fontSize: 9.sp,
-                        color: CustomColors.textGray,
-                      ),
-                    ),
-                  ),
+                  padding: excludeTextTime
+                      ? EdgeInsets.only(top: 2.h, left: 20.w)
+                      : EdgeInsets.only(top: 10.h),
+                  child: excludeTextTime
+                      ? iconButton
+                      : Text(
+                          DateFormat('h:m a').format(recentTextTime!),
+                          style: GoogleFonts.lexend(
+                            textStyle: TextStyle(
+                              fontWeight: FontWeight.w300,
+                              fontSize: 9.sp,
+                              color: CustomColors.textGray,
+                            ),
+                          ),
+                        ),
                 ),
                 Padding(
                   padding: EdgeInsets.only(bottom: 13.h, right: 10.w),

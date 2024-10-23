@@ -7,9 +7,22 @@ class EducationAndWorkSection extends StatelessWidget {
   const EducationAndWorkSection({
     super.key,
     required this.nationality,
+    required this.educationalQualificationController,
+    required this.financialStatusController,
+    required this.jobCategoryController,
+    required this.jobController,
+    required this.monthlyIncomeController,
+    required this.healthCaseController,
   });
 
   final List<String> nationality;
+  final TextEditingController educationalQualificationController;
+  final TextEditingController financialStatusController;
+  final TextEditingController jobCategoryController;
+  final TextEditingController jobController;
+  final TextEditingController monthlyIncomeController;
+  final TextEditingController healthCaseController;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -24,38 +37,36 @@ class EducationAndWorkSection extends StatelessWidget {
         SizedBox(height: 25.h),
         CustomDropdownMenu(
           values: nationality,
-          value: "",
-          onChanged: (value) {},
+          controller: educationalQualificationController,
+          hintText: "Educational Qualification",
+        ),
+        SizedBox(height: 20.h),
+        CustomDropdownMenu(
+          values: nationality,
+          controller: financialStatusController,
           hintText: "Financial Status",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
           values: nationality,
-          value: "",
-          onChanged: (value) {},
-          hintText: "Financial Status",
-        ),
-        SizedBox(height: 20.h),
-        CustomDropdownMenu(
-          values: nationality,
-          value: "",
-          onChanged: (value) {},
+          controller: jobCategoryController,
           hintText: "Job Category",
         ),
         SizedBox(height: 20.h),
-        const CustomTextField(text: 'Job'),
+        CustomTextField(
+          text: 'Job',
+          controller: jobController,
+        ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
           values: nationality,
-          value: "",
-          onChanged: (value) {},
+          controller: monthlyIncomeController,
           hintText: "Monthly Income",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
           values: nationality,
-          value: "",
-          onChanged: (value) {},
+          controller: healthCaseController,
           hintText: "Health Case",
         ),
       ],

@@ -6,7 +6,9 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField({
     super.key,
     required this.text,
+    required this.controller,
     this.trailingIcon,
+    this.validator,
     this.obsecureText = false,
     this.readOnly = false,
     this.height = 50,
@@ -19,6 +21,8 @@ class CustomTextField extends StatelessWidget {
   final double width;
   final double height;
   final Icon? trailingIcon;
+  final TextEditingController controller;
+  final String? Function(String?)? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +34,11 @@ class CustomTextField extends StatelessWidget {
           borderRadius: BorderRadius.all(Radius.circular(10.r)),
           color: CustomColors.textFieldBackground,
         ),
-        child: TextField(
+        child: TextFormField(
+          validator: validator,
           obscureText: obsecureText,
           readOnly: readOnly,
+          controller: controller,
           decoration: InputDecoration(
             filled: true,
             fillColor: CustomColors

@@ -21,7 +21,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   FutureOr<void> _attemptLogin(event, emit) async {
     if (state is LoginDefault) {
-      // final loginState = state as LoginDefault;
+      final loginState = state as LoginDefault;
       try {
         emit(LoginVerification());
         await Future.delayed(const Duration(seconds: 1));
@@ -29,6 +29,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         //   email: loginState.emailController.text,
         //   password: loginState.passwordController.text,
         // );
+
+        debugPrint(loginState.emailController.text);
+        debugPrint(loginState.passwordController.text);
+
         emit(LoginSuccess());
       } on FirebaseAuthException catch (e) {
         if (e.code == 'user-not-found') {

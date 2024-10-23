@@ -2,20 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
 
-class CustomDropdownMenu extends StatelessWidget {
+class CustomDropdownMenu extends StatefulWidget {
   const CustomDropdownMenu({
     super.key,
     required this.values,
-    required this.value,
-    required this.onChanged,
+    required this.controller,
     required this.hintText,
   });
 
   final List<String> values;
-  final ValueChanged<dynamic> onChanged;
-  final String value;
   final String hintText;
+  final TextEditingController controller;
 
+  @override
+  State<CustomDropdownMenu> createState() => _CustomDropdownMenuState();
+}
+
+class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,19 +33,24 @@ class CustomDropdownMenu extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.only(left: 19.w),
           child: DropdownButton<String>(
-            hint: Text(hintText),
+            hint: Text(widget.hintText),
             underline: const SizedBox.shrink(),
             isExpanded: true,
             dropdownColor: CustomColors.textFieldBackground,
-            value: value.isEmpty ? null : value,
+            value:
+                widget.controller.text.isEmpty ? null : widget.controller.text,
             icon: const Icon(Icons.keyboard_arrow_down),
-            items: values.map((e) {
+            items: widget.values.map((e) {
               return DropdownMenuItem<String>(
                 value: e,
                 child: Text(e),
               );
             }).toList(),
-            onChanged: onChanged,
+            onChanged: (value) {
+              setState(() {
+                widget.controller.text = value!;
+              });
+            },
           ),
         ));
   }

@@ -14,4 +14,6 @@ class CustomColors {
   static const iconsGray = Color(0xFF484C52);
   static const chatName = Color(0xFF22172A);
   static const chatBubbleColor = Color(0xFFFAF8F8);
+  static const borderOutline = Color(0xFFD9BCB8);
+  static const secondaryBackground = Color(0xFFFFFFFF);
 }

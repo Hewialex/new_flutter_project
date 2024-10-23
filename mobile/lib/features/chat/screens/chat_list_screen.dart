@@ -6,7 +6,7 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/features/chat/widgets/chat_card.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/routes.dart';
 
 class ChatListScreen extends StatelessWidget {
@@ -54,8 +54,17 @@ class ChatListScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15.w),
-              ChatCard(
-                imageUrl: 'assets/images/female_avatar.png',
+              CustomListCard(
+                leading: ClipOval(
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/female_avatar.png',
+                      width: 60.w,
+                      height: 60.h,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
                 name: 'Saba Ashfaq',
                 age: 20,
                 recentTextTime: DateTime.now(),

@@ -11,4 +11,12 @@ class Routes {
   static const premium = '/premium';
   static const messages = '/messages';
   static const chat = '/chat';
+  static const nearYouScreen = '/nearYouScreen';
+  static const aboutUs = '/aboutus';
+  static const myProfile = '/myProfile';
+  static const contactUs = '/contactUs';
+  static const notification = '/notification';
+  static const membersPhoto = '/membersPhoto';
+  static const searchScreen = '/searchScreen';
+  static const favorite = '/favorites';
 }

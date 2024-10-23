@@ -35,14 +35,16 @@ class NewPasswordScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 95.h),
-                    const CustomTextField(
+                    CustomTextField(
                       text: 'Enter new password',
                       obsecureText: true,
+                      controller: TextEditingController(),
                     ),
                     SizedBox(height: 29.h),
-                    const CustomTextField(
+                    CustomTextField(
                       text: 'Confirm new password',
                       obsecureText: true,
+                      controller: TextEditingController(),
                     ),
                     SizedBox(height: 75.h),
                     CustomButton(
