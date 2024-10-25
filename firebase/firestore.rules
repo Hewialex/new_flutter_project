@@ -2,15 +2,15 @@ rules_version = '2';
 
 
 service cloud.firestore {
+  function isSignedIn() {
+    return request.auth != null;
+  }
+
+  function isVerifiedEmail() {
+    return request.auth.token.email_verified;
+  }
 
   match /databases/{database}/documents {
-    function isSignedIn() {
-      return request.auth != null;
-    }
-
-    function isVerifiedEmail() {
-      return request.auth.token.email_verified;
-    }
 
     // user collection
     match /users/{uid} {
@@ -22,7 +22,7 @@ service cloud.firestore {
         return request.resource.data.gender == resource.data.gender;
       }
 
-      function profileAlreadyCreated() {
+      function profileNotCreatedAlready() {
         return !exists(/databases/$(database)/documents/users/$(request.auth.uid));
       }
 
@@ -33,7 +33,7 @@ service cloud.firestore {
 
       // user can write their own data only
       allow create:
-        if isSignedIn() && isVerifiedEmail() && isOwner() && profileAlreadyCreated();
+        if isSignedIn() && isVerifiedEmail() && isOwner() && profileNotCreatedAlready();
 
       allow update: if isSignedIn() && isOwner() && genderIsNotModified();
 
@@ -42,7 +42,6 @@ service cloud.firestore {
 
       allow list;
     }
-  }
 
   // forum collection
   match /forums/{forumId} {
@@ -143,7 +142,7 @@ service cloud.firestore {
       return request.auth.uid == ignoredByUserId;
     }
 
-    function isIgnoredUser() {
+    function isIgnoredUser(request) {
       return request.auth.uid == ignoredUserId;
     }
 
@@ -229,7 +228,7 @@ service cloud.firestore {
     }
 
     // chat room is created and archived by the server
-    allow read, write: return false;
+    allow read, write: if false;
 
     // Messages subcollection rules
     match /messages/{messageId} {
@@ -238,6 +237,7 @@ service cloud.firestore {
       allow delete, update: if false;
     }
   }
+}
 
   // everything else
   match /{document=**} {
