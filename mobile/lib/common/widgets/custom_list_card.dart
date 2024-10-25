@@ -10,7 +10,7 @@ class CustomListCard extends StatelessWidget {
     required this.name,
     required this.age,
     required this.locationName,
-    required this.onPressed,
+    this.onPressed,
     this.leading,
     this.excludeTextTime = false,
     this.recentTextTime,
@@ -22,8 +22,8 @@ class CustomListCard extends StatelessWidget {
   final DateTime? recentTextTime;
   final bool excludeTextTime;
   final String locationName;
-  final VoidCallback onPressed;
-  final IconButton? iconButton;
+  final VoidCallback? onPressed;
+  final Widget? iconButton;
   final Widget? leading;
 
   @override

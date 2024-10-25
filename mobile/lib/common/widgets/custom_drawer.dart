@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -61,14 +62,18 @@ class CustomDrawer extends StatelessWidget {
                         _DrawerItem(
                           title: 'Account Information',
                           icon: const Icon(Icons.info_outlined),
-                          onTap: () {},
+                          onTap: () {
+                            context.push(Routes.accountInformationScreen);
+                          },
                         ),
                       ),
                       _buildDrawerItem(
                         _DrawerItem(
                           title: 'Profile Settings',
                           icon: const Icon(Icons.settings_outlined),
-                          onTap: () {},
+                          onTap: () {
+                            context.push(Routes.accountSettings);
+                          },
                         ),
                       ),
                     ],
@@ -86,7 +91,9 @@ class CustomDrawer extends StatelessWidget {
                     _DrawerItem(
                       title: 'Ignore List',
                       icon: const Icon(Icons.thumb_down_outlined),
-                      onTap: () {},
+                      onTap: () {
+                        context.push(Routes.ignore);
+                      },
                     ),
                   ),
                   _buildDrawerItem(
@@ -139,8 +146,13 @@ class CustomDrawer extends StatelessWidget {
                     _DrawerItem(
                       title: 'Sign Out',
                       icon: const Icon(Icons.exit_to_app),
-                      onTap: () {
-                        context.go(Routes.login);
+                      onTap: () async {
+                        await FirebaseAuth.instance.signOut();
+                        await Future.microtask(() {
+                          if (context.mounted) {
+                            context.go(Routes.login);
+                          }
+                        });
                       },
                     ),
                   ),
@@ -253,4 +265,3 @@ class _DrawerItem {
     this.trailingIcon,
   });
 }
-

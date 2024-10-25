@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
+import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/signup/blocs/signup_bloc.dart';
@@ -59,7 +60,6 @@ class SignupScreen extends StatelessWidget {
     return BlocProvider<SignupBloc>(
       create: (context) => SignupBloc()..add(SignupReset()),
       child: BlocBuilder<SignupBloc, SignupState>(builder: (context, state) {
-        debugPrint(state.toString());
         switch (state) {
           case SignupPending():
             return const Scaffold(
@@ -75,8 +75,25 @@ class SignupScreen extends StatelessWidget {
                 context.go(Routes.home);
               }
             });
-            return Container();
+            return const Scaffold(
+              body: Center(
+                child: Icon(
+                  Icons.done,
+                  color: CustomColors.chatName,
+                  size: 50,
+                ),
+              ),
+            );
           case SignupDefault():
+            Future.microtask(() {
+              if (context.mounted && state.err != null) {
+                CustomSnackBar(
+                  context: context,
+                  message: state.errorMessage!,
+                  type: SnackBarType.error,
+                ).showSnack();
+              }
+            });
             return Form(
               key: formKey,
               child: Scaffold(

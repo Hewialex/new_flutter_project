@@ -6,3 +6,5 @@ sealed class LoginEvent extends Equatable {
 }
 
 class AttemptLogin extends LoginEvent {}
+
+class LoginReset extends LoginEvent {}

@@ -18,7 +18,7 @@ class SearchByUsernameSection extends StatelessWidget {
         SizedBox(height: 21.h),
         CustomButton(
           onPressed: () async {},
-          text: 'Sign up',
+          text: 'Search',
           shadowColor: CustomColors.shadowBlue,
           elevation: 5,
           fontWeight: FontWeight.w600,
