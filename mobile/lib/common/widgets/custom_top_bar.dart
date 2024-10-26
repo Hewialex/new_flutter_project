@@ -31,7 +31,10 @@ class CustomTopBar extends StatelessWidget {
                     context.go(altRoute);
                   }
                 },
-                icon: const Icon(Icons.chevron_left),
+                icon: const Icon(
+                  Icons.chevron_left,
+                  size: 35.0,
+                ),
               ),
         excludeLangDropDown
             ? altIcon ??

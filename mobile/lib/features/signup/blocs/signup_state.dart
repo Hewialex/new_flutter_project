@@ -49,6 +49,7 @@ class SignupDefault extends SignupState {
   final TextEditingController vielController;
 
   final SignupErr? err;
+  final String? errorMessage;
 
   SignupDefault({
     required this.fullNameController,
@@ -82,6 +83,7 @@ class SignupDefault extends SignupState {
     required this.aboutYourPartnerController,
     required this.vielController,
     this.err,
+    this.errorMessage,
   });
 
   @override
@@ -116,13 +118,15 @@ class SignupDefault extends SignupState {
         aboutYourSelfController,
         aboutYourPartnerController,
         vielController,
-        err
+        err,
+        errorMessage
       ];
-    
+
   // when we just want to add an error message to the state
 
   SignupDefault copyWith({
     SignupErr? err,
+    String? errorMessage,
   }) {
     return SignupDefault(
       fullNameController: fullNameController,
@@ -156,31 +160,14 @@ class SignupDefault extends SignupState {
       aboutYourPartnerController: aboutYourPartnerController,
       vielController: vielController,
       err: err,
+      errorMessage: errorMessage,
     );
-
-
-  }
-
-  @override
-  String toString() {
-    return 'SignupDefault($err)';
   }
 }
 
-class SignupSuccess extends SignupState {
-  @override
-  String toString() {
-    return 'SignupSuccess';
-  }
-}
+class SignupSuccess extends SignupState {}
 
-class SignupPending extends SignupState {
-
-  @override
-  String toString() {
-    return 'SignupPending';
-  }
-}
+class SignupPending extends SignupState {}
 
 enum SignupErr {
   none,

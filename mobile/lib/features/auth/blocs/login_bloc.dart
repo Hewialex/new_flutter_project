@@ -13,51 +13,57 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           LoginDefault(
             emailController: TextEditingController(),
             passwordController: TextEditingController(),
-            err: LoginErr.none,
           ),
         ) {
     on<AttemptLogin>(_attemptLogin);
+    on<LoginReset>(_resetLogin);
   }
 
   FutureOr<void> _attemptLogin(event, emit) async {
     if (state is LoginDefault) {
-      final loginState = state as LoginDefault;
+      final prevLoginState = state as LoginDefault;
       try {
         emit(LoginVerification());
-        await Future.delayed(const Duration(seconds: 1));
-        // await FirebaseAuth.instance.signInWithEmailAndPassword(
-        //   email: loginState.emailController.text,
-        //   password: loginState.passwordController.text,
-        // );
+        await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: prevLoginState.emailController.text,
+          password: prevLoginState.passwordController.text,
+        );
 
-        debugPrint(loginState.emailController.text);
-        debugPrint(loginState.passwordController.text);
-
+        debugPrint(prevLoginState.emailController.text);
+        debugPrint(prevLoginState.passwordController.text);
         emit(LoginSuccess());
+        prevLoginState.dispose();
       } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          debugPrint('User was not found');
-          emit(LoginDefault(
-            emailController: TextEditingController(),
-            passwordController: TextEditingController(),
-            err: LoginErr.userNotFound,
-          ));
-        } else if (e.code == 'wrong-password') {
-          debugPrint('Wrong Password');
-          emit(LoginDefault(
-            emailController: TextEditingController(),
-            passwordController: TextEditingController(),
-            err: LoginErr.input,
-          ));
-        } else {
-          debugPrint('There is some other problem');
-          emit(LoginDefault(
-            emailController: TextEditingController(),
-            passwordController: TextEditingController(),
-            err: LoginErr.network,
-          ));
-        }
+        debugPrint(e.code);
+        emit(prevLoginState.copyWith(
+          err: _mapErrorCodeToLoginErr(e.code),
+          errorMessage: e.message,
+        ));
       }
+    }
+  }
+
+  FutureOr<void> _resetLogin(event, emit) async {
+    final prevLoginState = state as LoginDefault;
+    emit(
+      LoginDefault(
+        emailController: TextEditingController(),
+        passwordController: TextEditingController(),
+        err: LoginErr.none,
+      ),
+    );
+    prevLoginState.dispose();
+  }
+
+  // map error code to error LoginErr
+  LoginErr _mapErrorCodeToLoginErr(String code) {
+    switch (code) {
+      case 'user-not-found':
+        return LoginErr.userNotFound;
+      case 'wrong-password':
+        return LoginErr.input;
+      default:
+        return LoginErr.network;
     }
   }
 }

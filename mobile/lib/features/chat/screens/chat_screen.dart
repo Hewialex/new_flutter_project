@@ -167,68 +167,70 @@ class ChatBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding:
-          isSender ? EdgeInsets.only(right: 10.w) : EdgeInsets.only(left: 10.w),
-      child: Column(
+      padding: EdgeInsets.symmetric(
+        vertical: 10.h,
+        horizontal: 20.w,
+      ),
+      child: Row(
+        mainAxisAlignment:
+            isSender ? MainAxisAlignment.end : MainAxisAlignment.start,
         children: [
-          Align(
-            alignment: isSender ? Alignment.topRight : Alignment.topLeft,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(maxWidth: 300.w),
-              child: Column(
-                children: [
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 10.w,
-                      vertical: 10.h,
-                    ),
-                    decoration: isSender
-                        ? BoxDecoration(
-                            color: CustomColors.textFieldBackground,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10.r),
-                              topRight: Radius.circular(10.r),
-                              bottomLeft: Radius.circular(10.r),
-                            ))
-                        : BoxDecoration(
-                            color: CustomColors.chatBubbleColor,
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10.r),
-                              topRight: Radius.circular(10.r),
-                              bottomRight: Radius.circular(10.r),
-                            ),
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 300.w),
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.start, // Align time text right
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: 10.w,
+                    vertical: 10.h,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isSender
+                        ? CustomColors.textFieldBackground
+                        : CustomColors.chatBubbleColor,
+                    borderRadius: isSender
+                        ? BorderRadius.only(
+                            topLeft: Radius.circular(10.r),
+                            topRight: Radius.circular(10.r),
+                            bottomLeft: Radius.circular(10.r),
+                          )
+                        : BorderRadius.only(
+                            topLeft: Radius.circular(10.r),
+                            topRight: Radius.circular(10.r),
+                            bottomRight: Radius.circular(10.r),
                           ),
-                    child: Text(
-                      bubbleContent,
-                      style: GoogleFonts.lexend(
-                        textStyle: TextStyle(
-                          fontWeight: FontWeight.w400,
-                          fontSize: 12.sp,
-                          color: CustomColors.textGray,
-                        ),
+                  ),
+                  child: Text(
+                    bubbleContent,
+                    style: GoogleFonts.lexend(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 12.sp,
+                        color: CustomColors.textGray,
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: 8.w),
-                    child: Align(
-                      alignment: Alignment.topLeft,
-                      child: Text(
-                        DateFormat('h:mm a').format(textTime),
-                        style: GoogleFonts.lexend(
-                            textStyle: TextStyle(
-                          color: CustomColors.textGray,
-                          fontSize: 10.sp,
-                          fontWeight: FontWeight.w400,
-                        )),
+                ),
+                SizedBox(height: 5.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 10.h),
+                  child: Text(
+                    DateFormat('h:mm a').format(textTime),
+                    textAlign: TextAlign.start,
+                    style: GoogleFonts.lexend(
+                      textStyle: TextStyle(
+                        color: CustomColors.textGray,
+                        fontSize: 10.sp,
+                        fontWeight: FontWeight.w400,
                       ),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-          SizedBox(height: 20.h),
         ],
       ),
     );

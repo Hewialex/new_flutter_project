@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -59,6 +60,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
+        title: Text(FirebaseAuth.instance.currentUser!.email!),
         actions: [
           IconButton(
             icon: Container(
@@ -127,37 +129,41 @@ class HomeScreen extends StatelessWidget {
               ),
               SizedBox(height: 15.h),
               SizedBox(
-                height: 286.h,
-                child: ListView(
-                  shrinkWrap: true,
+                height: 350.h, // Adjust as needed
+                child: ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  children: people.map(
-                    (e) {
-                      return Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => const ProfileScreen(),
-                                ),
-                              );
-                            },
+                  itemCount: people.length,
+                  itemBuilder: (context, index) {
+                    final person = people[index];
+                    return Row(
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const ProfileScreen(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            width: 200.w, // Set a fixed width for the card
                             child: DatingCard(
-                              name: e.name,
-                              image: e.image,
-                              isPremium: e.isPremium,
-                              locationName: e.locationName,
+                              name: person.name,
+                              image: person.image,
+                              isPremium: person.isPremium,
+                              locationName: person.locationName,
                             ),
                           ),
-                          SizedBox(width: 35.w),
-                        ],
-                      );
-                    },
-                  ).toList(),
+                        ),
+                        SizedBox(width: 35.w),
+                      ],
+                    );
+                  },
                 ),
-              ),
+),
+
+              SizedBox(height: 30.h),
             ],
           ),
         ),

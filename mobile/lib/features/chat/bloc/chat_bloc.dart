@@ -39,38 +39,39 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       final chatList = [
         ChatText(
           isSender: true,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "Hey! How's it going?",
+          textTime: DateTime.now().subtract(const Duration(minutes: 5)),
         ),
         ChatText(
           isSender: false,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "Not bad! Just finished a project. How about you?",
+          textTime: DateTime.now().subtract(const Duration(minutes: 4)),
+        ),
+        ChatText(
+          isSender: true,
+          bubbleContent:
+              "Nice! I'm just chilling, thinking about my next task.",
+          textTime: DateTime.now().subtract(const Duration(minutes: 3)),
         ),
         ChatText(
           isSender: false,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "Sounds good. Any plans for the weekend?",
+          textTime: DateTime.now().subtract(const Duration(minutes: 2)),
         ),
         ChatText(
           isSender: true,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "Might catch up on some reading. You?",
+          textTime: DateTime.now().subtract(const Duration(minutes: 1)),
         ),
         ChatText(
           isSender: false,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "Probably going for a hike. Need some fresh air!",
+          textTime: DateTime.now().subtract(const Duration(seconds: 45)),
         ),
         ChatText(
           isSender: true,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
-        ),
-        ChatText(
-          isSender: true,
-          bubbleContent: "Hey, how are you doing",
-          textTime: DateTime.now(),
+          bubbleContent: "That sounds awesome! Enjoy the hike!",
+          textTime: DateTime.now().subtract(const Duration(seconds: 20)),
         ),
       ];
       emit(ChatLoading());

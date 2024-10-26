@@ -3,14 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
 
 class SlidePoint extends StatelessWidget {
-  const SlidePoint({super.key, required this.isHiglighted});
+  const SlidePoint({
+    super.key,
+    required this.isHiglighted,
+    this.highLightedRadius = 5,
+  });
   final bool isHiglighted;
+  final double highLightedRadius;
 
   @override
   Widget build(BuildContext context) {
     return isHiglighted
         ? Container(
-            width: 5.w,
+            width: highLightedRadius.w,
             height: 15.h,
             decoration: BoxDecoration(
               color: CustomColors.primary,

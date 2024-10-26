@@ -74,11 +74,6 @@ export const userCreated = functions.auth.user().onCreate(async (user) => {
 
   //   // send a verification email
   // }
-
-  // Must return a value or a promise
-  return new Promise((resolve, _) => {
-    resolve(logger.info('User created', user.email, user.uid));
-  });
 });
 
 // fired when a user account is deleted
@@ -117,99 +112,6 @@ export const userDeleted = functions.auth.user().onDelete(async (user) => {
     resolve(logger.info('User deleted', user.email, user.uid));
   });
 });
-
-
-// Common fields for both men and women
-interface GenderCommonUserFields {
-  username: string;
-  fullname: string;
-  phone: string;
-  nationality: string;
-  country: string;
-  city: string;
-  mariageStatus: string;
-  mariageType: string;
-  age: number;
-  children: number;
-  weight: number; // in kgs
-  height: number; // in cm
-  skinColor: string;
-  bodyShape: string;
-  religionCommitment: string;
-  prayer: string;
-  smoking: boolean;
-  educationalQualification: string;
-  financialStatus: string;
-  jobCategory: string;
-  job: string;
-  monthlyIncome: number;
-  healthCare: string;
-  aboutYourPartner: string;
-  aboutYourself: string;
-}
-
-
-const genderCommonUserFieldsList = [
-  'username', 'fullname', 'phone', 'nationality', 'country', 'city', 'mariageStatus',
-  'mariageType', 'age', 'children', 'weight', 'height', 'skinColor', 'bodyShape',
-  'religionCommitment', 'prayer', 'smoking', 'educationalQualification', 'financialStatus',
-  'jobCategory', 'job', 'monthlyIncome', 'healthCare', 'aboutYourPartner', 'aboutYourself'
-];
-
-interface User extends GenderCommonUserFields {
-  gender: 'male' | 'female';
-  beard?: boolean;
-  veil?: boolean;
-  [key: string]: any;
-}
-
-// Create a user profile
-export const createUserProfile = onCall(async (request: CallableRequest<User>) => {
-  const uid: string = request.auth?.uid!;
-
-  // check if the user email is verified
-  const userRecord = await admin.auth().getUser(uid);
-  if (!userRecord.emailVerified) {
-    throw new HttpsError('unauthenticated', 'Email not verified yet, please verify your email before proceeding to create a profile');
-  }
-  
-  const data = request.data;
-  
-  // validate user data
-  if (!data.gender || (data.gender !== 'male' && data.gender !== 'female')) {
-    throw new HttpsError('invalid-argument', `Invalid Gender, Choose either male or female`);
-  }
-
-  // All common fields exist
-  genderCommonUserFieldsList.forEach(field => {
-    if (!data[field]) {
-      throw new HttpsError('invalid-argument', `Field ${field} is required`);
-    }
-  });
-
-  if (data.age < 18) {
-    throw new HttpsError('invalid-argument', 'You must be 18 years or older to create a profile');
-  }
-
-  // male should have the beard field
-  if (data.gender === 'male' && data.beard === undefined) {
-    throw new HttpsError('invalid-argument', 'Field beard is required');
-  }
-  
-  // female should have the veil field
-  if (data.gender === 'female' && data.veil === undefined) {
-    throw new HttpsError('invalid-argument', 'Field veil is required');
-  }
-
-  // Create a new user profile
-  const userProfile = await admin.firestore().collection('users').doc(uid).create(data);
-
-  return {
-    "message": "profile created successfully",
-    ...userProfile
-  };
-});
-
 
 /**
  * When an image is uploaded in the Storage bucket,

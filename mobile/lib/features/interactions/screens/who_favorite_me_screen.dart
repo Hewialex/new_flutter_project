@@ -1,13 +1,12 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/models/person.dart';
 import 'package:qismati/features/interactions/screens/interaction_screen.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/routes.dart';
-import 'package:qismati/routing.dart';
 
-class FavoriteListScreen extends StatelessWidget {
-  const FavoriteListScreen({super.key});
+class WhoFavoritedMeScreen extends StatelessWidget {
+  const WhoFavoritedMeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +17,8 @@ class FavoriteListScreen extends StatelessWidget {
         context.push(
           Routes.tips,
           extra: TipsExtra(
-            routes: Routes.favorite,
-            screenTitle: 'Favorite list',
+            routes: Routes.whoFavoritedMe,
+            screenTitle: 'Who Favorited me?',
           ),
         );
       },
@@ -32,11 +31,9 @@ class FavoriteListScreen extends StatelessWidget {
           isPremium: false,
         );
       }),
-      screenTitle: 'Favorite list',
+      screenTitle: 'Who Favorited me?',
       menuOptions: const [
         'Member Profile',
-        'Delete from favorite list',
-        'Cancel',
       ],
     );
   }
