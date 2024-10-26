@@ -1,0 +1,27 @@
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+.ruff_cache
+.ipynb_checkpoints
+.mypy_cache
+
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# test cache files
+.pytest_cache/
+
+# lock files
+poetry.lock
+
+# database file
+db.sqlite3
