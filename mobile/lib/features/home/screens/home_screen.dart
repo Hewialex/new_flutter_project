@@ -60,7 +60,6 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
-        title: Text(FirebaseAuth.instance.currentUser!.email!),
         actions: [
           IconButton(
             icon: Container(

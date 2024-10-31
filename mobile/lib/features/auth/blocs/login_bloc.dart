@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'login_event.dart';
@@ -20,27 +20,30 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   FutureOr<void> _attemptLogin(event, emit) async {
-    if (state is LoginDefault) {
-      final prevLoginState = state as LoginDefault;
-      try {
-        emit(LoginVerification());
-        await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: prevLoginState.emailController.text,
-          password: prevLoginState.passwordController.text,
-        );
-
-        debugPrint(prevLoginState.emailController.text);
-        debugPrint(prevLoginState.passwordController.text);
-        emit(LoginSuccess());
-        prevLoginState.dispose();
-      } on FirebaseAuthException catch (e) {
-        debugPrint(e.code);
-        emit(prevLoginState.copyWith(
-          err: _mapErrorCodeToLoginErr(e.code),
-          errorMessage: e.message,
-        ));
-      }
-    }
+    emit(LoginVerification());
+    await Future.delayed(const Duration(seconds: 2));
+    emit(LoginSuccess());
+    // if (state is LoginDefault) {
+    //   final prevLoginState = state as LoginDefault;
+    //   try {
+    //     emit(LoginVerification());
+    //     await FirebaseAuth.instance.signInWithEmailAndPassword(
+    //       email: prevLoginState.emailController.text,
+    //       password: prevLoginState.passwordController.text,
+    //     );
+  
+    //     debugPrint(prevLoginState.emailController.text);
+    //     debugPrint(prevLoginState.passwordController.text);
+    //     emit(LoginSuccess());
+    //     prevLoginState.dispose();
+    //   } on FirebaseAuthException catch (e) {
+    //     debugPrint(e.code);
+    //     emit(prevLoginState.copyWith(
+    //       err: _mapErrorCodeToLoginErr(e.code),
+    //       errorMessage: e.message,
+    //     ));
+    //   }
+    // }
   }
 
   FutureOr<void> _resetLogin(event, emit) async {

@@ -32,7 +32,10 @@ class CustomDrawer extends StatelessWidget {
                     _DrawerItem(
                       title: 'Home',
                       icon: const Icon(Icons.home_outlined),
-                      onTap: () {},
+                      onTap: () {
+                        // retract drawer
+                        Navigator.of(context).pop();
+                      },
                     ),
                   ),
                   _buildDrawerItem(
