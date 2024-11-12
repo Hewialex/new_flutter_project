@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -150,7 +149,6 @@ class CustomDrawer extends StatelessWidget {
                       title: 'Sign Out',
                       icon: const Icon(Icons.exit_to_app),
                       onTap: () async {
-                        await FirebaseAuth.instance.signOut();
                         await Future.microtask(() {
                           if (context.mounted) {
                             context.go(Routes.login);
