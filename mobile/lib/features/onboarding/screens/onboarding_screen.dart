@@ -74,8 +74,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(
-                  width: 295.w,
-                  height: 85.h,
+                  // width: 295.w,
+                  // height: 85.h,
                   child: Text(
                     title[currentIndex],
                     textAlign: TextAlign.center,
