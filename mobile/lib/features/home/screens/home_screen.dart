@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
@@ -7,6 +8,7 @@ import 'package:qismati/common/widgets/custom_drawer.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/home/widgets/search_dropdown.dart';
+import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/profile/screens/profile_screen.dart';
 import 'package:qismati/routes.dart';
 
@@ -15,12 +17,14 @@ class People {
   final String image;
   final String locationName;
   final bool isPremium;
+  final bool isMale;
 
   People({
     required this.name,
     required this.image,
     required this.locationName,
     required this.isPremium,
+    this.isMale = true,
   });
 }
 
@@ -60,28 +64,53 @@ class HomeScreen extends StatelessWidget {
       drawer: const CustomDrawer(),
       appBar: AppBar(
         actions: [
-          IconButton(
-            icon: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.only(right: 25.h),
-              width: 40.w,
-              height: 40.h,
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Container(
               decoration: const BoxDecoration(
                 color: CustomColors.primary,
                 shape: BoxShape.circle,
               ),
-              child: IconButton(
-                onPressed: () {
-                  context.push(Routes.notification);
-                },
-                icon: const Icon(
-                  Icons.notifications,
-                  color: Colors.white,
-                ),
+              child: Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      context.push(Routes.notification);
+                      debugPrint('Notification');
+                    },
+                    icon: const Icon(
+                      Icons.notifications,
+                      color: Colors.white,
+                    ),
+                  ),
+                  Positioned(
+                    right: 1,
+                    bottom: 1,
+                    child: BlocBuilder<NotificationBloc, NotificationState>(
+                      builder: (context, state) {
+                        if (state is NotificationSuccess) {
+                          if (state.notifications.isNotEmpty) {
+                            return Container(
+                              width: 10,
+                              height: 10,
+                              decoration: const BoxDecoration(
+                                color: Colors.red,
+                                shape: BoxShape.circle,
+                              ),
+                            );
+                          }
+                          return const SizedBox(); // No indicator when no unread notifications
+                        }
+                        else {
+                          return const SizedBox();
+                        }
+                      },
+                    ),
+                  ),
+                ],
               ),
             ),
-            onPressed: () {},
-          )
+          ),
         ],
       ),
       bottomNavigationBar: const NavBar(currentIndex: 0),
@@ -159,8 +188,7 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                 ),
-),
-
+              ),
               SizedBox(height: 30.h),
             ],
           ),
