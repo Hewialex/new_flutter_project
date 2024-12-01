@@ -84,7 +84,7 @@ final GoRouter goRouter = GoRouter(routes: [
   ),
   GoRoute(
     path: Routes.nearYouScreen,
-    builder: (context, state) => NearYouScreen(),
+    builder: (context, state) => const NearYouScreen(),
   ),
   GoRoute(
     path: Routes.myProfile,

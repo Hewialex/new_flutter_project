@@ -13,156 +13,154 @@ class CustomDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Drawer(
       elevation: 4,
-      child: IconButton(
-        icon: Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
-          padding: const EdgeInsets.all(0),
-          child: SingleChildScrollView(
-            child: Container(
-              padding: const EdgeInsets.only(top: 40),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // profile
-                  _drawerProfileSection(),
+      child: Container(
+        margin: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.all(0),
+        child: SingleChildScrollView(
+          child: Container(
+            padding: const EdgeInsets.only(top: 40),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // profile
+                _drawerProfileSection(),
 
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Home',
-                      icon: const Icon(Icons.home_outlined),
-                      onTap: () {
-                        // retract drawer
-                        Navigator.of(context).pop();
-                      },
-                    ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Home',
+                    icon: const Icon(Icons.home_outlined),
+                    onTap: () {
+                      // retract drawer
+                      Navigator.of(context).pop();
+                    },
                   ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Notification',
-                      icon: const Icon(Icons.notifications_outlined),
-                      onTap: () {
-                        context.push(Routes.notification);
-                      },
-                    ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Notification',
+                    icon: const Icon(Icons.notifications_outlined),
+                    onTap: () {
+                      context.push(Routes.notification);
+                      debugPrint('Notification');
+                    },
                   ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'My Profile',
-                      icon: const Icon(Icons.person_2_outlined),
-                      onTap: () {
-                        context.push(Routes.myProfile);
-                      },
-                    ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'My Profile',
+                    icon: const Icon(Icons.person_2_outlined),
+                    onTap: () {
+                      context.push(Routes.myProfile);
+                    },
                   ),
-                  _buildExpandibleDrawerItem(_ExpandibleDrawerItem(
-                    title: 'Settings',
-                    icon: const Icon(Icons.settings_outlined),
-                    onTap: () {},
-                    children: [
-                      _buildDrawerItem(
-                        _DrawerItem(
-                          title: 'Account Information',
-                          icon: const Icon(Icons.info_outlined),
-                          onTap: () {
-                            context.push(Routes.accountInformationScreen);
-                          },
-                        ),
-                      ),
-                      _buildDrawerItem(
-                        _DrawerItem(
-                          title: 'Profile Settings',
-                          icon: const Icon(Icons.settings_outlined),
-                          onTap: () {
-                            context.push(Routes.accountSettings);
-                          },
-                        ),
-                      ),
-                    ],
-                  )),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Search',
-                      icon: const Icon(Icons.search),
-                      onTap: () {
-                        context.push(Routes.searchScreen);
-                      },
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Ignore List',
-                      icon: const Icon(Icons.thumb_down_outlined),
-                      onTap: () {
-                        context.push(Routes.ignore);
-                      },
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                        title: 'Who Favorited Me?',
-                        icon: const Icon(Icons.favorite_outline_rounded),
+                ),
+                _buildExpandibleDrawerItem(_ExpandibleDrawerItem(
+                  title: 'Settings',
+                  icon: const Icon(Icons.settings_outlined),
+                  onTap: () {},
+                  children: [
+                    _buildDrawerItem(
+                      _DrawerItem(
+                        title: 'Account Information',
+                        icon: const Icon(Icons.info_outlined),
                         onTap: () {
-                          context.push(Routes.favorite);
-                        }),
-                  ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Member Photo',
-                      icon: const Icon(Icons.person_outline_rounded),
-                      onTap: () {
-                        context.push(Routes.membersPhoto);
-                      },
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Contact Us',
-                      icon: const Icon(Icons.phone_in_talk_sharp),
-                      onTap: () {
-                        context.push(Routes.contactUs);
-                      },
-                    ),
-                  ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Share App',
-                      icon: Transform.rotate(
-                        angle: -pi /
-                            2, // Rotate 90 degrees (pi/2 radians countreclockwise)
-                        child: const Icon(Icons.exit_to_app),
+                          context.push(Routes.accountInformationScreen);
+                        },
                       ),
-                      onTap: () {},
                     ),
+                    _buildDrawerItem(
+                      _DrawerItem(
+                        title: 'Profile Settings',
+                        icon: const Icon(Icons.settings_outlined),
+                        onTap: () {
+                          context.push(Routes.accountSettings);
+                        },
+                      ),
+                    ),
+                  ],
+                )),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Search',
+                    icon: const Icon(Icons.search),
+                    onTap: () {
+                      context.push(Routes.searchScreen);
+                    },
                   ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'About Us',
-                      icon: const Icon(Icons.info_outline),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Ignore List',
+                    icon: const Icon(Icons.thumb_down_outlined),
+                    onTap: () {
+                      context.push(Routes.ignore);
+                    },
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                      title: 'Who Favorited Me?',
+                      icon: const Icon(Icons.favorite_outline_rounded),
                       onTap: () {
-                        context.push(Routes.aboutUs);
-                      },
-                    ),
+                        context.push(Routes.favorite);
+                      }),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Member Photo',
+                    icon: const Icon(Icons.person_outline_rounded),
+                    onTap: () {
+                      context.push(Routes.membersPhoto);
+                    },
                   ),
-                  _buildDrawerItem(
-                    _DrawerItem(
-                      title: 'Sign Out',
-                      icon: const Icon(Icons.exit_to_app),
-                      onTap: () async {
-                        await Future.microtask(() {
-                          if (context.mounted) {
-                            context.go(Routes.login);
-                          }
-                        });
-                      },
-                    ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Contact Us',
+                    icon: const Icon(Icons.phone_in_talk_sharp),
+                    onTap: () {
+                      context.push(Routes.contactUs);
+                    },
                   ),
-                ],
-              ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Share App',
+                    icon: Transform.rotate(
+                      angle: -pi /
+                          2, // Rotate 90 degrees (pi/2 radians countreclockwise)
+                      child: const Icon(Icons.exit_to_app),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'About Us',
+                    icon: const Icon(Icons.info_outline),
+                    onTap: () {
+                      context.push(Routes.aboutUs);
+                    },
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Sign Out',
+                    icon: const Icon(Icons.exit_to_app),
+                    onTap: () async {
+                      await Future.microtask(() {
+                        if (context.mounted) {
+                          context.go(Routes.login);
+                        }
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-        onPressed: () {},
       ),
     );
   }
@@ -185,54 +183,63 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-  Widget _drawerProfileSection() {
-    return Container(
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: CustomColors.primary,
-          width: 1,
-        ),
-        borderRadius: BorderRadius.circular(10),
+Widget _drawerProfileSection() {
+  return Container(
+    padding: const EdgeInsets.all(10),
+    decoration: BoxDecoration(
+      border: Border.all(
+        color: CustomColors.primary,
+        width: 1,
       ),
-      child: Row(
-        children: [
-          // profile image
-          Container(
-            margin: EdgeInsets.only(right: 10.w),
-            width: 50.w,
-            height: 50.h,
-            decoration: const BoxDecoration(
-              shape: BoxShape.rectangle,
-              image: DecorationImage(
-                image: AssetImage('assets/images/female_avatar.png'),
-                fit: BoxFit.cover,
-              ),
+      borderRadius: BorderRadius.circular(10),
+    ),
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        // Profile image with constraints
+        Container(
+          width: 50.w,
+          height: 50.h,
+          decoration: const BoxDecoration(
+            shape: BoxShape.circle,
+            image: DecorationImage(
+              image: AssetImage('assets/images/female_avatar.png'),
+              fit: BoxFit.contain,
             ),
           ),
-          // profile name and user name
-          Column(
+        ),
+        // Profile name and username with flexible text
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 'Fatima',
                 style: TextStyle(
-                  fontSize: 18.sp,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w500,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                maxLines: 1,
               ),
+              SizedBox(height: 4.h),
               Text(
                 '@fatima',
                 style: TextStyle(
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   color: CustomColors.textGray,
+                  overflow: TextOverflow.ellipsis,
                 ),
+                maxLines: 1,
               ),
             ],
-          )
-        ],
-      ),
-    );
-  }
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
 }
 
 class _ExpandibleDrawerItem {
