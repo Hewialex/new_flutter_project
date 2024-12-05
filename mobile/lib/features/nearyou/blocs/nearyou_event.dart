@@ -6,13 +6,11 @@ sealed class NearyouEvent extends Equatable {
 }
 
 class NearYouLoad extends NearyouEvent {
-  @override
-  List<Object> get props => [];
-}
+  final int page;
 
-class NearYouRefresh extends NearyouEvent {
+  NearYouLoad({this.page = 0});
   @override
-  List<Object> get props => [];
+  List<Object> get props => [page];
 }
 
 class NearYouLoadMore extends NearyouEvent {

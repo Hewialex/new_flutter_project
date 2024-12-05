@@ -9,10 +9,12 @@ import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
+import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/auth/blocs/login_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
+import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/routes.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginWithPasswordScreen extends StatelessWidget {
   const LoginWithPasswordScreen({super.key});
@@ -22,7 +24,11 @@ class LoginWithPasswordScreen extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return BlocProvider<LoginBloc>(
-      create: (context) => LoginBloc()..add(LoginReset()),
+      create: (context) => LoginBloc(
+        databaseHelper: DatabaseHelper(),
+        websocketService: WebsocketService(),
+        notificationBloc: context.read<NotificationBloc>(),
+      )..add(LoginReset()),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {
           debugPrint(state.toString());
@@ -53,7 +59,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                         color: CustomColors.chatName,
                         size: 50,
                       ),
-                  
+
                       // a success message
                       Text(
                         "Login successful",
@@ -155,9 +161,10 @@ class LoginWithPasswordScreen extends StatelessWidget {
                             SizedBox(height: 30.h),
                             TextButton(
                               onPressed: () async {
-                                final SharedPreferences prefs =
-                                    await SharedPreferences.getInstance();
-                                final gender = prefs.getString('gender');
+                                final DatabaseHelper databaseHelper =
+                                    RepositoryProvider.of<DatabaseHelper>(
+                                        context);
+                                final gender = await databaseHelper.getGender();
 
                                 if (context.mounted) {
                                   context.push(Routes.signup, extra: gender);

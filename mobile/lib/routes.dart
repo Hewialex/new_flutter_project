@@ -10,6 +10,10 @@ class Routes {
   static const signup = '/signup';
   static const premium = '/premium';
   static const newMembers = '/newMembers';
+  static const members = '/members';
+  static const onlineMembers = '/onlineMembers';
+  static const premiumMembers = '/premiumMembers';
+  static const autoSearcher = '/autoSearcher';
   static const messages = '/messages';
   static const chat = '/chat';
   static const nearYouScreen = '/nearYouScreen';
@@ -26,4 +30,5 @@ class Routes {
   static const accountInformationScreen = '/accountInformationScreen';
   static const accountSettings = '/accountSettings';
   static const features = '/features';
+  static const editProfile = '/editProfile';
 }

@@ -1,62 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/common/widgets/custom_drawer.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/home/widgets/search_dropdown.dart';
+import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/profile/screens/profile_screen.dart';
 import 'package:qismati/routes.dart';
 
-class People {
-  final String name;
-  final String image;
-  final String locationName;
-  final bool isPremium;
-  final bool isMale;
-
-  People({
-    required this.name,
-    required this.image,
-    required this.locationName,
-    required this.isPremium,
-    this.isMale = true,
-  });
-}
-
 class HomeScreen extends StatelessWidget {
-  HomeScreen({super.key});
-
-  final List<People> people = [
-    People(
-      name: "Fatima",
-      image: "assets/images/female_avatar.png",
-      locationName: "Saudi",
-      isPremium: false,
-    ),
-    People(
-      name: "Alisha",
-      image: "assets/images/female_avatar.png",
-      locationName: "Pakistan",
-      isPremium: true,
-    ),
-    People(
-      name: "Luluwa",
-      image: "assets/images/female_avatar.png",
-      locationName: "Dubai",
-      isPremium: true,
-    ),
-    People(
-      name: "Ekram",
-      image: "assets/images/female_avatar.png",
-      locationName: "Dubai",
-      isPremium: false,
-    ),
-  ];
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -100,8 +60,7 @@ class HomeScreen extends StatelessWidget {
                             );
                           }
                           return const SizedBox(); // No indicator when no unread notifications
-                        }
-                        else {
+                        } else {
                           return const SizedBox();
                         }
                       },
@@ -155,40 +114,91 @@ class HomeScreen extends StatelessWidget {
                 ],
               ),
               SizedBox(height: 15.h),
-              SizedBox(
-                height: 350.h, // Adjust as needed
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: people.length,
-                  itemBuilder: (context, index) {
-                    final person = people[index];
-                    return Row(
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const ProfileScreen(),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            width: 200.w, // Set a fixed width for the card
-                            child: DatingCard(
-                              name: person.name,
-                              image: person.image,
-                              isPremium: person.isPremium,
-                              locationName: person.locationName,
+              BlocBuilder<NearYouBloc, NearYouState>(builder: (context, state) {
+                debugPrint("Near You State : $state");
+                if (state is NearYouLoaded) {
+                  final List<ProfileModel> people = state.people;
+
+                  if (people.isEmpty) {
+                    return const Center(
+                      child: SizedBox(
+                        height: 200,
+                        width: 200,
+                        child: Column(
+                          children: [
+                            Icon(
+                              Icons.person_search,
+                              size: 100,
+                              color: CustomColors.primary,
                             ),
-                          ),
+                            Text(
+                              "No one near you",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ],
                         ),
-                        SizedBox(width: 35.w),
-                      ],
+                      ),
                     );
-                  },
-                ),
-              ),
+                  }
+
+                  // Near You
+                  return SizedBox(
+                    height: 350.h, // Adjust as needed
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: people.length,
+                      itemBuilder: (context, index) {
+                        final person = people[index];
+                        return Row(
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => const ProfileScreen(),
+                                  ),
+                                );
+                              },
+                              child: SizedBox(
+                                width: 200.w,
+                                child: DatingCard(
+                                  name: person.fullName,
+                                  gender: person.gender,
+                                  isPremium: true,
+                                  locationName: person.country,
+                                ),
+                              ),
+                            ),
+                            SizedBox(width: 35.w),
+                          ],
+                        );
+                      },
+                    ),
+                  );
+                } else if (state is NearYouInitial) {
+                  context.read<NearYouBloc>().add(NearYouLoad(page: 1));
+                  return const Center(
+                      child: CupertinoActivityIndicator(
+                    color: CustomColors.primary,
+                  ));
+                } else if (state is NearYouError) {
+                  return Text(state.message);
+                } else if (state is NearYouLoading) {
+                  return const Center(
+                      child: CupertinoActivityIndicator(
+                    color: CustomColors.primary,
+                  ));
+                } else {
+                  print(state);
+                  return const SizedBox(
+                    child: Text("Unknown State"),
+                  );
+                }
+              }),
               SizedBox(height: 30.h),
             ],
           ),

@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/features/aboutus/screens/aboutus_screen.dart';
 import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
 import 'package:qismati/features/auth/screens/login_screen.dart';
@@ -14,6 +15,7 @@ import 'package:qismati/features/interactions/screens/ignore_list.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/features/interactions/screens/who_favorite_me_screen.dart';
 import 'package:qismati/features/members/screens/members_photo_screen.dart';
+import 'package:qismati/features/my_profile/screens/my_profile_editing_screen.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_screen.dart';
 import 'package:qismati/features/nearyou/screens/nearyou_screen.dart';
 import 'package:qismati/features/new_members/screens/new_members_screen.dart';
@@ -21,7 +23,9 @@ import 'package:qismati/features/notification/screens/notification_screen.dart';
 import 'package:qismati/features/onboarding/screens/onboarding_screen.dart';
 import 'package:qismati/features/onboarding/screens/register_screen.dart';
 import 'package:qismati/features/onboarding/screens/splash_screen.dart';
+import 'package:qismati/features/online_members/screens/online_members_screen.dart';
 import 'package:qismati/features/premium/screens/premium_screen.dart';
+import 'package:qismati/features/premium_members/screens/premium_members_screen.dart';
 import 'package:qismati/features/search/screens/search_screen.dart';
 import 'package:qismati/features/settings/screens/account_information_screen.dart';
 import 'package:qismati/features/settings/screens/account_settings_screen.dart';
@@ -50,7 +54,10 @@ final GoRouter goRouter = GoRouter(routes: [
     path: Routes.newPassword,
     builder: (context, state) => const NewPasswordScreen(),
   ),
-  GoRoute(path: Routes.home, builder: (context, state) => HomeScreen()),
+  GoRoute(
+    path: Routes.home,
+    builder: (context, state) => HomeScreen(),
+  ),
   GoRoute(
     path: Routes.signup,
     builder: (context, state) {
@@ -72,7 +79,19 @@ final GoRouter goRouter = GoRouter(routes: [
   ),
   GoRoute(
     path: Routes.newMembers,
-    builder: (context, state) => const NewMembersScreen(),
+    builder: (context, state) => NewMembersScreen(),
+  ),
+  GoRoute(
+    path: Routes.onlineMembers,
+    builder: (context, state) => OnlineMembersScreen(),
+  ),
+  GoRoute(
+    path: Routes.premiumMembers,
+    builder: (context, state) => PreimumMembersScreen(),
+  ),
+  GoRoute(
+    path: Routes.autoSearcher,
+    builder: (context, state) => NewMembersScreen(),
   ),
   GoRoute(
     path: Routes.loginWithPassword,
@@ -136,5 +155,11 @@ final GoRouter goRouter = GoRouter(routes: [
       final tipsExtra = state.extra as TipsExtra;
       return TipsScreen(tipsExtra: tipsExtra);
     },
-  )
+  ),
+  GoRoute(
+      path: Routes.editProfile,
+      builder: (context, state) {
+        final profile = state.extra as ProfileModel;
+        return ProfileEditingScreen(profile: profile);
+      })
 ]);
