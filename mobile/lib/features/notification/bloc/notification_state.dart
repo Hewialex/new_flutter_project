@@ -15,7 +15,7 @@ class NotificationSuccess extends NotificationState {
   NotificationSuccess(this.notifications, {this.page = 1, this.hasReachedMax = false});
 
   @override
-  List<Object?> get props => [notifications];
+  List<Object?> get props => [notifications, page, hasReachedMax];
 }
 
 class NotificationLoadingState extends NotificationState {

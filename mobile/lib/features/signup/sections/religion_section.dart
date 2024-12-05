@@ -10,6 +10,8 @@ class ReligionSection extends StatelessWidget {
     required this.prayerController,
     required this.smokingController,
     required this.beardController,
+    required this.vielController,
+    required this.gender,
   });
 
   final List<String> nationality;
@@ -17,6 +19,8 @@ class ReligionSection extends StatelessWidget {
   final TextEditingController prayerController;
   final TextEditingController smokingController;
   final TextEditingController beardController;
+  final TextEditingController vielController;
+  final String gender;
 
   @override
   Widget build(BuildContext context) {
@@ -28,38 +32,39 @@ class ReligionSection extends StatelessWidget {
           fontSize: 16.sp,
         ),
       ),
-
       SizedBox(height: 25.h),
-
       CustomDropdownMenu(
         values: nationality,
         controller: religionCommitmentController,
         hintText: "Religion Commitment",
       ),
-
       SizedBox(height: 20.h),
-
       CustomDropdownMenu(
         values: nationality,
         controller: prayerController,
         hintText: "Prayer",
       ),
-
       SizedBox(height: 20.h),
-
       CustomDropdownMenu(
         values: nationality,
         controller: smokingController,
         hintText: "Smoking",
       ),
-
       SizedBox(height: 20.h),
-
-      CustomDropdownMenu(
-        values: nationality,
-        controller: beardController,
-        hintText: "Beard",
-      ),
+      gender == "Male"
+          ? CustomDropdownMenu(
+              values: nationality,
+              controller: beardController,
+              hintText: "Beard",
+            )
+          : Container(),
+      gender == "Female"
+          ? CustomDropdownMenu(
+              values: nationality,
+              controller: vielController,
+              hintText: "Veil",
+            )
+          : Container(),
     ]);
   }
 }

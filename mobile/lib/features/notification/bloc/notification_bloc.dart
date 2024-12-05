@@ -15,7 +15,8 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<NotificationLoadMore>(_getMoreNotifications);
   }
 
-  final NotificationDataProvider _notificationDataProvider = NotificationDataProvider();
+  final NotificationDataProvider _notificationDataProvider =
+      NotificationDataProvider();
 
   void _notificationreceived(
       NotificationReceived event, Emitter<NotificationState> emit) {
@@ -50,17 +51,13 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       if (currentState is NotificationSuccess) {
         NotificationModel notification = event.notification;
 
-        // NotificationModel readNotification = await _notificationDataProvider
-        //     .markNotificationAsRead(notificationId: notification.id);
+        NotificationModel readNotification = await _notificationDataProvider
+            .markNotificationAsRead(notificationId: notification.id);
 
         List<NotificationModel> oldNotifications = currentState.notifications;
 
-        // List<NotificationModel> newNotifications = oldNotifications
-        //     .where((element) => element.id != readNotification.id)
-        //     .toList();
-
         List<NotificationModel> newNotifications = oldNotifications
-            .where((element) => element.id != notification.id)
+            .where((element) => element.id != readNotification.id)
             .toList();
 
         emit(NotificationSuccess(newNotifications));
@@ -72,35 +69,19 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
   void _getNotifications(
       NotificationLoad event, Emitter<NotificationState> emit) async {
-    // final currState = state;
+    final currState = state;
     try {
-      emit(NotificationLoadingState(notifications: List.empty()));
+      (currState is NotificationSuccess)
+          ? emit(
+              NotificationLoadingState(notifications: currState.notifications))
+          : emit(NotificationLoadingState(notifications: List.empty()));
 
-      // final response = await _notificationDataProvider.getUnReadNotifications(page: event.page);
-      // emit(NotificationSuccess(response.notifications, page: response.page));
+      final response = await _notificationDataProvider.getUnReadNotifications(
+          page: event.page);
 
-      List<NotificationModel> notifications = [
-        NotificationModel(
-            id: "1",
-            title: "Notification 1",
-            type: NotificationType.like,
-            data: const {},
-            timestamp: DateTime(2023)),
-        NotificationModel(
-            id: "2",
-            title: "Notification 2",
-            type: NotificationType.like,
-            data: const {},
-            timestamp: DateTime(2023)),
-        NotificationModel(
-            id: "3",
-            title: "Notification 3",
-            type: NotificationType.like,
-            data: const {},
-            timestamp: DateTime(2023)),
-      ];
+      print(response);
 
-      emit(NotificationSuccess(notifications));
+      emit(NotificationSuccess(response.notifications, page: response.page));
     } catch (e) {
       emit(NotificationErrorState(e.toString()));
     }
@@ -116,40 +97,17 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
           NotificationLoadingState(notifications: currentState.notifications),
         );
 
-        await Future.delayed(const Duration(seconds: 2));
-
         int nextPage = currentState.page + 1;
         debugPrint("Next Page: $nextPage");
-        // final response = await _notificationDataProvider.getUnReadNotifications(
-        //     page: nextPage);
-
-        List<NotificationModel> notifications = [
-          NotificationModel(
-              id: "1",
-              title: "Notification 1",
-              type: NotificationType.like,
-              data: const {},
-              timestamp: DateTime(2023)),
-          NotificationModel(
-              id: "2",
-              title: "Notification 2",
-              type: NotificationType.like,
-              data: const {},
-              timestamp: DateTime(2023)),
-          NotificationModel(
-              id: "3",
-              title: "Notification 3",
-              type: NotificationType.like,
-              data: const {},
-              timestamp: DateTime(2023)),
-        ];
+        final response = await _notificationDataProvider.getUnReadNotifications(
+            page: nextPage);
 
         List<NotificationModel> oldNotifications = currentState.notifications;
         List<NotificationModel> newNotifications = List.from(oldNotifications)
-          ..addAll(notifications);
+          ..addAll(response.notifications);
 
-        // emit(NotificationSuccess(newNotifications, page: response.page));
-        emit(NotificationSuccess(newNotifications, page: nextPage));
+        emit(NotificationSuccess(newNotifications,
+            page: response.page, hasReachedMax: response.hasReachedMax));
       }
     } catch (e) {
       emit(NotificationErrorState(e.toString()));

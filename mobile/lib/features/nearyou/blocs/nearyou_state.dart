@@ -11,18 +11,19 @@ class NearYouInitial extends NearYouState {
 }
 
 class NearYouLoaded extends NearYouState {
-  final List<People> people;
+  final List<ProfileModel> people;
   final int page;
   final bool hasReachedMax;
 
-  NearYouLoaded({required this.people, required this.page, this.hasReachedMax = false});
+  NearYouLoaded(
+      {required this.people, required this.page, this.hasReachedMax = false});
 
   @override
   List<Object?> get props => [people];
 }
 
 class NearYouLoading extends NearYouState {
-  final List<People> people;
+  final List<ProfileModel> people;
 
   NearYouLoading({this.people = const []});
 

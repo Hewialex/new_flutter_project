@@ -1,89 +1,138 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/custom_functions.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/common/widgets/filter_select.dart';
+import 'package:qismati/features/new_members/bloc/new_member_bloc.dart';
 import 'package:qismati/routes.dart';
 
 class NewMembersScreen extends StatelessWidget {
-  const NewMembersScreen({super.key});
+  NewMembersScreen({super.key});
+
+  final menuOptions = [
+    'Like',
+    'Ignore',
+    'Other options',
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.background,
-      body: SafeArea(
-        child: ContentContainer(
-          child: Column(
-            children: [
-              const CustomTopBar(
-                altRoute: Routes.home,
-                excludeLangDropDown: true,
-              ),
-              SizedBox(height: 20.h),
-              Text(
-                'New Members',
-                style: GoogleFonts.kodchasan(
-                  textStyle: TextStyle(
-                    fontWeight: FontWeight.w500,
-                    fontSize: 25.sp,
-                    color: CustomColors.textGray,
-                  ),
-                ),
-              ),
-              SizedBox(height: 23.h),
-              CustomDropdownMenu(
-                values: const [],
-                controller: TextEditingController(),
-                hintText: 'Country',
-              ),
-              SizedBox(height: 32.h),
-              FilterSelect(
-                currentIndex: 1,
-                onSelected: (index) {},
-                choiceContent: const ["Public Photos", "Exclusive Photos"],
-              ),
-              SizedBox(height: 32.h),
-              Expanded(
-                child: ListView(
-                  children: List.generate(10, (int index) {
-                    return Column(
-                      children: [
-                        CustomListCard(
-                          leading: ClipOval(
-                              child: Image.asset(
-                                  'assets/images/female_avatar.png')),
-                          name: 'Saba Ashfaq',
-                          age: 20,
-                          locationName: "Paskistan",
-                          onPressed: () {},
-                          excludeTextTime: true,
-                          iconButton: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              Icons.more_vert,
-                              color: CustomColors.primary,
-                              size: 20.sp,
-                            ),
-                          ),
+    final bloc = context.watch<NewMemberBloc>();
+    final state = bloc.state;
 
-                        ),
-                        // ChatCard(
-                        // ),
-                        SizedBox(height: 10.h),
-                      ],
-                    );
-                  }),
-                ),
-              ),
-            ],
+    switch (state) {
+      case NewMemberInitial():
+        bloc.add(FetchData());
+        return const Scaffold(
+          body: CupertinoActivityIndicator(
+            color: CustomColors.primary,
           ),
-        ),
-      ),
-    );
+        );
+      case NewMemberLoading():
+        return const Scaffold(
+          body: CupertinoActivityIndicator(
+            color: CustomColors.primary,
+          ),
+        );
+      case NewMemberLoaded():
+        return Scaffold(
+          backgroundColor: CustomColors.background,
+          body: SafeArea(
+            child: ContentContainer(
+              child: Column(
+                children: [
+                  const CustomTopBar(
+                    altRoute: Routes.home,
+                    excludeLangDropDown: true,
+                  ),
+                  SizedBox(height: 20.h),
+                  Text(
+                    'New Members',
+                    style: GoogleFonts.kodchasan(
+                      textStyle: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 25.sp,
+                        color: CustomColors.textGray,
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 23.h),
+                  CustomDropdownMenu(
+                    values: const [],
+                    controller: TextEditingController(),
+                    hintText: 'Country',
+                  ),
+                  SizedBox(height: 32.h),
+                  FilterSelect(
+                    currentIndex: 1,
+                    onSelected: (index) {},
+                    choiceContent: const ["Public Photos", "Exclusive Photos"],
+                  ),
+                  SizedBox(height: 32.h),
+                  Expanded(
+                    child: ListView(
+                      children: state.users.asMap().entries.map((entries) {
+                        final index = entries.key;
+                        final e = entries.value;
+
+                        return Column(
+                          children: [
+                            CustomListCard(
+                              leading: ClipOval(
+                                  child: Image.asset(
+                                      'assets/images/female_avatar.png')),
+                              name: e.fullName,
+                              age: e.age,
+                              locationName: e.country,
+                              onPressed: () {},
+                              excludeTextTime: true,
+                              iconButton: GestureDetector(
+                                onTapDown: (details) =>
+                                    CustomFunctions.showPopupMenu(
+                                        context,
+                                        index,
+                                        details.globalPosition,
+                                        menuOptions, (selectedOption) {
+                                  bloc.add(
+                                    SelectOption(
+                                        option: menuOptions[selectedOption],
+                                        userId: e.id,
+                                        removedIndex: index),
+                                  );
+                                  debugPrint(
+                                      "Selected option is ${menuOptions[selectedOption]}");
+                                }),
+                                child: Icon(
+                                  Icons.more_vert,
+                                  color: CustomColors.primary,
+                                  size: 20.sp,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                          ],
+                        );
+                      }).toList(),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      default:
+        return Scaffold(
+          body: Center(
+            child: Text('Unimplemented state $state'),
+          ),
+        );
+    }
   }
 }

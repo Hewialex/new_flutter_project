@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,17 +71,23 @@ class _NearYouScreenState extends State<NearYouScreen> {
       ),
       body: BlocBuilder<NearYouBloc, NearYouState>(
         builder: (context, state) {
+          debugPrint("State : $state");
 
           if (state is NearYouInitial) {
             context.read<NearYouBloc>().add(NearYouLoad());
 
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CupertinoActivityIndicator(
+                color: CustomColors.primary,
+              ),
             );
           } else if (state is NearYouLoading && state.people.isEmpty) {
             return const Center(
-              child: CircularProgressIndicator(),
+              child: CupertinoActivityIndicator(
+                color: CustomColors.primary,
+              ),
             );
+ 
           } else if (state is NearYouLoaded ||
               (state is NearYouLoading && state.people.isNotEmpty)) {
 
@@ -88,7 +95,30 @@ class _NearYouScreenState extends State<NearYouScreen> {
                 ? state.people
                 : (state as NearYouLoading).people;
 
-            print(people.length);
+            if (people.isEmpty) {
+              return const Center(
+                child: SizedBox(
+                  height: 200,
+                  width: 200,
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.person_search,
+                        size: 100,
+                        color: CustomColors.primary,
+                      ),
+                      Text(
+                        "No one near you",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
+            }
 
             return SafeArea(
               child: CustomScrollView(
@@ -121,10 +151,10 @@ class _NearYouScreenState extends State<NearYouScreen> {
                                           );
                                         },
                                         child: DatingCard(
-                                          name: e.name,
-                                          image: e.image,
-                                          isPremium: e.isPremium,
-                                          locationName: e.locationName,
+                                          name: e.fullName,
+                                          gender: e.gender,
+                                          isPremium: true,
+                                          locationName: e.country,
                                         ),
                                       ),
                                       SizedBox(width: 35.w),
@@ -165,7 +195,7 @@ class _NearYouScreenState extends State<NearYouScreen> {
                                     ),
                                   ),
                                 ),
-                                name: person.name,
+                                name: person.fullName,
                                 age: 20,
                                 recentTextTime: DateTime.now(),
                                 locationName: "Pakistan",

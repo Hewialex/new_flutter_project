@@ -1,9 +1,15 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/models/profile.dart';
+import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/websocket/websocket.dart';
+import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
 import 'package:qismati/routes.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -24,7 +30,7 @@ class CustomDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 // profile
-                _drawerProfileSection(),
+                _drawerProfileSection(context),
 
                 _buildDrawerItem(
                   _DrawerItem(
@@ -149,11 +155,21 @@ class CustomDrawer extends StatelessWidget {
                     title: 'Sign Out',
                     icon: const Icon(Icons.exit_to_app),
                     onTap: () async {
-                      await Future.microtask(() {
-                        if (context.mounted) {
-                          context.go(Routes.login);
-                        }
-                      });
+                      if (context.mounted) {
+                        final DatabaseHelper databaseHelper =
+                            RepositoryProvider.of<DatabaseHelper>(context);
+                        final WebsocketService websocketService =
+                            RepositoryProvider.of<WebsocketService>(context);
+
+                        // Perform operations sequentially
+                        await websocketService.disconnectFromServer();
+                        await databaseHelper.deleteToken();
+
+                        if (!context.mounted) return;
+
+                        // Navigate after ensuring all tasks are completed
+                        context.go(Routes.login);
+                      }
                     },
                   ),
                 ),
@@ -183,63 +199,120 @@ class CustomDrawer extends StatelessWidget {
     );
   }
 
-Widget _drawerProfileSection() {
-  return Container(
-    padding: const EdgeInsets.all(10),
-    decoration: BoxDecoration(
-      border: Border.all(
-        color: CustomColors.primary,
-        width: 1,
+  Widget _drawerProfileSection(BuildContext context) {
+    final bloc = context.read<MyprofileBloc>();
+    bloc.add(LoadMyProfile());
+
+    return BlocBuilder<MyprofileBloc, MyprofileState>(
+      builder: (context, state) {
+        switch (state) {
+          case MyprofileInitial():
+            bloc.add(LoadMyProfile());
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+          case MyprofileLoading():
+            return const Center(
+              child: CupertinoActivityIndicator(),
+            );
+
+          case MyprofileSuccess():
+            final profile = state.profile;
+            return _profileWidget(profile);
+
+          case MyprofileUpdateSuccess():
+            final profile = state.profile;
+            return _profileWidget(profile);
+
+          case MyprofileUpdateError():
+            final profile = state.profile;
+            return _profileWidget(profile);
+
+          case MyprofileError():
+            return Center(
+              child: Column(
+                children: [
+                  const Text('Unable to load user profile'),
+                  TextButton(
+                    onPressed: () {
+                      bloc.add(LoadMyProfile());
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
+            );
+
+          default:
+            // Any unimplemented state for Myprofile goes here
+            return Center(
+              child: Text('Unimplemented state $state'),
+            );
+        }
+      },
+    );
+  }
+
+  Widget _profileWidget(ProfileModel profile) {
+    return Container(
+      padding: const EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: CustomColors.primary,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(10),
       ),
-      borderRadius: BorderRadius.circular(10),
-    ),
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        // Profile image with constraints
-        Container(
-          width: 50.w,
-          height: 50.h,
-          decoration: const BoxDecoration(
-            shape: BoxShape.circle,
-            image: DecorationImage(
-              image: AssetImage('assets/images/female_avatar.png'),
-              fit: BoxFit.contain,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Profile image with constraints
+          Container(
+            width: 50.w,
+            height: 50.h,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage(
+                  profile.gender == "male"
+                      ? 'assets/images/male_avatar.png'
+                      : 'assets/images/female_avatar.png',
+                ),
+                fit: BoxFit.contain,
+              ),
             ),
           ),
-        ),
-        // Profile name and username with flexible text
-        Flexible(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Fatima',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w500,
-                  overflow: TextOverflow.ellipsis,
+          // Profile name and username with flexible text
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  profile.fullName,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w500,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
-              ),
-              SizedBox(height: 4.h),
-              Text(
-                '@fatima',
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  color: CustomColors.textGray,
-                  overflow: TextOverflow.ellipsis,
+                SizedBox(height: 4.h),
+                Text(
+                  profile.userName,
+                  style: TextStyle(
+                    fontSize: 12.sp,
+                    color: CustomColors.textGray,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  maxLines: 1,
                 ),
-                maxLines: 1,
-              ),
-            ],
+              ],
+            ),
           ),
-        ),
-      ],
-    ),
-  );
-}
-
+        ],
+      ),
+    );
+  }
 }
 
 class _ExpandibleDrawerItem {

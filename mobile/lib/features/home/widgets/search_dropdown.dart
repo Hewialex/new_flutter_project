@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/routes.dart';
 
 class SearchDropdown extends StatefulWidget {
   const SearchDropdown({super.key});
@@ -51,6 +53,22 @@ class _SearchDropdownState extends State<SearchDropdown> {
                 return DropdownMenuItem<String>(
                   value: value,
                   child: Text(value),
+                  onTap: () {
+                    switch (value) {
+                      case 'Members':
+                        context.push(Routes.membersPhoto);
+                      case 'New members':
+                        context.push(Routes.newMembers);
+                      case 'Online members':
+                        context.push(Routes.onlineMembers);
+                      case 'Premium members':
+                        context.push(Routes.premiumMembers);
+                      case 'Auto Searcher':
+                        context.push(Routes.autoSearcher);
+                      default:
+                        return;
+                    }
+                  },
                 );
               }).toList(),
               dropdownColor: Colors.white,

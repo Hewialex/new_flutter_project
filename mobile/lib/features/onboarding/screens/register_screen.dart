@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
+import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -173,6 +175,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           prefs.setString('gender', gender);
 
                           if (context.mounted) {
+                            final DatabaseHelper databaseHelper =
+                                RepositoryProvider.of<DatabaseHelper>(context);
+                            databaseHelper.saveSession(gender);
+
                             context.push(Routes.login);
                           }
                         },

@@ -6,14 +6,14 @@ class DatingCard extends StatelessWidget {
   const DatingCard({
     super.key,
     required this.name,
-    required this.image,
     required this.isPremium,
     required this.locationName,
+    required this.gender,
   });
 
   final String name;
-  final String image;
   final bool isPremium;
+  final String gender;
   final String locationName;
 
   Widget premiumContainer() {
@@ -93,7 +93,9 @@ class DatingCard extends StatelessWidget {
             ],
           ),
           Image.asset(
-            image,
+            gender == "male"
+                ? "assets/images/male_avatar.png"
+                : "assets/images/female_avatar.png",
             width: 215.w,
             height: 213.h,
           )

@@ -3,7 +3,7 @@ import 'package:qismati/common/colors.dart';
 
 class ProfileInfo extends StatelessWidget {
   final String tableName;
-  final Map<String, String>? tableData; // tabular data
+  final Map<String, dynamic>? tableData; // tabular data
   final String? data;   // text data
 
   const ProfileInfo({
@@ -48,7 +48,7 @@ class ProfileInfo extends StatelessWidget {
             child: tableData != null
                 ? Column(
                     children: tableData!.entries
-                        .map((entry) => _buildTableRow(entry.key, entry.value))
+                        .map((entry) => _buildTableRow(entry.key, entry.value.toString()))
                         .toList(),
                   )
                 : Text(data!),

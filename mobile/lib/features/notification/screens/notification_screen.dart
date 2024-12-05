@@ -24,11 +24,13 @@ class NotificationScreen extends StatelessWidget {
             children: [
               _buildTopBar(),
               SizedBox(height: 26.h),
-              _buildTitle(),
+              _buildTitle(context),
               SizedBox(height: 28.h),
               Expanded(
                 child: BlocBuilder<NotificationBloc, NotificationState>(
                   builder: (context, state) {
+                    print(state);
+
                     if (state is NotificationInitial) {
                       context.read<NotificationBloc>().add(NotificationLoad());
                       return const Center(
@@ -82,16 +84,28 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTitle() {
-    return Text(
-      'Notification',
-      style: GoogleFonts.lexend(
-        textStyle: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 25.sp,
-          color: CustomColors.headingGray,
+  Widget _buildTitle(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          'Notification',
+          style: GoogleFonts.lexend(
+            textStyle: TextStyle(
+              fontWeight: FontWeight.w500,
+              fontSize: 25.sp,
+              color: CustomColors.headingGray,
+            ),
+          ),
         ),
-      ),
+        // a refresh icon
+        IconButton(
+          onPressed: () {
+            context.read<NotificationBloc>().add(NotificationLoad());
+          },
+          icon: const Icon(Icons.refresh),
+        ),
+      ],
     );
   }
 
@@ -105,6 +119,7 @@ class NotificationScreen extends StatelessWidget {
       itemCount: notifications.length + 1,
       itemBuilder: (context, index) {
         if (index == notifications.length) {
+              // return _buildErrorState(context);
           return hasReachedMax
               ? const SizedBox()
               : _buildLoadMoreButton(context, isLoading);
@@ -175,7 +190,7 @@ class NotificationScreen extends StatelessWidget {
           const Text('Error loading notifications'),
           IconButton(
             onPressed: () {
-              context.read<NotificationBloc>().add(NotificationLoad());
+              context.read<NotificationBloc>().add(NotificationLoad(page: 1));
             },
             tooltip: "Retry",
             icon: const Icon(Icons.refresh),

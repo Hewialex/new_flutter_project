@@ -27,7 +27,7 @@ class NotificationLoad extends NotificationEvent {
   final int page;
   final int limit;
 
-  NotificationLoad({this.page = 0, this.limit = 10});
+  NotificationLoad({this.page = 1, this.limit = 10});
 
   @override
   List<Object?> get props => [page, limit];
