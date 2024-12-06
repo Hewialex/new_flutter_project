@@ -20,6 +20,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final notificationBloc = context.read<NotificationBloc>();
+    notificationBloc.add(NotificationLoad());
+
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(

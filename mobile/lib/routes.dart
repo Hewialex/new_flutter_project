@@ -31,4 +31,5 @@ class Routes {
   static const accountSettings = '/accountSettings';
   static const features = '/features';
   static const editProfile = '/editProfile';
+  static const notificationDetail = '/notificationDetail';
 }

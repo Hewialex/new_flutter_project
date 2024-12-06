@@ -13,6 +13,7 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
     on<NotificationRead>(_notificationread);
     on<NotificationLoad>(_getNotifications);
     on<NotificationLoadMore>(_getMoreNotifications);
+    on<NotificationClearAll>(_clearAllNotifications);
   }
 
   final NotificationDataProvider _notificationDataProvider =
@@ -108,6 +109,19 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
 
         emit(NotificationSuccess(newNotifications,
             page: response.page, hasReachedMax: response.hasReachedMax));
+      }
+    } catch (e) {
+      emit(NotificationErrorState(e.toString()));
+    }
+  }
+
+  void _clearAllNotifications(
+      NotificationClearAll event, Emitter<NotificationState> emit) async {
+    try {
+      final currState = state;
+      if (currState is NotificationSuccess) {
+        await _notificationDataProvider.clearAllNotifications();
+        emit(NotificationSuccess(List.empty()));
       }
     } catch (e) {
       emit(NotificationErrorState(e.toString()));

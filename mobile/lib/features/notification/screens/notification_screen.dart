@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/notification/model/notification_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:qismati/routes.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
@@ -22,7 +25,7 @@ class NotificationScreen extends StatelessWidget {
         child: ContentContainer(
           child: Column(
             children: [
-              _buildTopBar(),
+              _buildTopBar(context),
               SizedBox(height: 26.h),
               _buildTitle(context),
               SizedBox(height: 28.h),
@@ -62,7 +65,7 @@ class NotificationScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTopBar() {
+  Widget _buildTopBar(BuildContext context) {
     return CustomTopBar(
       excludeBackButton: false,
       excludeLangDropDown: true,
@@ -71,7 +74,9 @@ class NotificationScreen extends StatelessWidget {
           _buildCircleIcon(
             icon: Icons.delete_outline,
             tooltip: "Clear All",
-            onPressed: () {},
+            onPressed: () {
+              context.read<NotificationBloc>().add(NotificationClearAll());
+            },
           ),
           SizedBox(width: 6.w),
           _buildCircleIcon(
@@ -85,27 +90,36 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildTitle(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          'Notification',
-          style: GoogleFonts.lexend(
-            textStyle: TextStyle(
-              fontWeight: FontWeight.w500,
-              fontSize: 25.sp,
-              color: CustomColors.headingGray,
+    return SizedBox(
+      width: 318.w,
+      height: 90.h,
+      child: Flexible(
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Text(
+              'Notification',
+              style: GoogleFonts.lexend(
+                textStyle: TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 25.sp,
+                  color: CustomColors.headingGray,
+                ),
+              ),
             ),
-          ),
+            Positioned(
+              right: 0,
+              child: IconButton(
+                onPressed: () {
+                  context.read<NotificationBloc>().add(NotificationLoad());
+                },
+                icon: const Icon(Icons.refresh),
+              ),
+            ),
+          ],
+          // a refresh icon
         ),
-        // a refresh icon
-        IconButton(
-          onPressed: () {
-            context.read<NotificationBloc>().add(NotificationLoad());
-          },
-          icon: const Icon(Icons.refresh),
-        ),
-      ],
+      ),
     );
   }
 
@@ -119,7 +133,6 @@ class NotificationScreen extends StatelessWidget {
       itemCount: notifications.length + 1,
       itemBuilder: (context, index) {
         if (index == notifications.length) {
-              // return _buildErrorState(context);
           return hasReachedMax
               ? const SizedBox()
               : _buildLoadMoreButton(context, isLoading);
@@ -130,7 +143,9 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildNotificationItem(
-      BuildContext context, NotificationModel notification) {
+    BuildContext context,
+    NotificationModel notification,
+  ) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Dismissible(
@@ -146,17 +161,36 @@ class NotificationScreen extends StatelessWidget {
           context.read<NotificationBloc>().add(NotificationRead(notification));
         },
         child: CustomListCard(
+          mainText: notification.title,
+          subText: notification.data["message"] ?? "",
           leading: const Icon(Icons.mail, color: CustomColors.primary),
-          iconButton: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert_rounded),
+          onPressed: () {
+            context.push(
+              Routes.notificationDetail,
+              extra: notification,
+            );
+          },
+          topRightWidget: Text(
+            timeago.format(notification.timestamp.toLocal()),
+            style: GoogleFonts.lexend(
+                textStyle: TextStyle(
+              fontWeight: FontWeight.w300,
+              fontSize: 9.sp,
+              color: CustomColors.textGray,
+              overflow: TextOverflow.ellipsis,
+            )),
           ),
-          name: notification.title,
-          age: 20,
-          excludeTextTime: true,
-          recentTextTime: DateTime.now(),
-          locationName: "",
-          onPressed: () {},
+          bottomRightWidget: Text(
+            timeago.format(notification.timestamp.toLocal()),
+            style: GoogleFonts.lexend(
+              textStyle: TextStyle(
+                fontWeight: FontWeight.w300,
+                fontSize: 6.sp,
+                color: CustomColors.textGray,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
         ),
       ),
     );
@@ -176,7 +210,7 @@ class NotificationScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<NotificationBloc>().add(NotificationLoadMore());
                 },
-                child: const Text("Load More"),
+                child: const Text("More"),
               ),
       ),
     );

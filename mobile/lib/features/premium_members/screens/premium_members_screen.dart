@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/custom_functions.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
-import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
+import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/common/widgets/filter_select.dart';
 import 'package:qismati/features/premium_members/bloc/premium_member_bloc.dart';
@@ -87,15 +87,16 @@ class PreimumMembersScreen extends StatelessWidget {
                         return Column(
                           children: [
                             CustomListCard(
+                              mainText: e.fullName,
+                              subText: '${e.age} Years',
                               leading: ClipOval(
-                                  child: Image.asset(
-                                      'assets/images/female_avatar.png')),
-                              name: e.fullName,
-                              age: e.age,
-                              locationName: e.country,
-                              onPressed: () {},
-                              excludeTextTime: true,
-                              iconButton: GestureDetector(
+                                child: Image.asset(
+                                  e.gender == "male"
+                                      ? 'assets/images/male_avatar.png'
+                                      : 'assets/images/female_avatar.png',
+                                ),
+                              ),
+                              topRightWidget: GestureDetector(
                                 onTapDown: (details) =>
                                     CustomFunctions.showPopupMenu(
                                         context,
@@ -117,6 +118,7 @@ class PreimumMembersScreen extends StatelessWidget {
                                   size: 20.sp,
                                 ),
                               ),
+                              onPressed: () {},
                             ),
                             SizedBox(height: 10.h),
                           ],

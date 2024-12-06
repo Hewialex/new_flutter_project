@@ -19,6 +19,8 @@ import 'package:qismati/features/my_profile/screens/my_profile_editing_screen.da
 import 'package:qismati/features/my_profile/screens/my_profile_screen.dart';
 import 'package:qismati/features/nearyou/screens/nearyou_screen.dart';
 import 'package:qismati/features/new_members/screens/new_members_screen.dart';
+import 'package:qismati/features/notification/model/notification_model.dart';
+import 'package:qismati/features/notification/screens/notification_detail_screen.dart';
 import 'package:qismati/features/notification/screens/notification_screen.dart';
 import 'package:qismati/features/onboarding/screens/onboarding_screen.dart';
 import 'package:qismati/features/onboarding/screens/register_screen.dart';
@@ -157,9 +159,18 @@ final GoRouter goRouter = GoRouter(routes: [
     },
   ),
   GoRoute(
-      path: Routes.editProfile,
-      builder: (context, state) {
-        final profile = state.extra as ProfileModel;
-        return ProfileEditingScreen(profile: profile);
-      })
+    path: Routes.editProfile,
+    builder: (context, state) {
+      final profile = state.extra as ProfileModel;
+      return ProfileEditingScreen(profile: profile);
+    },
+  ),
+  GoRoute(
+    path: Routes.notificationDetail,
+    builder: (context, state) {
+      final notification = state.extra as NotificationModel;
+
+      return NotificationDetailScreen(notification: notification);
+    },
+  ),
 ]);
