@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/custom_functions.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
@@ -51,34 +53,56 @@ class MembersPhotoScreen extends StatelessWidget {
           SizedBox(height: 28.h),
           Expanded(
             child: ListView(
-              children: List.generate(3, (int index) {
-                return Column(
-                  children: [
+                padding: const EdgeInsets.all(5),
+                children: List.generate(3, (int index) {
+                  return Column(children: [
                     CustomListCard(
+                      mainText: 'Saba Ashfaq',
+                      subText: '20 years',
                       leading: Image.asset(
                         'assets/images/female_avatar.png',
                         width: 68.w,
                         height: 68.h,
                       ),
-                      name: 'Saba Ashfaq',
-                      age: 20,
-                      locationName: "Paskistan",
-                      onPressed: () {},
-                      excludeTextTime: true,
-                      iconButton: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          Icons.more_vert,
-                          color: CustomColors.primary,
-                          size: 20.sp,
+                      bottomRightWidget: Row(
+                        children: [
+                          Icon(
+                            Icons.location_on,
+                            color: CustomColors.primary,
+                            size: 11.sp,
+                          ),
+                          Text(
+                            'Pakistan',
+                            style: GoogleFonts.lexend(
+                              textStyle: TextStyle(
+                                color: CustomColors.textGray,
+                                fontWeight: FontWeight.w300,
+                                fontSize: 12.sp,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      topRightWidget: GestureDetector(
+                        onTapDown: (details) => CustomFunctions.showPopupMenu(
+                          context,
+                          index,
+                          details.globalPosition,
+                          [],
+                          (selectedOption) {},
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.more_vert,
+                            color: CustomColors.primary,
+                            size: 20.sp,
+                          ),
                         ),
                       ),
                     ),
-                    SizedBox(height: 10.h),
-                  ],
-                );
-              }),
-            ),
+                  ]);
+                })),
           ),
           CustomButton(
             onPressed: () {},

@@ -6,6 +6,7 @@ import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/auth/blocs/login_bloc.dart';
 import 'package:qismati/features/auth/blocs/login_status_bloc.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
+import 'package:qismati/features/chat/bloc/chat_list_bloc.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
 import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
@@ -59,8 +60,9 @@ class QismatiApp extends StatelessWidget {
                 BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
                 BlocProvider<LoginStatusBloc>(
                   create: (context) => LoginStatusBloc(
-                      websocketService: context.read<WebsocketService>(),
-                      notificationBloc: context.read<NotificationBloc>()),
+                    websocketService: context.read<WebsocketService>(),
+                    notificationBloc: context.read<NotificationBloc>(),
+                  ),
                 ),
                 BlocProvider<ChatBloc>(create: (context) => ChatBloc()),
                 BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
@@ -81,7 +83,13 @@ class QismatiApp extends StatelessWidget {
                   ),
                 ),
                 BlocProvider<MyprofileBloc>(
-                    create: (context) => MyprofileBloc()),
+                  create: (context) => MyprofileBloc(),
+                ),
+                BlocProvider<ChatListBloc>(
+                  create: (context) => ChatListBloc(
+                    dbHelper: context.read<DatabaseHelper>(),
+                  ),
+                ),
               ],
               child: widget!,
             ),

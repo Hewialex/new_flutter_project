@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_drawer.dart';
+import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
@@ -87,10 +89,8 @@ class _NearYouScreenState extends State<NearYouScreen> {
                 color: CustomColors.primary,
               ),
             );
- 
           } else if (state is NearYouLoaded ||
               (state is NearYouLoading && state.people.isNotEmpty)) {
-
             final people = state is NearYouLoaded
                 ? state.people
                 : (state as NearYouLoading).people;
@@ -185,20 +185,15 @@ class _NearYouScreenState extends State<NearYouScreen> {
                             InkWell(
                               onTap: () {},
                               child: CustomListCard(
+                                mainText: person.fullName,
+                                subText: '${person.age} years old',
                                 leading: ClipOval(
                                   child: Center(
-                                    child: Image.asset(
-                                      'assets/images/female_avatar.png',
-                                      width: 60.w,
-                                      height: 60.h,
-                                      fit: BoxFit.contain,
-                                    ),
+                                    child: Image.asset(person.gender == "male"
+                                        ? 'assets/images/female_avatar.png'
+                                        : 'assets/images/male_avatar.png'),
                                   ),
                                 ),
-                                name: person.fullName,
-                                age: 20,
-                                recentTextTime: DateTime.now(),
-                                locationName: "Pakistan",
                                 onPressed: () {
                                   Navigator.push(
                                     context,
@@ -208,6 +203,25 @@ class _NearYouScreenState extends State<NearYouScreen> {
                                     ),
                                   );
                                 },
+                                bottomRightWidget: Row(
+                                  children: [
+                                    Icon(
+                                      Icons.location_on,
+                                      color: CustomColors.primary,
+                                      size: 11.sp,
+                                    ),
+                                    Text(
+                                      person.country,
+                                      style: GoogleFonts.lexend(
+                                        textStyle: TextStyle(
+                                          color: CustomColors.textGray,
+                                          fontWeight: FontWeight.w300,
+                                          fontSize: 9.sp,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             SizedBox(height: 5.h),

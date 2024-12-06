@@ -1,126 +1,102 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:intl/intl.dart';
 import 'package:qismati/common/colors.dart';
 
 class CustomListCard extends StatelessWidget {
+  final String mainText;
+  final String subText;
+  final Widget? leading;
+  final Widget? topRightWidget;
+  final Widget? bottomRightWidget;
+  final VoidCallback? onPressed;
+
   const CustomListCard({
     super.key,
-    required this.name,
-    required this.age,
-    required this.locationName,
-    this.onPressed,
+    required this.mainText,
+    required this.subText,
     this.leading,
-    this.excludeTextTime = false,
-    this.recentTextTime,
-    this.iconButton,
+    this.topRightWidget,
+    this.bottomRightWidget,
+    this.onPressed,
   });
-
-  final String name;
-  final int age;
-  final DateTime? recentTextTime;
-  final bool excludeTextTime;
-  final String locationName;
-  final VoidCallback? onPressed;
-  final Widget? iconButton;
-  final Widget? leading;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onPressed,
-      child: Container(
+      child: SizedBox(
         width: 318.w,
         height: 90.h,
-        decoration: BoxDecoration(
-          color: CustomColors.textFieldBackground,
-          borderRadius: BorderRadius.all(Radius.circular(10.r)),
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            leading != null
-                ? Padding(
-                    padding: EdgeInsets.only(left: 10.w),
-                    child: Container(
-                      width: 70.w,
-                      height: 70.h,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.white,
+        child: Container(
+          decoration: BoxDecoration(
+            color: CustomColors.textFieldBackground,
+            borderRadius: BorderRadius.all(Radius.circular(10.r)),
+          ),
+          child: Stack(
+            children: [
+              Row(
+                children: [
+                  if (leading != null)
+                    Padding(
+                      padding: EdgeInsets.only(left: 10.w),
+                      child: Container(
+                        width: 50.w,
+                        height: 50.h,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.white,
+                        ),
+                        child: leading,
                       ),
-                      child: leading,
                     ),
-                  )
-                : Container(),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  name,
-                  style: GoogleFonts.lexend(
-                    textStyle: TextStyle(
-                      color: CustomColors.chatName,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 18.sp,
-                    ),
-                  ),
-                ),
-                Text(
-                  '$age years',
-                  style: GoogleFonts.lexend(
-                      fontWeight: FontWeight.w300,
-                      fontSize: 9.sp,
-                      color: CustomColors.textGray),
-                ),
-              ],
-            ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: excludeTextTime
-                      ? EdgeInsets.only(top: 2.h, left: 20.w)
-                      : EdgeInsets.only(top: 10.h),
-                  child: excludeTextTime
-                      ? iconButton
-                      : Text(
-                          DateFormat('h:m a').format(recentTextTime!),
-                          style: GoogleFonts.lexend(
-                            textStyle: TextStyle(
+                  Expanded(
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 10.w),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            mainText,
+                            style: GoogleFonts.lexend(
+                              textStyle: TextStyle(
+                                color: CustomColors.chatName,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 18.sp,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ),
+                          Text(
+                            subText,
+                            style: GoogleFonts.lexend(
                               fontWeight: FontWeight.w300,
                               fontSize: 9.sp,
                               color: CustomColors.textGray,
                             ),
                           ),
-                        ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(bottom: 13.h, right: 10.w),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: CustomColors.primary,
-                        size: 11.sp,
+                        ],
                       ),
-                      Text(
-                        locationName,
-                        style: GoogleFonts.lexend(
-                          textStyle: TextStyle(
-                            fontWeight: FontWeight.w300,
-                            fontSize: 10.sp,
-                            color: CustomColors.primary,
-                          ),
-                        ),
-                      )
-                    ],
+                    ),
                   ),
-                )
-              ],
-            )
-          ],
+                ],
+              ),
+              // Fixing Positioned Widgets
+              if (topRightWidget != null)
+                Positioned(
+                  top: 10.h,
+                  right: 10.w,
+                  child: topRightWidget!,
+                ),
+              if (bottomRightWidget != null)
+                Positioned(
+                  bottom: 10.h,
+                  right: 10.w,
+                  child: bottomRightWidget!,
+                ),
+            ],
+          ),
         ),
       ),
     );

@@ -166,4 +166,22 @@ class NotificationDataProvider {
       throw Exception("Failed to mark all notifications as read.");
     }
   }
+
+  Future<void> clearAllNotifications() async {
+    try {
+      final String? token = await databaseHelper.getToken();
+
+      final response = await http
+          .patch(Uri.parse("$_baseUrl/notification/mark/readall"), headers: {
+        "Authorization": "Bearer $token",
+        'Content-Type': 'application/json; charset=UTF-8',
+      });
+
+      if (response.statusCode != 200) {
+        throw Exception("Failed to clear all notifications.");
+      }
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

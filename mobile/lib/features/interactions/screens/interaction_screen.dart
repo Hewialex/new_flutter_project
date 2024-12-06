@@ -77,41 +77,50 @@ class InteractionScreen extends StatelessWidget {
                     return Column(
                       children: [
                         CustomListCard(
-                            leading: ClipOval(
-                              child: Center(
-                                child: Image.asset(
-                                  e.image,
-                                  width: 60.w,
-                                  height: 60.h,
-                                  fit: BoxFit.contain,
+                          mainText: e.name,
+                          subText: '${e.age} years',
+                          leading: ClipOval(
+                            child: Image.asset(
+                              e.image,
+                              width: 68.w,
+                              height: 68.h,
+                            ),
+                          ),
+                          bottomRightWidget: Row(
+                            children: [
+                              Icon(
+                                Icons.location_on,
+                                color: CustomColors.primary,
+                                size: 11.sp,
+                              ),
+                              Text(
+                                e.locationName,
+                                style: GoogleFonts.lexend(
+                                  fontSize: 11.sp,
+                                  color: CustomColors.primary,
                                 ),
+                              ),
+                            ],
+                          ),
+                          topRightWidget: GestureDetector(
+                            onTapDown: (details) =>
+                                CustomFunctions.showPopupMenu(
+                              context,
+                              index,
+                              details.globalPosition,
+                              menuOptions,
+                              onSelected,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Icon(
+                                Icons.more_vert,
+                                color: CustomColors.primary,
+                                size: 20.sp,
                               ),
                             ),
-                            name: e.name,
-                            age: e.age,
-                            locationName: e.locationName,
-                            excludeTextTime: true,
-                            iconButton: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: 10.w,
-                                vertical: 10.h,
-                              ),
-                              child: GestureDetector(
-                                onTapDown: (details) =>
-                                    CustomFunctions.showPopupMenu(
-                                  context,
-                                  index,
-                                  details.globalPosition,
-                                  menuOptions,
-                                  onSelected,
-                                ),
-                                child: Icon(
-                                  Icons.more_vert,
-                                  color: CustomColors.primary,
-                                  size: 20.sp,
-                                ),
-                              ),
-                            )),
+                          ),
+                        ),
                         SizedBox(height: 12.h),
                       ],
                     );
