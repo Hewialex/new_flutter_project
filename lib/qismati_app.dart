@@ -44,6 +44,9 @@ class QismatiApp extends StatelessWidget {
               RepositoryProvider<NotificationBloc>(
                 create: (context) => NotificationBloc(),
               ),
+              RepositoryProvider<ChatBloc>(
+                create: (context) => ChatBloc(),
+              ),
             ],
             child: MultiBlocProvider(
               providers: [
@@ -53,6 +56,7 @@ class QismatiApp extends StatelessWidget {
                 BlocProvider<LoginBloc>(
                   create: (context) => LoginBloc(
                     notificationBloc: context.read<NotificationBloc>(),
+                    chatBloc: context.read<ChatBloc>(),
                     databaseHelper: context.read<DatabaseHelper>(),
                     websocketService: context.read<WebsocketService>(),
                   ),

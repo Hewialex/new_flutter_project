@@ -13,6 +13,7 @@ import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/auth/blocs/login_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
+import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/routes.dart';
 
@@ -28,6 +29,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
         databaseHelper: DatabaseHelper(),
         websocketService: WebsocketService(),
         notificationBloc: context.read<NotificationBloc>(),
+        chatBloc: context.read<ChatBloc>(),
       )..add(LoginReset()),
       child: BlocBuilder<LoginBloc, LoginState>(
         builder: (context, state) {

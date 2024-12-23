@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/models/profile.dart';
+import 'package:qismati/common/widgets/notifications.dart';
 import 'package:qismati/features/aboutus/screens/aboutus_screen.dart';
 import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
 import 'package:qismati/features/auth/screens/login_screen.dart';
@@ -58,7 +59,7 @@ final GoRouter goRouter = GoRouter(routes: [
   ),
   GoRoute(
     path: Routes.home,
-    builder: (context, state) => HomeScreen(),
+    builder: (context, state) => const HomeScreen(),
   ),
   GoRoute(
     path: Routes.signup,

@@ -7,6 +7,7 @@ import 'package:http/http.dart' as http;
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
+import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/notification/model/notification_model.dart';
 
@@ -17,10 +18,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final DatabaseHelper databaseHelper;
   final WebsocketService websocketService;
   final NotificationBloc notificationBloc;
+  final ChatBloc chatBloc;
   LoginBloc({
     required this.notificationBloc,
     required this.websocketService,
     required this.databaseHelper,
+    required this.chatBloc,
   }) : super(
           LoginDefault(
             emailController: TextEditingController(),
@@ -83,7 +86,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           debugPrint("WebSocket message received: $message");
           try {
             final json = jsonDecode(message);
-            if (json["type"] == "notification"){
+            if (json["type"] == "notification") {
               final notification = NotificationModel.fromJson(json);
               notificationBloc.add(NotificationReceived(notification));
             } else if (json["type"] == "message") {

@@ -24,3 +24,5 @@ class AcceptChatNotice extends ChatEvent {
 }
 
 class SendText extends ChatEvent {}
+
+class ReceiveText extends ChatEvent {}

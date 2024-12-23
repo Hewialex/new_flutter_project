@@ -12,6 +12,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<GiveMeData>(_giveMeData);
     on<AcceptChatNotice>(_acceptChatNotice);
     on<SendText>(_sendText);
+    on<ReceiveText>(_receiveText);
   }
   FutureOr<void> _sendText(SendText event, emit) {
     if (state is ChatDefault) {
@@ -87,6 +88,13 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         messageController: TextEditingController(),
         chatText: chatList,
       ));
+    }
+  }
+
+  FutureOr<void> _receiveText(event, emit) {
+    if (state is ChatDefault) {
+      final chatState = state as ChatDefault;
+      final updateTextList = List.of(chatState.chatText);
     }
   }
 
