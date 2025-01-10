@@ -4,7 +4,6 @@ import 'package:qismati/common/models/person.dart';
 import 'package:qismati/features/interactions/screens/interaction_screen.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/routes.dart';
-import 'package:qismati/routing.dart';
 
 class FavoriteListScreen extends StatelessWidget {
   const FavoriteListScreen({super.key});

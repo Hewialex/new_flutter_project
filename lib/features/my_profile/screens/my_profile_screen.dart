@@ -329,7 +329,7 @@ class MyProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: MyProfileDashBoardDisplay(),
       ),
     );

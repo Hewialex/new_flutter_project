@@ -8,7 +8,6 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/common/widgets/custom_drawer.dart';
-import 'package:qismati/common/widgets/notifications.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/home/widgets/search_dropdown.dart';

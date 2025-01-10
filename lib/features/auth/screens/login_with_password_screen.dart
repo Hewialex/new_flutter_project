@@ -95,7 +95,10 @@ class LoginWithPasswordScreen extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            const CustomTopBar(altRoute: Routes.register),
+                            const CustomTopBar(
+                              altRoute: Routes.register,
+                              excludeLangDropDown: true,
+                            ),
                             SizedBox(height: 47.h),
                             const CustomHeader(text: "Login here"),
                             Text(
@@ -112,6 +115,10 @@ class LoginWithPasswordScreen extends StatelessWidget {
                               validator: (value) {
                                 if (value!.isEmpty) {
                                   return 'Please enter your email';
+                                }
+                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                    .hasMatch(value)) {
+                                  return 'Please enter a valid email address';
                                 }
                                 return null;
                               },

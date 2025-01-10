@@ -72,8 +72,8 @@ class FeaturesScreen extends StatelessWidget {
                   const StyledTitle(title: "Premium Package"),
                   SizedBox(height: 26.h),
                   Text(
-                    '''By subscribing to the premium package, you will activate \
-                    all the available features and thus increase your efficiency \
+                    '''By subscribing to the premium package, you will activate
+                    all the available features and thus increase your efficiency
                      in the application to reach your goal faster .''',
                     style: GoogleFonts.kodchasan(
                       textStyle: TextStyle(

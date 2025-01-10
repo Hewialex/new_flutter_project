@@ -85,7 +85,10 @@ class LoginScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const CustomTopBar(altRoute: Routes.register),
+                    const CustomTopBar(
+                      altRoute: Routes.register,
+                      excludeLangDropDown: true,
+                    ),
                     SizedBox(height: 47.h),
                     const CustomHeader(text: "Login here"),
                     Text(
@@ -106,15 +109,15 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: 30.h),
-                    CustomButton(
-                      onPressed: () {
-                        //
-                      },
-                      text: 'Sign in Via Google',
-                      shadowColor: CustomColors.shadowBlue,
-                      elevation: 5,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    // CustomButton(
+                    //   onPressed: () {
+                    //     //
+                    //   },
+                    //   text: 'Sign in Via Google',
+                    //   shadowColor: CustomColors.shadowBlue,
+                    //   elevation: 5,
+                    //   fontWeight: FontWeight.w600,
+                    // ),
                     SizedBox(height: 30.h),
                     const Text("or"),
                     SizedBox(height: 30.h),

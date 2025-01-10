@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_drawer.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
-import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/features/home/widgets/dating_card.dart';
 import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';

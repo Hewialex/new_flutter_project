@@ -26,6 +26,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     'assets/images/onboarding_three.png'
   ];
 
+  final description = [
+    'Discover your soulmate with ease and confidence',
+    'The foundation of love, trust, and lifelong companionship',
+    'Guided by faith, united for a lifetime in blessings'
+  ];
   int currentIndex = 0;
   @override
   void initState() {
@@ -62,7 +67,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           ),
           Container(
             width: 335.w,
-            height: 289.h,
+            // height: 289.h,
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.all(
@@ -89,7 +94,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SizedBox(
                   width: 295.w,
                   child: Text(
-                    'Amet minim mollit non deserunt sit aliqua dolor do amet sint.',
+                    description[currentIndex],
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 19.sp,

@@ -62,7 +62,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
                           child: const Text('Search by username')),
-                      content: SearchByUsernameSection(),
+                      content: const SearchByUsernameSection(),
                     ),
                     AccordionSection(
                       isOpen: true,
@@ -72,7 +72,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
                           child: const Text('Quick Search')),
-                      content: QuickSearchSection(),
+                      content: const QuickSearchSection(),
                     ),
                     AccordionSection(
                       isOpen: true,
@@ -82,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
                           child: const Text('Advanced Search')),
-                      content: AdvancedSearchSection(),
+                      content: const AdvancedSearchSection(),
                     ),
                   ],
                 ),
