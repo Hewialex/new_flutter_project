@@ -27,7 +27,6 @@ class OnlineMembersScreen extends StatelessWidget {
     final bloc = context.watch<OnlineMemberBloc>();
     final state = bloc.state;
 
-    print(state);
 
     switch (state) {
       case OnlineMemberInitial():

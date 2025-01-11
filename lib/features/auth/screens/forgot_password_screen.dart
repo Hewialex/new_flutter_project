@@ -52,8 +52,6 @@ class ForgotPasswordScreen extends StatelessWidget {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       // draw an alert dialog if code is sent successfully to email.
-                      print('---------------print-------------------');
-
                       CustomAlertDialog.show(
                         context,
                         title: 'A code has been sent to your email.',

@@ -32,8 +32,6 @@ class NotificationScreen extends StatelessWidget {
               Expanded(
                 child: BlocBuilder<NotificationBloc, NotificationState>(
                   builder: (context, state) {
-                    print(state);
-
                     if (state is NotificationInitial) {
                       context.read<NotificationBloc>().add(NotificationLoad());
                       return const Center(

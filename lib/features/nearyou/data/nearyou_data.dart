@@ -39,7 +39,6 @@ class NearYouDataProvier {
       );
 
       final Map<String, dynamic> data = json.decode(response.body);
-      print(data);
 
       if (response.statusCode == 500) {
         throw ServerException(data["message"]);

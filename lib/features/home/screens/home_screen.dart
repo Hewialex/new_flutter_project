@@ -255,7 +255,6 @@ class HomeScreen extends StatelessWidget {
                         color: CustomColors.primary,
                       ));
                     } else {
-                      print(state);
                       return const SizedBox(
                         child: Text("Unknown State"),
                       );
