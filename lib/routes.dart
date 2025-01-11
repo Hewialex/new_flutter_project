@@ -32,4 +32,5 @@ class Routes {
   static const features = '/features';
   static const editProfile = '/editProfile';
   static const notificationDetail = '/notificationDetail';
+  static const emailVerificationOtp = '/emailVerificationOtp';
 }

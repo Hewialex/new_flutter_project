@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/widgets/custom_alert_dialog.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
@@ -50,7 +51,23 @@ class ForgotPasswordScreen extends StatelessWidget {
                 CustomButton(
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
-                      context.push(Routes.newPassword);
+                      // draw an alert dialog if code is sent successfully to email.
+                      print('---------------print-------------------');
+
+                      CustomAlertDialog.show(
+                        context,
+                        title: 'A code has been sent to your email.',
+                        actions: [
+                          CustomButton(
+                            onPressed: () {
+                              context.push(Routes.emailVerificationOtp);
+                            },
+                            text: 'Enter Code',
+                            fontWeight: FontWeight.w600,
+                            shadowColor: CustomColors.shadowBlue,
+                          ),
+                        ],
+                      );
                     }
                   },
                   text: 'Send',

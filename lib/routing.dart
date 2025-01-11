@@ -5,6 +5,7 @@ import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
 import 'package:qismati/features/auth/screens/login_screen.dart';
 import 'package:qismati/features/auth/screens/login_with_password_screen.dart';
 import 'package:qismati/features/auth/screens/new_password_screen.dart';
+import 'package:qismati/features/auth/screens/verify_email_opt_screen.dart';
 import 'package:qismati/features/chat/screens/chat_screen.dart';
 import 'package:qismati/features/chat/screens/chat_list_screen.dart';
 import 'package:qismati/features/contactus/screens/contactus_screen.dart';
@@ -172,5 +173,9 @@ final GoRouter goRouter = GoRouter(routes: [
 
       return NotificationDetailScreen(notification: notification);
     },
+  ),
+  GoRoute(
+    path: Routes.emailVerificationOtp,
+    builder: (context, state) => const EmailVerificationOtpScreen(),
   ),
 ]);
