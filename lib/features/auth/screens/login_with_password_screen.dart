@@ -10,8 +10,11 @@ import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/utils/form_filed_validations/email_validation.dart';
+import 'package:qismati/core/utils/form_filed_validations/password_validation.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/auth/blocs/login_bloc.dart';
+import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
@@ -112,29 +115,28 @@ class LoginWithPasswordScreen extends StatelessWidget {
                             CustomTextField(
                               text: 'Email',
                               controller: state.emailController,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return 'Please enter your email';
-                                }
-                                if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                    .hasMatch(value)) {
-                                  return 'Please enter a valid email address';
-                                }
-                                return null;
-                              },
+                              validator: validateEmail,
                             ),
                             SizedBox(height: 29.h),
-                            CustomTextField(
-                              controller: state.passwordController,
-                              text: 'Password',
-                              obsecureText: true,
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  // TODO: Add more password validation here for a
-                                  // better user experience
-                                  return 'Please enter your password';
-                                }
-                                return null;
+                            BlocBuilder<PasswordVisibilityCubit, bool>(
+                              builder: (context, cubitState) {
+                                return CustomTextField(
+                                  controller: state.passwordController,
+                                  text: 'Password',
+                                  suffix: IconButton(
+                                    icon: Icon(
+                                      cubitState
+                                          ? Icons.visibility
+                                          : Icons.visibility_off,
+                                      color: CustomColors.primary,
+                                    ),
+                                    onPressed: () => context
+                                        .read<PasswordVisibilityCubit>()
+                                        .togglePasswordVisibility(),
+                                  ),
+                                  obscureText: cubitState,
+                                  validator: validatePassword,
+                                );
                               },
                             ),
                             SizedBox(height: 25.h),
@@ -168,25 +170,42 @@ class LoginWithPasswordScreen extends StatelessWidget {
                               fontWeight: FontWeight.w600,
                             ),
                             SizedBox(height: 30.h),
-                            TextButton(
-                              onPressed: () async {
-                                final DatabaseHelper databaseHelper =
-                                    RepositoryProvider.of<DatabaseHelper>(
-                                        context);
-                                final gender = await databaseHelper.getGender();
-
-                                if (context.mounted) {
-                                  context.push(Routes.signup, extra: gender);
-                                }
-                              },
-                              child: Text(
-                                "Create new account",
-                                style: TextStyle(
-                                  fontSize: 12.sp,
-                                  fontWeight: FontWeight.w600,
-                                  color: CustomColors.textBlack,
+                            Column(
+                              children: [
+                                Text(
+                                  "Don’t have an account?  ",
+                                  style: TextStyle(
+                                    fontSize: 12.sp,
+                                    fontWeight: FontWeight.w600,
+                                    color: CustomColors.textBlack,
+                                  ),
                                 ),
-                              ),
+                                TextButton(
+                                  onPressed: () async {
+                                    final DatabaseHelper databaseHelper =
+                                        RepositoryProvider.of<DatabaseHelper>(
+                                            context);
+                                    final gender =
+                                        await databaseHelper.getGender();
+
+                                    if (context.mounted) {
+                                      context.push(Routes.signup,
+                                          extra: gender);
+                                    }
+                                  },
+                                  child: Text(
+                                    "Sign Up",
+                                    style: TextStyle(
+                                      fontSize: 14.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: CustomColors.primary,
+                                      decoration: TextDecoration.underline,
+                                      decorationColor:
+                                          CustomColors.primary, // Add this line
+                                    ),
+                                  ),
+                                ),
+                              ],
                             )
                           ],
                         ),

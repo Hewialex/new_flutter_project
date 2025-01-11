@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
+import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.dart';
 import 'package:qismati/features/auth/blocs/login_bloc.dart';
 import 'package:qismati/features/auth/blocs/login_status_bloc.dart';
+import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/chat/bloc/chat_list_bloc.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
@@ -62,6 +64,8 @@ class QismatiApp extends StatelessWidget {
                   ),
                 ),
                 BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
+                BlocProvider<PasswordVisibilityCubit>(
+                    create: (context) => PasswordVisibilityCubit()),
                 BlocProvider<LoginStatusBloc>(
                   create: (context) => LoginStatusBloc(
                     websocketService: context.read<WebsocketService>(),
@@ -69,6 +73,10 @@ class QismatiApp extends StatelessWidget {
                   ),
                 ),
                 BlocProvider<ChatBloc>(create: (context) => ChatBloc()),
+                BlocProvider<PasswordVisibilityCubit>(
+                    create: (context) => PasswordVisibilityCubit()),
+                BlocProvider<ConfirmPasswordVisibilityCubit>(
+                    create: (context) => ConfirmPasswordVisibilityCubit()),
                 BlocProvider<SignupBloc>(create: (context) => SignupBloc()),
                 BlocProvider<NearYouBloc>(create: (context) => NearYouBloc()),
                 BlocProvider<NewMemberBloc>(

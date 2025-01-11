@@ -61,13 +61,13 @@ class BasicSection extends StatelessWidget {
         SizedBox(height: 20.h),
         CustomTextField(
           text: "Password",
-          obsecureText: true,
+          obscureText: true,
           controller: passwordController,
         ),
         SizedBox(height: 20.h),
         CustomTextField(
           text: "Confirm Password",
-          obsecureText: true,
+          obscureText: true,
           controller: confirmPasswordController,
         ),
         const TextFieldInfo(

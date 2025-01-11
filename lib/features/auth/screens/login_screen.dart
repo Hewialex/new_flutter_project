@@ -109,15 +109,15 @@ class LoginScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                     SizedBox(height: 30.h),
-                    // CustomButton(
-                    //   onPressed: () {
-                    //     //
-                    //   },
-                    //   text: 'Sign in Via Google',
-                    //   shadowColor: CustomColors.shadowBlue,
-                    //   elevation: 5,
-                    //   fontWeight: FontWeight.w600,
-                    // ),
+                    CustomButton(
+                      onPressed: () {
+                        //
+                      },
+                      text: 'Sign in Via Google',
+                      shadowColor: CustomColors.shadowBlue,
+                      elevation: 5,
+                      fontWeight: FontWeight.w600,
+                    ),
                     SizedBox(height: 30.h),
                     const Text("or"),
                     SizedBox(height: 30.h),
