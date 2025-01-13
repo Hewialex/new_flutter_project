@@ -7,6 +7,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/models/profile.dart';
+import 'package:qismati/common/widgets/custom_alert_dialog.dart';
+import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
@@ -18,6 +20,7 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+
       elevation: 4,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -150,12 +153,44 @@ class CustomDrawer extends StatelessWidget {
                     },
                   ),
                 ),
-                _buildDrawerItem(
+                _buildDrawerLogOutItem(
                   _DrawerItem(
                     title: 'Sign Out',
-                    icon: const Icon(Icons.exit_to_app),
+                    icon: const Icon(
+                      Icons.exit_to_app,
+                      color: CustomColors.signOutRed,
+                    ),
                     onTap: () async {
-                      if (context.mounted) {
+                      // The result varable is used to track user choice from alert.
+                      final bool result = await CustomAlertDialog.show(
+                        context,
+                        title: 'Confirmation',
+                        content: 'Are you sure do you want to Sign out?',
+                        actions: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomButton(
+                                width: 100.w,
+                                isInverted: true,
+                                onPressed: () => context.pop(false),
+                                text: 'No',
+                                fontWeight: FontWeight.w600,
+                                shadowColor: CustomColors.shadowBlue,
+                              ),
+                              CustomButton(
+                                width: 100.w,
+                                onPressed: () => context.pop(true),
+                                text: 'Yes',
+                                fontWeight: FontWeight.w600,
+                                shadowColor: CustomColors.shadowBlue,
+                              ),
+                            ],
+                          ),
+                        ],
+                      );
+
+                      if (result && context.mounted) {
                         final DatabaseHelper databaseHelper =
                             RepositoryProvider.of<DatabaseHelper>(context);
                         final WebsocketService websocketService =
@@ -184,6 +219,18 @@ class CustomDrawer extends StatelessWidget {
   Widget _buildDrawerItem(_DrawerItem option) {
     return ListTile(
       title: Text(option.title),
+      leading: option.icon,
+      onTap: option.onTap as void Function()?,
+      trailing: option.trailingIcon,
+    );
+  }
+
+  Widget _buildDrawerLogOutItem(_DrawerItem option) {
+    return ListTile(
+      title: Text(
+        option.title,
+        style: const TextStyle(color: CustomColors.signOutRed),
+      ),
       leading: option.icon,
       onTap: option.onTap as void Function()?,
       trailing: option.trailingIcon,

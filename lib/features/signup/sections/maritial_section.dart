@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 
 class MaritialSection extends StatelessWidget {
   const MaritialSection({
@@ -32,13 +33,13 @@ class MaritialSection extends StatelessWidget {
         ),
         SizedBox(height: 25.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: maritalStatusDropdownValues,
           controller: maritialStatusController,
           hintText: "Status",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: marriageTypeDropdownValues,
           controller: marriageTypeController,
           hintText: "Marriage Type",
         ),

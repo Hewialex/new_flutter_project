@@ -15,9 +15,9 @@ class CustomAlertDialog extends StatelessWidget {
   });
 
   // Static method to show the dialog
-  static void show(BuildContext context,
+  static Future<dynamic> show(BuildContext context,
       {required String title, String? content, List<Widget>? actions}) {
-    showDialog(
+    return showDialog(
       context: context,
       builder: (BuildContext context) {
         return CustomAlertDialog(
@@ -33,11 +33,13 @@ class CustomAlertDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: CustomColors.background,
-      title: Text(
-        title,
-        style: TextStyle(
-          fontWeight: FontWeight.w500,
-          fontSize: 15.sp,
+      title: Center(
+        child: Text(
+          title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            fontSize: 15.sp,
+          ),
         ),
       ),
       content: Text(

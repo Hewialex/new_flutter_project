@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 
 class LooksSection extends StatelessWidget {
   const LooksSection({
@@ -43,13 +44,13 @@ class LooksSection extends StatelessWidget {
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: skinColorDropdownValues,
           controller: skinColorController,
           hintText: "Skin Color",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: bodyShapeDropdownValues,
           controller: bodyShapeController,
           hintText: "Body Shape",
         ),

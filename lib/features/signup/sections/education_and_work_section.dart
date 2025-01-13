@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 
 class EducationAndWorkSection extends StatelessWidget {
   const EducationAndWorkSection({
@@ -36,19 +37,19 @@ class EducationAndWorkSection extends StatelessWidget {
         ),
         SizedBox(height: 25.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: educationalQualificationDropdownValues,
           controller: educationalQualificationController,
           hintText: "Educational Qualification",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: financialStatusDropdownValues,
           controller: financialStatusController,
           hintText: "Financial Status",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: jobCategoryDropdownValues,
           controller: jobCategoryController,
           hintText: "Job Category",
         ),
@@ -59,13 +60,13 @@ class EducationAndWorkSection extends StatelessWidget {
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: monthlyIncomeDropdownValues,
           controller: monthlyIncomeController,
           hintText: "Monthly Income",
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: healthCaseDropdownValues,
           controller: healthCaseController,
           hintText: "Health Case",
         ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 
 class ReligionSection extends StatelessWidget {
   const ReligionSection({
@@ -34,33 +35,33 @@ class ReligionSection extends StatelessWidget {
       ),
       SizedBox(height: 25.h),
       CustomDropdownMenu(
-        values: nationality,
+        values: religiousCommitmentDropdownValues,
         controller: religionCommitmentController,
         hintText: "Religion Commitment",
       ),
       SizedBox(height: 20.h),
       CustomDropdownMenu(
-        values: nationality,
+        values: prayerDropdownValues,
         controller: prayerController,
         hintText: "Prayer",
       ),
       SizedBox(height: 20.h),
       CustomDropdownMenu(
-        values: nationality,
+        values: smokingDropdownValues,
         controller: smokingController,
         hintText: "Smoking",
       ),
       SizedBox(height: 20.h),
       gender == "Male"
           ? CustomDropdownMenu(
-              values: nationality,
+              values: beardDropdownValues,
               controller: beardController,
               hintText: "Beard",
             )
           : Container(),
       gender == "Female"
           ? CustomDropdownMenu(
-              values: nationality,
+              values: veilDropdownValues,
               controller: vielController,
               hintText: "Veil",
             )

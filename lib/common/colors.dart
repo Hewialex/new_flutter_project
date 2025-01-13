@@ -10,6 +10,7 @@ class CustomColors {
   static const headingGray = Color(0xFF535353);
   static const textBlack = Color(0xFF494949);
   static const textRed = Color(0xFFEF1717);
+  static const signOutRed = Color(0xFFF30000);
   static const searchBackground = Color(0xFFFDF5F7);
   static const iconsGray = Color(0xFF484C52);
   static const chatName = Color(0xFF22172A);

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_sliding_toast/flutter_sliding_toast.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/models/profile.dart';
@@ -27,6 +28,20 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
+        leading: Builder(
+          builder: (context) {
+            return InkWell(
+              onTap: Scaffold.maybeOf(context)!.openDrawer,
+              child: Transform.scale(
+                scale: 0.5,
+                child: SvgPicture.asset(
+                  'assets/images/drawer_icon.svg',
+                  fit: BoxFit.contain,
+                ),
+              ),
+            );
+          },
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.all(8.0),

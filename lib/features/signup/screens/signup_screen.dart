@@ -167,7 +167,7 @@ class SignupScreen extends StatelessWidget {
             );
 
           case SignupDefault():
-              Future.microtask(() {
+            Future.microtask(() {
               if (context.mounted && state.errorMessage != null) {
                 CustomSnackBar(
                   context: context,
@@ -175,7 +175,7 @@ class SignupScreen extends StatelessWidget {
                   type: SnackBarType.error,
                 ).showSnack();
               }
-              });
+            });
             return Form(
               key: formKey,
               child: Scaffold(
