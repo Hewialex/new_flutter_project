@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:qismati/common/models/otp_nav_model.dart';
 import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/features/aboutus/screens/aboutus_screen.dart';
 import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
@@ -175,7 +176,13 @@ final GoRouter goRouter = GoRouter(routes: [
     },
   ),
   GoRoute(
-    path: Routes.emailVerificationOtp,
-    builder: (context, state) => const EmailVerificationOtpScreen(),
+    path: '/emailVerificationOtp',
+    name: Routes.emailVerificationOtp,
+    builder: (context, state) {
+      final OtpNavModel otpNavModel = state.extra as OtpNavModel;
+      return EmailVerificationOtpScreen(
+        otpNavModel: otpNavModel,
+      );
+    },
   ),
 ]);

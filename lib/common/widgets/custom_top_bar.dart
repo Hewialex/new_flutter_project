@@ -37,8 +37,7 @@ class CustomTopBar extends StatelessWidget {
                 ),
               ),
         excludeLangDropDown
-            ? altIcon ??
-                Container()
+            ? altIcon ?? Container()
             : Row(
                 children: [
                   Text(

@@ -1,97 +1,183 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
+import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/models/otp_nav_model.dart';
+import 'package:qismati/common/widgets/custom_alert_dialog.dart';
+import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
+import 'package:qismati/core/utils/form_filed_validations/password_validation.dart';
+import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.dart';
+import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 import 'package:qismati/features/signup/widgets/text_field_info.dart';
+import 'package:qismati/routes.dart';
 
 class BasicSection extends StatelessWidget {
   const BasicSection({
     super.key,
-    required this.nationality,
     required this.usernameController,
     required this.fullNameController,
     required this.phoneNumberController,
     required this.emailController,
     required this.passwordController,
     required this.confirmPasswordController,
-    required this.nationalityController,
-    required this.countryController,
-    required this.cityController,
+    required this.genederController,
   });
 
-  final List<String> nationality;
   final TextEditingController usernameController;
   final TextEditingController fullNameController;
   final TextEditingController phoneNumberController;
   final TextEditingController emailController;
   final TextEditingController passwordController;
   final TextEditingController confirmPasswordController;
-  final TextEditingController nationalityController;
-  final TextEditingController countryController;
-  final TextEditingController cityController;
+  final TextEditingController genederController;
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     return Column(
       children: [
-        CustomTextField(
-          text: "Username",
-          controller: usernameController,
-        ),
-        SizedBox(height: 21.h),
-        const TextFieldInfo(
-          info:
-              'The user name is the nick name that appears to all members it must be decent and respectfull, and it can’t exceed 15 characters.',
-        ),
-        SizedBox(height: 41.h),
-        CustomTextField(
-          text: "Full name",
-          controller: fullNameController,
+        Form(
+            key: formKey,
+            child: Column(children: [
+              CustomTextField(
+                text: "Username",
+                controller: usernameController,
+              ),
+              SizedBox(height: 21.h),
+              const TextFieldInfo(
+                info:
+                    'The user name is the nick name that appears to all members it must be decent and respectfull, and it can’t exceed 15 characters.',
+              ),
+              SizedBox(height: 20.h),
+              CustomDropdownMenu(
+                values: genderDropdownValues,
+                controller: genederController,
+                hintText: "Gender",
+              ),
+              SizedBox(height: 20.h),
+              CustomTextField(
+                text: "Full name",
+                controller: fullNameController,
+              ),
+              SizedBox(height: 20.h),
+              CustomTextField(
+                text: "Phone Number",
+                controller: phoneNumberController,
+              ),
+              SizedBox(height: 20.h),
+              CustomTextField(
+                text: "Email",
+                controller: emailController,
+              ),
+              SizedBox(height: 20.h),
+              BlocBuilder<PasswordVisibilityCubit, bool>(
+                builder: (context, cubitState) {
+                  return CustomTextField(
+                    controller: passwordController,
+                    validator: validatePassword,
+                    text: 'password',
+                    suffix: IconButton(
+                      icon: Icon(
+                        cubitState ? Icons.visibility : Icons.visibility_off,
+                        color: CustomColors.primary,
+                      ),
+                      onPressed: () => context
+                          .read<PasswordVisibilityCubit>()
+                          .togglePasswordVisibility(),
+                    ),
+                    obscureText: cubitState,
+                  );
+                },
+              ),
+              SizedBox(height: 29.h),
+              BlocBuilder<ConfirmPasswordVisibilityCubit, bool>(
+                builder: (context, confirmCubitState) {
+                  return CustomTextField(
+                    controller: confirmPasswordController,
+                    suffix: IconButton(
+                      icon: Icon(
+                        confirmCubitState
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: CustomColors.primary,
+                      ),
+                      onPressed: () => context
+                          .read<ConfirmPasswordVisibilityCubit>()
+                          .toggleConfirmPasswordVisibility(),
+                    ),
+                    obscureText: confirmCubitState,
+                    // validator: context.read<SignupBloc>().validateConfirmPw,
+                    text: 'Confirm password',
+                  );
+                },
+              ),
+              const TextFieldInfo(
+                info:
+                    'It must at least 6 characters long and must not contain special characters.',
+              ),
+            ])),
+        SizedBox(height: 20.h),
+        CustomButton(
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              // draw an alert dialog if code is sent successfully to email.
+              CustomAlertDialog.show(
+                context,
+                title: 'A code has been sent to your email.',
+                actions: [
+                  CustomButton(
+                    onPressed: () {
+                      context.pushNamed(
+                        Routes.emailVerificationOtp,
+                        extra: OtpNavModel(
+                          isFromSignUp: true,
+                          isFromForgtenPassword: false,
+                        ),
+                      );
+                    },
+                    text: 'Enter Code',
+                    fontWeight: FontWeight.w600,
+                    shadowColor: CustomColors.shadowBlue,
+                  ),
+                ],
+              );
+            }
+          },
+          text: 'Confirm',
+          fontWeight: FontWeight.w600,
+          shadowColor: CustomColors.shadowBlue,
         ),
         SizedBox(height: 20.h),
-        CustomTextField(
-          text: "Phone Number",
-          controller: phoneNumberController,
+        Column(
+          children: [
+            Text(
+              "Do you have an account?  ",
+              style: TextStyle(
+                fontSize: 12.sp,
+                fontWeight: FontWeight.w600,
+                color: CustomColors.textBlack,
+              ),
+            ),
+            TextButton(
+              onPressed: () => context.pushNamed(Routes.login),
+              child: Text(
+                "Login",
+                style: TextStyle(
+                  fontSize: 14.sp,
+                  fontWeight: FontWeight.w600,
+                  color: CustomColors.primary,
+                  decoration: TextDecoration.underline,
+                  decorationColor: CustomColors.primary, // Add this line
+                ),
+              ),
+            ),
+          ],
         ),
         SizedBox(height: 20.h),
-        CustomTextField(
-          text: "Email",
-          controller: emailController,
-        ),
-        SizedBox(height: 20.h),
-        CustomTextField(
-          text: "Password",
-          obscureText: true,
-          controller: passwordController,
-        ),
-        SizedBox(height: 20.h),
-        CustomTextField(
-          text: "Confirm Password",
-          obscureText: true,
-          controller: confirmPasswordController,
-        ),
-        const TextFieldInfo(
-          info:
-              'It must at least 6 characters long and must not contain special characters.',
-        ),
-        SizedBox(height: 20.h),
-        CustomDropdownMenu(
-          values: nationality,
-          controller: nationalityController,
-          hintText: "Nationality",
-        ),
-        SizedBox(height: 20.h),
-        CustomDropdownMenu(
-          values: nationality,
-          controller: countryController,
-          hintText: "Country",
-        ),
-        SizedBox(height: 20.h),
-        CustomDropdownMenu(
-          values: nationality,
-          controller: cityController,
-          hintText: "City",
-        ),
       ],
     );
   }

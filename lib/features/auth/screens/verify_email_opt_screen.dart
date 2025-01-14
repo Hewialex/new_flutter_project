@@ -1,24 +1,31 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
+
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/models/otp_nav_model.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
-import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/pin_input_field.dart';
-import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.dart';
 import 'package:qismati/features/auth/blocs/new_password_bloc/bloc/new_password_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
 
 class EmailVerificationOtpScreen extends StatelessWidget {
-  const EmailVerificationOtpScreen({super.key});
+  const EmailVerificationOtpScreen({
+    super.key,
+    required this.otpNavModel,
+  });
+
+  final OtpNavModel otpNavModel;
 
   @override
   Widget build(BuildContext context) {
+    print('----------------signup-----------------');
+    print(otpNavModel.isFromSignUp);
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: CustomColors.background,
@@ -34,8 +41,10 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                 return ContentContainer(
                   child: Column(
                     children: [
-                      const CustomTopBar(
-                        altRoute: Routes.forgotPassword,
+                      CustomTopBar(
+                        altRoute: otpNavModel.isFromForgtenPassword
+                            ? Routes.forgotPassword
+                            : Routes.signup,
                         excludeLangDropDown: true,
                       ),
                       SizedBox(height: 47.h),
@@ -80,7 +89,12 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                       SizedBox(height: 29.h),
                       CustomButton(
                         onPressed: () {
-                          context.go(Routes.newPassword);
+                          if (otpNavModel.isFromForgtenPassword) {
+                            context.go(Routes.newPassword);
+                          } else {
+                            // on the signup screen use this boolean to know if verification is done
+                            context.pop(true);
+                          }
                         },
                         text: 'Verify',
                         shadowColor: CustomColors.shadowBlue,

@@ -130,20 +130,19 @@ List<String> financialStatusDropdownValues = [
   'Spending',
 ];
 
-// TODO change these values. This is just for testing
 List<String> maritalStatusDropdownValues = [
-  'Never married',
+  'Single',
   'Divorced',
   'Widowed',
-  'Separated',
 ];
 
-// TODO change these values. This is just for testing
 List<String> marriageTypeDropdownValues = [
-  'Traditional',
-  'Arranged',
-  'Online',
-  'Family influence',
-  'Friends influence',
+  'Only one wife',
+  'Accept polygamy',
+];
+
+List<String> genderDropdownValues = [
+  'Male',
+  'Female',
   'Other',
 ];

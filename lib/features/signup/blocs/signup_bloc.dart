@@ -5,6 +5,7 @@ import 'package:equatable/equatable.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:qismati/core/utils/form_filed_validations/password_match_validator.dart';
 
 part 'signup_event.dart';
 part 'signup_state.dart';
@@ -155,7 +156,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     }
   }
 
-
   FutureOr<void> _attemptSignupAsWoman(event, emit) async {
     emit(SignupPending());
     await Future.delayed(const Duration(seconds: 1));
@@ -228,4 +228,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   //       return SignupErr.network;
   //   }
   // }
+
+  String? validateConfirmPw(String? value) {
+    return confirmPasswordValidator(
+        value, (state as SignupDefault).passwordController.text);
+  }
 }
