@@ -10,6 +10,7 @@ import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/pin_input_field.dart';
+import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/features/auth/blocs/new_password_bloc/bloc/new_password_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
@@ -24,8 +25,6 @@ class EmailVerificationOtpScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('----------------signup-----------------');
-    print(otpNavModel.isFromSignUp);
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: CustomColors.background,
@@ -88,12 +87,17 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                       ),
                       SizedBox(height: 29.h),
                       CustomButton(
-                        onPressed: () {
+                        onPressed: () async {
                           if (otpNavModel.isFromForgtenPassword) {
                             context.go(Routes.newPassword);
                           } else {
-                            // on the signup screen use this boolean to know if verification is done
-                            context.pop(true);
+                            final databaseHelper =
+                                RepositoryProvider.of<DatabaseHelper>(context);
+                            final gender = await databaseHelper.getGender();
+                            context.pushReplacementNamed(
+                              Routes.signupAfterEmailVerificationScreen,
+                              extra: gender,
+                            );
                           }
                         },
                         text: 'Verify',

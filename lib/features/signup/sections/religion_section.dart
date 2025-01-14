@@ -6,7 +6,6 @@ import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 class ReligionSection extends StatelessWidget {
   const ReligionSection({
     super.key,
-    required this.nationality,
     required this.religionCommitmentController,
     required this.prayerController,
     required this.smokingController,
@@ -15,7 +14,6 @@ class ReligionSection extends StatelessWidget {
     required this.gender,
   });
 
-  final List<String> nationality;
   final TextEditingController religionCommitmentController;
   final TextEditingController prayerController;
   final TextEditingController smokingController;

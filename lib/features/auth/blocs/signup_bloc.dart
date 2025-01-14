@@ -6,6 +6,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qismati/constants.dart';
 import 'package:http/http.dart' as http;
+import 'package:qismati/core/utils/form_filed_validations/password_match_validator.dart';
 import 'package:qismati/features/auth/models/signup_model.dart';
 
 part 'signup_state.dart';
@@ -13,49 +14,47 @@ part 'signup_event.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
   SignupBloc()
-      : super(
-        SignupDefault(
-  userNameController: TextEditingController(),
-  fullNameController: TextEditingController(),
-  emailController: TextEditingController(),
-  passwordController: TextEditingController(),
-  confirmPasswordController: TextEditingController(),
-  phoneNumberController: TextEditingController(),
-  ageController: TextEditingController(),
-  genderController: TextEditingController(),
-  heightController: TextEditingController(),
-  weightController: TextEditingController(),
-  skinColorController: TextEditingController(),
-  bodyShapeController: TextEditingController(),
-  healthCaseController: TextEditingController(),
-  smokingController: TextEditingController(),
-  prayerController: TextEditingController(),
-  religiousCommitmentController: TextEditingController(),
-  maritalStatusController: TextEditingController(),
-  marriageTypeController: TextEditingController(),
-  childrenController: TextEditingController(),
-  educationalQualificationController: TextEditingController(),
-  jobCategoryController: TextEditingController(),
-  jobController: TextEditingController(),
-  monthlyIncomeController: TextEditingController(),
-  financialStatusController: TextEditingController(),
-  nationalityController: TextEditingController(),
-  cityController: TextEditingController(),
-  countryController: TextEditingController(),
-  aboutYourSelfController: TextEditingController(),
-  aboutYourPartnerController: TextEditingController(),
-  beardController: TextEditingController(),
-  vielController: TextEditingController(),
-  longitudeController: TextEditingController(),
-  latitudeController: TextEditingController(),
-  error: SignupError.none,
-)
-      ) {
+      : super(SignupDefault(
+          userNameController: TextEditingController(),
+          fullNameController: TextEditingController(),
+          emailController: TextEditingController(),
+          passwordController: TextEditingController(),
+          confirmPasswordController: TextEditingController(),
+          phoneNumberController: TextEditingController(),
+          ageController: TextEditingController(),
+          genderController: TextEditingController(),
+          heightController: TextEditingController(),
+          weightController: TextEditingController(),
+          skinColorController: TextEditingController(),
+          bodyShapeController: TextEditingController(),
+          healthCaseController: TextEditingController(),
+          smokingController: TextEditingController(),
+          prayerController: TextEditingController(),
+          religiousCommitmentController: TextEditingController(),
+          maritalStatusController: TextEditingController(),
+          marriageTypeController: TextEditingController(),
+          childrenController: TextEditingController(),
+          educationalQualificationController: TextEditingController(),
+          jobCategoryController: TextEditingController(),
+          jobController: TextEditingController(),
+          monthlyIncomeController: TextEditingController(),
+          financialStatusController: TextEditingController(),
+          nationalityController: TextEditingController(),
+          cityController: TextEditingController(),
+          countryController: TextEditingController(),
+          aboutYourSelfController: TextEditingController(),
+          aboutYourPartnerController: TextEditingController(),
+          beardController: TextEditingController(),
+          vielController: TextEditingController(),
+          longitudeController: TextEditingController(),
+          latitudeController: TextEditingController(),
+          error: SignupError.none,
+        )) {
     on<RegisterUser>(_registerUser);
   }
   FutureOr<void> _registerUser(RegisterUser event, emit) async {
     const String url = "${Constants.baseUrl}/auth/signup";
-
+    print('------------------signing up---------------');
     if (state is SignupDefault) {
       final signupState = state as SignupDefault;
 
@@ -74,6 +73,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         },
         body: sentData,
       );
+
+      debugPrint("status code: ${res.statusCode}");
+      debugPrint("response body: ${res.body}");
 
       if (res.statusCode == 200) {
         final body = jsonDecode(res.body) as Map<String, dynamic>;
@@ -96,5 +98,11 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
         debugPrint(res.body);
       }
     }
+  }
+
+  // compare the confrim password with the password field.
+  String? validateConfirmPw(String? value) {
+    return confirmPasswordValidator(
+        value, (state as SignupDefault).passwordController.text);
   }
 }

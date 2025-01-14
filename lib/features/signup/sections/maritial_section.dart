@@ -7,14 +7,12 @@ import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 class MaritialSection extends StatelessWidget {
   const MaritialSection({
     super.key,
-    required this.nationality,
     required this.maritialStatusController,
     required this.marriageTypeController,
     required this.ageController,
     required this.childrenController,
   });
 
-  final List<String> nationality;
   final TextEditingController maritialStatusController;
   final TextEditingController marriageTypeController;
   final TextEditingController ageController;

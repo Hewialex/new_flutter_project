@@ -33,6 +33,7 @@ import 'package:qismati/features/premium_members/screens/premium_members_screen.
 import 'package:qismati/features/search/screens/search_screen.dart';
 import 'package:qismati/features/settings/screens/account_information_screen.dart';
 import 'package:qismati/features/settings/screens/account_settings_screen.dart';
+import 'package:qismati/features/signup/screens/signup_after_email_verification_screen.dart';
 import 'package:qismati/features/signup/screens/signup_screen.dart';
 import 'package:qismati/routes.dart';
 
@@ -182,6 +183,16 @@ final GoRouter goRouter = GoRouter(routes: [
       final OtpNavModel otpNavModel = state.extra as OtpNavModel;
       return EmailVerificationOtpScreen(
         otpNavModel: otpNavModel,
+      );
+    },
+  ),
+  GoRoute(
+    path: '/signupAfterEmailVerificationScreen',
+    name: Routes.signupAfterEmailVerificationScreen,
+    builder: (context, state) {
+      final String gender = state.extra as String;
+      return SignupAfterEmailVerificationScreen(
+        gender: gender,
       );
     },
   ),

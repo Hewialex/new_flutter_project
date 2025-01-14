@@ -6,13 +6,11 @@ import 'package:qismati/common/colors.dart';
 class AddressSection extends StatelessWidget {
   const AddressSection({
     super.key,
-    required this.nationality, // List of all countries (nationalities)
     required this.nationalityController,
     required this.countryController,
     required this.cityController,
   });
 
-  final List<String> nationality; // List of all nationalities (countries)
   final TextEditingController nationalityController;
   final TextEditingController countryController;
   final TextEditingController cityController;

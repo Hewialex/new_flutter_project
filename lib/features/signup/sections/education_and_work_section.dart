@@ -7,7 +7,6 @@ import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 class EducationAndWorkSection extends StatelessWidget {
   const EducationAndWorkSection({
     super.key,
-    required this.nationality,
     required this.educationalQualificationController,
     required this.financialStatusController,
     required this.jobCategoryController,
@@ -16,7 +15,6 @@ class EducationAndWorkSection extends StatelessWidget {
     required this.healthCaseController,
   });
 
-  final List<String> nationality;
   final TextEditingController educationalQualificationController;
   final TextEditingController financialStatusController;
   final TextEditingController jobCategoryController;

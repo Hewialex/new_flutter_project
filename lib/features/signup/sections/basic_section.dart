@@ -11,6 +11,7 @@ import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/core/utils/form_filed_validations/password_validation.dart';
 import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.dart';
 import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
+import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 import 'package:qismati/features/signup/widgets/text_field_info.dart';
 import 'package:qismati/routes.dart';
@@ -110,7 +111,7 @@ class BasicSection extends StatelessWidget {
                           .toggleConfirmPasswordVisibility(),
                     ),
                     obscureText: confirmCubitState,
-                    // validator: context.read<SignupBloc>().validateConfirmPw,
+                    validator: context.read<SignupBloc>().validateConfirmPw,
                     text: 'Confirm password',
                   );
                 },
@@ -131,6 +132,8 @@ class BasicSection extends StatelessWidget {
                 actions: [
                   CustomButton(
                     onPressed: () {
+                      // remove the current dialog.
+                      context.pop();
                       context.pushNamed(
                         Routes.emailVerificationOtp,
                         extra: OtpNavModel(
