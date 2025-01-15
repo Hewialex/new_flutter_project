@@ -240,14 +240,11 @@ class HomeScreen extends StatelessWidget {
                                       ),
                                     );
                                   },
-                                  child: SizedBox(
-                                    width: 200.w,
-                                    child: DatingCard(
-                                      name: person.fullName,
-                                      gender: person.gender,
-                                      isPremium: true,
-                                      locationName: person.country,
-                                    ),
+                                  child: DatingCard(
+                                    name: person.fullName,
+                                    gender: person.gender,
+                                    isPremium: true,
+                                    locationName: person.country,
                                   ),
                                 ),
                                 SizedBox(width: 35.w),

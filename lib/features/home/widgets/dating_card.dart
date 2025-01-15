@@ -20,12 +20,11 @@ class DatingCard extends StatelessWidget {
     return isPremium
         ? Container(
             width: 89.w,
-            margin: EdgeInsets.only(bottom: 20.h),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20.r),
               ),
-              color: CustomColors.primary,
+              color: CustomColors.premiumColor,
             ),
             child: Row(
               children: [
@@ -51,8 +50,9 @@ class DatingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 253.w,
-      height: 287.h,
+      width: 230.w,
+      height: 250.h,
+      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
         gradient: const RadialGradient(
@@ -61,16 +61,23 @@ class DatingCard extends StatelessWidget {
         ),
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32.sp,
-                  color: Colors.white,
+              SizedBox(
+                width: 115.w,
+                child: Text(
+                  name,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700,
+                    fontSize: 14.sp,
+                    color: Colors.white,
+                    overflow: TextOverflow.ellipsis,
+                  ),
                 ),
               ),
               premiumContainer(),
@@ -78,27 +85,31 @@ class DatingCard extends StatelessWidget {
           ),
           Row(
             children: [
-              const Icon(
+              Icon(
                 Icons.location_on,
                 color: CustomColors.primary,
+                size: 12.sp,
               ),
               Text(
                 locationName,
                 style: TextStyle(
                   color: CustomColors.primary,
-                  fontSize: 14.sp,
+                  fontSize: 12.sp,
                   fontWeight: FontWeight.w700,
                 ),
               ),
             ],
           ),
-          Image.asset(
-            gender == "male"
-                ? "assets/images/male_avatar.png"
-                : "assets/images/female_avatar.png",
-            width: 215.w,
-            height: 213.h,
-          )
+          Center(
+            child: Image.asset(
+              gender == "male"
+                  ? "assets/images/male_avatar.png"
+                  : "assets/images/female_avatar.png",
+              width: 150.w,
+              height: 150.h,
+              fit: BoxFit.contain,
+            ),
+          ),
         ],
       ),
     );

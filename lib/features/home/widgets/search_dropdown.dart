@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/routes.dart';
@@ -21,10 +22,18 @@ class _SearchDropdownState extends State<SearchDropdown> {
     'Auto searcher'
   ];
 
+  List<String> dropdownImages = [
+    'assets/members_drop_down/members.svg',
+    'assets/members_drop_down/new_members.svg',
+    'assets/members_drop_down/online_members.png',
+    'assets/members_drop_down/premium_members.svg',
+    'assets/members_drop_down/auto_searcher.svg',
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 238.w, // Adjusts the width of the dropdown button itself
+      width: 270.w, // Adjusts the width of the dropdown button itself
       height: 50.h,
       padding: EdgeInsets.only(left: 14.w),
       decoration: BoxDecoration(
@@ -52,7 +61,32 @@ class _SearchDropdownState extends State<SearchDropdown> {
                   dropdownItems.map<DropdownMenuItem<String>>((String value) {
                 return DropdownMenuItem<String>(
                   value: value,
-                  child: Text(value),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: selectedValue == value
+                          ? CustomColors.searchBackground
+                          : Colors.white,
+                      borderRadius: BorderRadius.circular(10.r),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SvgPicture.asset(
+                          dropdownImages[dropdownItems.indexOf(value)],
+                          width: 22.h,
+                          height: 22.h,
+                          fit: BoxFit.contain,
+                        ),
+                        SizedBox(width: 5.w),
+                        Text(value),
+                        if (selectedValue == value) const Spacer(),
+                        if (selectedValue == value)
+                          const Icon(
+                            Icons.check,
+                          ),
+                      ],
+                    ),
+                  ),
                   onTap: () {
                     switch (value) {
                       case 'Members':

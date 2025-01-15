@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/models/profile.dart';
@@ -20,7 +21,6 @@ class CustomDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-
       elevation: 4,
       child: Container(
         margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -47,16 +47,6 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Notification',
-                    icon: const Icon(Icons.notifications_outlined),
-                    onTap: () {
-                      context.push(Routes.notification);
-                      debugPrint('Notification');
-                    },
-                  ),
-                ),
-                _buildDrawerItem(
-                  _DrawerItem(
                     title: 'My Profile',
                     icon: const Icon(Icons.person_2_outlined),
                     onTap: () {
@@ -64,37 +54,42 @@ class CustomDrawer extends StatelessWidget {
                     },
                   ),
                 ),
-                _buildExpandibleDrawerItem(_ExpandibleDrawerItem(
-                  title: 'Settings',
-                  icon: const Icon(Icons.settings_outlined),
-                  onTap: () {},
-                  children: [
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Account Information',
-                        icon: const Icon(Icons.info_outlined),
-                        onTap: () {
-                          context.push(Routes.accountInformationScreen);
-                        },
-                      ),
-                    ),
-                    _buildDrawerItem(
-                      _DrawerItem(
-                        title: 'Profile Settings',
-                        icon: const Icon(Icons.settings_outlined),
-                        onTap: () {
-                          context.push(Routes.accountSettings);
-                        },
-                      ),
-                    ),
-                  ],
-                )),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Search',
-                    icon: const Icon(Icons.search),
+                    title: 'Profile Visits',
+                    icon: SvgPicture.asset(
+                      'assets/images/profile_visits.svg',
+                      width: 22.h,
+                      height: 22.h,
+                      fit: BoxFit.contain,
+                    ),
                     onTap: () {
-                      context.push(Routes.searchScreen);
+                      // retract drawer
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Favorite List',
+                    icon: SvgPicture.asset(
+                      'assets/images/favorite_lists.svg',
+                      width: 22.h,
+                      height: 22.h,
+                      fit: BoxFit.contain,
+                    ),
+                    onTap: () {
+                      // retract drawer
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Who Favorited Me?',
+                    icon: const Icon(Icons.favorite_outline_rounded),
+                    onTap: () {
+                      context.push(Routes.favorite);
                     },
                   ),
                 ),
@@ -109,18 +104,16 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                      title: 'Who Favorited Me?',
-                      icon: const Icon(Icons.favorite_outline_rounded),
-                      onTap: () {
-                        context.push(Routes.favorite);
-                      }),
-                ),
-                _buildDrawerItem(
-                  _DrawerItem(
-                    title: 'Member Photo',
-                    icon: const Icon(Icons.person_outline_rounded),
+                    title: 'Photo Studio',
+                    icon: SvgPicture.asset(
+                      'assets/images/photo_studio.svg',
+                      width: 22.h,
+                      height: 22.h,
+                      fit: BoxFit.contain,
+                    ),
                     onTap: () {
-                      context.push(Routes.membersPhoto);
+                      // retract drawer
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
@@ -135,22 +128,49 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Share App',
-                    icon: Transform.rotate(
-                      angle: -pi /
-                          2, // Rotate 90 degrees (pi/2 radians countreclockwise)
-                      child: const Icon(Icons.exit_to_app),
-                    ),
-                    onTap: () {},
-                  ),
-                ),
-                _buildDrawerItem(
-                  _DrawerItem(
                     title: 'About Us',
                     icon: const Icon(Icons.info_outline),
                     onTap: () {
                       context.push(Routes.aboutUs);
                     },
+                  ),
+                ),
+                _buildDrawerItem(
+                  _DrawerItem(
+                    title: 'Share App',
+                    icon: Transform.rotate(
+                      angle: -pi /
+                          2, // Rotate 90 degrees (pi/2 radians counterclockwise)
+                      child: const Icon(Icons.exit_to_app),
+                    ),
+                    onTap: () {},
+                  ),
+                ),
+                _buildExpandibleDrawerItem(
+                  _ExpandibleDrawerItem(
+                    title: 'Settings',
+                    icon: const Icon(Icons.settings_outlined),
+                    onTap: () {},
+                    children: [
+                      _buildDrawerItem(
+                        _DrawerItem(
+                          title: 'Account Information',
+                          icon: const Icon(Icons.info_outlined),
+                          onTap: () {
+                            context.push(Routes.accountInformationScreen);
+                          },
+                        ),
+                      ),
+                      _buildDrawerItem(
+                        _DrawerItem(
+                          title: 'Profile Settings',
+                          icon: const Icon(Icons.settings_outlined),
+                          onTap: () {
+                            context.push(Routes.accountSettings);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 _buildDrawerLogOutItem(
@@ -161,11 +181,11 @@ class CustomDrawer extends StatelessWidget {
                       color: CustomColors.signOutRed,
                     ),
                     onTap: () async {
-                      // The result varable is used to track user choice from alert.
+                      // The result variable is used to track user choice from alert.
                       final bool result = await CustomAlertDialog.show(
                         context,
                         title: 'Confirmation',
-                        content: 'Are you sure do you want to Sign out?',
+                        content: 'Are you sure you want to Sign out?',
                         actions: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,

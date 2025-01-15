@@ -71,8 +71,8 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
         //   state.longitudeController.text,
         // ),
         // latitude: double.parse(state.latitudeController.text),
-        longitude: 24.7136,
-        latitude: 46.6734);
+        longitude: 38.770355,
+        latitude: 9.060475);
   }
 
   @override

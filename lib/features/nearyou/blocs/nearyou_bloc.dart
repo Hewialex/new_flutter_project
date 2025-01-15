@@ -9,6 +9,7 @@ import 'package:qismati/core/network/network_info.dart';
 import 'package:qismati/core/utils/location.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qismati/features/nearyou/data/nearyou_data.dart';
+import 'package:qismati/features/nearyou/profile_dummy.dart';
 
 part 'nearyou_event.dart';
 part 'nearyou_state.dart';
@@ -29,12 +30,17 @@ class NearYouBloc extends Bloc<NearyouEvent, NearYouState> {
       debugPrint("Event : NearYouLoad");
       var location = LocationImpl(Geolocator());
       var currLocation = await location.getLocation();
+      debugPrint("current Location: $currLocation");
 
       debugPrint(currLocation.toString());
 
-      final List<ProfileModel> people = await _nearYouDataProvier.getNearYou(
-        page: event.page,
-      );
+// this is the actual implementation
+      // final List<ProfileModel> people = await _nearYouDataProvier.getNearYou(
+      //   page: event.page,
+      // );
+
+      // TODO: this is only for UI design remove it after testing
+      final List<ProfileModel> people = profiles;
       emit(NearYouLoaded(people: people, page: event.page));
     } on Exception catch (e) {
       emit(NearYouError(message: mapErrorToMessage(e)));
@@ -84,7 +90,7 @@ class NearYouBloc extends Bloc<NearyouEvent, NearYouState> {
     switch (exception.runtimeType) {
       case NetworkException _:
         return "Network error";
-      case ServerException  _:
+      case ServerException _:
         return "Server error";
       default:
         return exception.toString();

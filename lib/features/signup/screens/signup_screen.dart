@@ -4,23 +4,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
-import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
-import 'package:qismati/core/database/database_helper.dart';
-import 'package:qismati/features/auth/models/signup_model.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
-import 'package:qismati/features/signup/sections/about_your_partner_section.dart';
-import 'package:qismati/features/signup/sections/address_section.dart';
 import 'package:qismati/features/signup/sections/basic_section.dart';
-import 'package:qismati/features/signup/sections/education_and_work_section.dart';
-import 'package:qismati/features/signup/widgets/list_dot_item.dart';
-import 'package:qismati/features/signup/sections/looks_section.dart';
-import 'package:qismati/features/signup/sections/maritial_section.dart';
-import 'package:qismati/features/signup/sections/religion_section.dart';
-import 'package:qismati/features/signup/sections/talk_about_your_self_section.dart';
 import 'package:qismati/routes.dart';
 
 class SignupScreen extends StatelessWidget {

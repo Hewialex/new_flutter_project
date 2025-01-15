@@ -21,5 +21,6 @@ class CustomColors {
   static const textGreen = Color(0xFF49C01E);
   static const success = Color(0xFF4CAF50);
   static const warning = Color(0xFFEAAE00);
+  static const premiumColor = Color(0xFFDE8900);
   static const error = Color(0xFFEF1717);
 }

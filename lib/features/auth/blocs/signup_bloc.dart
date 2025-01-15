@@ -54,7 +54,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
   }
   FutureOr<void> _registerUser(RegisterUser event, emit) async {
     const String url = "${Constants.baseUrl}/auth/signup";
-    print('------------------signing up---------------');
     if (state is SignupDefault) {
       final signupState = state as SignupDefault;
 
