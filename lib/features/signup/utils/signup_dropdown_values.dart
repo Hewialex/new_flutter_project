@@ -122,7 +122,6 @@ List<String> veilDropdownValues = [
   'No',
 ];
 
-// TODO change these values. This is just for testing
 List<String> financialStatusDropdownValues = [
   'Self sufficient',
   'Moderate',
