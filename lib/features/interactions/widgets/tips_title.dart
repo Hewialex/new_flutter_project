@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class TipsTitle extends StatelessWidget {
   const TipsTitle({

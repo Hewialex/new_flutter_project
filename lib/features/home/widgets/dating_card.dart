@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class DatingCard extends StatelessWidget {
   const DatingCard({
@@ -16,7 +17,7 @@ class DatingCard extends StatelessWidget {
   final String gender;
   final String locationName;
 
-  Widget premiumContainer() {
+  Widget premiumContainer(BuildContext context) {
     return isPremium
         ? Container(
             width: 89.w,
@@ -33,7 +34,7 @@ class DatingCard extends StatelessWidget {
                   color: Colors.white,
                 ),
                 Text(
-                  'Premium',
+                  S.of(context).premium,
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 12.sp,
@@ -80,7 +81,7 @@ class DatingCard extends StatelessWidget {
                   ),
                 ),
               ),
-              premiumContainer(),
+              premiumContainer(context),
             ],
           ),
           Row(

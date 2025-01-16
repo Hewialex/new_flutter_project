@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class CustomAlertDialog extends StatelessWidget {
   final String title;
@@ -17,6 +18,7 @@ class CustomAlertDialog extends StatelessWidget {
   // Static method to show the dialog
   static Future<dynamic> show(BuildContext context,
       {required String title, String? content, List<Widget>? actions}) {
+    final localizations = S.of(context);
     return showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -43,8 +45,7 @@ class CustomAlertDialog extends StatelessWidget {
         ),
       ),
       content: Text(
-        content ??
-            '', // Ensure that content is optional and doesn't cause an error if null
+        content ?? '',
         style: TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: 15.sp,

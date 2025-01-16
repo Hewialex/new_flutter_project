@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class SearchDropdown extends StatefulWidget {
   const SearchDropdown({super.key});
@@ -14,13 +15,19 @@ class SearchDropdown extends StatefulWidget {
 
 class _SearchDropdownState extends State<SearchDropdown> {
   String? selectedValue;
-  List<String> dropdownItems = [
-    'Members',
-    'New members',
-    'Online members',
-    'Premium members',
-    'Auto searcher'
-  ];
+  List<String> dropdownItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    dropdownItems = [
+      S.of(context).members,
+      S.of(context).newMembers,
+      S.of(context).onlineMembers,
+      S.of(context).premiumMembers,
+      S.of(context).autoSearcher,
+    ];
+  }
 
   List<String> dropdownImages = [
     'assets/members_drop_down/members.svg',
@@ -47,7 +54,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const Text('Search'),
+          Text(S.of(context).search),
           DropdownButtonHideUnderline(
             child: DropdownButton<String>(
               value: selectedValue,

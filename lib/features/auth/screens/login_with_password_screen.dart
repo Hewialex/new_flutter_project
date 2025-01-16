@@ -19,6 +19,7 @@ import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class LoginWithPasswordScreen extends StatelessWidget {
   const LoginWithPasswordScreen({super.key});
@@ -103,9 +104,9 @@ class LoginWithPasswordScreen extends StatelessWidget {
                               excludeLangDropDown: true,
                             ),
                             SizedBox(height: 47.h),
-                            const CustomHeader(text: "Login here"),
+                            CustomHeader(text: S.of(context).signIn),
                             Text(
-                              "Enter email and password",
+                              S.of(context).enterPassword,
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 15.sp,
@@ -113,7 +114,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                             ),
                             SizedBox(height: 95.h),
                             CustomTextField(
-                              text: 'Email',
+                              text: S.of(context).email,
                               controller: state.emailController,
                               validator: validateEmail,
                             ),
@@ -122,7 +123,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                               builder: (context, cubitState) {
                                 return CustomTextField(
                                   controller: state.passwordController,
-                                  text: 'Password',
+                                  text: S.of(context).password,
                                   suffix: IconButton(
                                     icon: Icon(
                                       cubitState
@@ -147,7 +148,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                                   context.push(Routes.forgotPassword);
                                 },
                                 child: Text(
-                                  "Forgot your password?",
+                                  S.of(context).forgotPassword,
                                   style: TextStyle(
                                     color: CustomColors.primary,
                                     fontWeight: FontWeight.w600,
@@ -164,7 +165,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                                       .add((AttemptLogin()));
                                 }
                               },
-                              text: 'Sign in',
+                              text: S.of(context).signIn,
                               shadowColor: CustomColors.shadowBlue,
                               elevation: 5,
                               fontWeight: FontWeight.w600,
@@ -173,7 +174,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  "Don’t have an account?  ",
+                                  S.of(context).dontHaveAccount,
                                   style: TextStyle(
                                     fontSize: 12.sp,
                                     fontWeight: FontWeight.w600,
@@ -194,7 +195,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                                     }
                                   },
                                   child: Text(
-                                    "Sign Up",
+                                    S.of(context).signUp,
                                     style: TextStyle(
                                       fontSize: 14.sp,
                                       fontWeight: FontWeight.w600,
@@ -217,7 +218,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
             default:
               return Scaffold(
                 body: Center(
-                  child: Text("Unimplemented state: $state"),
+                  child: Text(S.of(context).unimplementedState),
                 ),
               );
           }

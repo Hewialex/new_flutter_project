@@ -10,6 +10,7 @@ import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/common/widgets/custom_styled_container.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class InteractionScreen extends StatelessWidget {
   const InteractionScreen({
@@ -30,6 +31,7 @@ class InteractionScreen extends StatelessWidget {
   final List<String> menuOptions;
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
@@ -49,13 +51,14 @@ class InteractionScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 37.h),
-              CustomButton(
-                onPressed: onGuideButtonPressed,
-                text: 'Your Guide To Success',
-                shadowColor: CustomColors.shadowBlue,
-                elevation: 5,
-                fontWeight: FontWeight.w600,
-              ),
+              // TODO: check this LATER BASED ON THE DESIGN.
+              // CustomButton(
+              //   onPressed: onGuideButtonPressed,
+              //   text: localizations.yourGuideToSuccess,
+              //   shadowColor: CustomColors.shadowBlue,
+              //   elevation: 5,
+              //   fontWeight: FontWeight.w600,
+              // ),
               SizedBox(height: 33.h),
               CustomStyledContainer(
                 leading: IconButton(
@@ -78,7 +81,8 @@ class InteractionScreen extends StatelessWidget {
                       children: [
                         CustomListCard(
                           mainText: e.name,
-                          subText: '${e.age} years',
+                          // TODO: check this LATER BASED ON THE DESIGN.
+                          subText: '${e.age} years old',
                           leading: ClipOval(
                             child: Image.asset(
                               e.image,
@@ -129,8 +133,8 @@ class InteractionScreen extends StatelessWidget {
               ),
               Text(
                 people.length < 2
-                    ? '${people.length} member'
-                    : '${people.length} members',
+                    ? localizations.memberCount(people.length)
+                    : localizations.memberCount(people.length),
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexend(
                   fontSize: 13.sp,

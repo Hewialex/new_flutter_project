@@ -13,6 +13,7 @@ import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
+import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 
 class CustomDrawer extends StatelessWidget {
@@ -20,6 +21,8 @@ class CustomDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
+
     return Drawer(
       elevation: 4,
       child: Container(
@@ -37,7 +40,7 @@ class CustomDrawer extends StatelessWidget {
 
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Home',
+                    title: localizations.home,
                     icon: const Icon(Icons.home_outlined),
                     onTap: () {
                       // retract drawer
@@ -47,7 +50,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'My Profile',
+                    title: localizations.myProfile,
                     icon: const Icon(Icons.person_2_outlined),
                     onTap: () {
                       context.push(Routes.myProfile);
@@ -56,7 +59,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Profile Visits',
+                    title: localizations.profileVisits,
                     icon: SvgPicture.asset(
                       'assets/images/profile_visits.svg',
                       width: 22.h,
@@ -71,7 +74,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Favorite List',
+                    title: localizations.favoriteList,
                     icon: SvgPicture.asset(
                       'assets/images/favorite_lists.svg',
                       width: 22.h,
@@ -86,7 +89,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Who Favorited Me?',
+                    title: localizations.whoFavoritedMe,
                     icon: const Icon(Icons.favorite_outline_rounded),
                     onTap: () {
                       context.push(Routes.favorite);
@@ -95,7 +98,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Ignore List',
+                    title: localizations.ignoreList,
                     icon: const Icon(Icons.thumb_down_outlined),
                     onTap: () {
                       context.push(Routes.ignore);
@@ -104,7 +107,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Photo Studio',
+                    title: localizations.photoStudio,
                     icon: SvgPicture.asset(
                       'assets/images/photo_studio.svg',
                       width: 22.h,
@@ -119,7 +122,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Contact Us',
+                    title: localizations.contactUs,
                     icon: const Icon(Icons.phone_in_talk_sharp),
                     onTap: () {
                       context.push(Routes.contactUs);
@@ -128,7 +131,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'About Us',
+                    title: localizations.aboutUs,
                     icon: const Icon(Icons.info_outline),
                     onTap: () {
                       context.push(Routes.aboutUs);
@@ -137,7 +140,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerItem(
                   _DrawerItem(
-                    title: 'Share App',
+                    title: localizations.shareApp,
                     icon: Transform.rotate(
                       angle: -pi /
                           2, // Rotate 90 degrees (pi/2 radians counterclockwise)
@@ -148,13 +151,13 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildExpandibleDrawerItem(
                   _ExpandibleDrawerItem(
-                    title: 'Settings',
+                    title: localizations.settings,
                     icon: const Icon(Icons.settings_outlined),
                     onTap: () {},
                     children: [
                       _buildDrawerItem(
                         _DrawerItem(
-                          title: 'Account Information',
+                          title: localizations.accountInformation,
                           icon: const Icon(Icons.info_outlined),
                           onTap: () {
                             context.push(Routes.accountInformationScreen);
@@ -163,7 +166,7 @@ class CustomDrawer extends StatelessWidget {
                       ),
                       _buildDrawerItem(
                         _DrawerItem(
-                          title: 'Profile Settings',
+                          title: localizations.profileSettings,
                           icon: const Icon(Icons.settings_outlined),
                           onTap: () {
                             context.push(Routes.accountSettings);
@@ -175,7 +178,7 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 _buildDrawerLogOutItem(
                   _DrawerItem(
-                    title: 'Sign Out',
+                    title: localizations.signOut,
                     icon: const Icon(
                       Icons.exit_to_app,
                       color: CustomColors.signOutRed,
@@ -184,8 +187,8 @@ class CustomDrawer extends StatelessWidget {
                       // The result variable is used to track user choice from alert.
                       final bool result = await CustomAlertDialog.show(
                         context,
-                        title: 'Confirmation',
-                        content: 'Are you sure you want to Sign out?',
+                        title: localizations.confirmationTitle,
+                        content: localizations.signOutConfirmation,
                         actions: [
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -194,14 +197,14 @@ class CustomDrawer extends StatelessWidget {
                                 width: 100.w,
                                 isInverted: true,
                                 onPressed: () => context.pop(false),
-                                text: 'No',
+                                text: localizations.no,
                                 fontWeight: FontWeight.w600,
                                 shadowColor: CustomColors.shadowBlue,
                               ),
                               CustomButton(
                                 width: 100.w,
                                 onPressed: () => context.pop(true),
-                                text: 'Yes',
+                                text: localizations.yes,
                                 fontWeight: FontWeight.w600,
                                 shadowColor: CustomColors.shadowBlue,
                               ),
@@ -299,12 +302,12 @@ class CustomDrawer extends StatelessWidget {
             return Center(
               child: Column(
                 children: [
-                  const Text('Unable to load user profile'),
+                  Text(S.of(context).unableToLoadProfile),
                   TextButton(
                     onPressed: () {
                       bloc.add(LoadMyProfile());
                     },
-                    child: const Text('Retry'),
+                    child: Text(S.of(context).retryButton),
                   ),
                 ],
               ),
@@ -313,7 +316,7 @@ class CustomDrawer extends StatelessWidget {
           default:
             // Any unimplemented state for Myprofile goes here
             return Center(
-              child: Text('Unimplemented state $state'),
+              child: Text('${S.of(context).unimplementedState} $state'),
             );
         }
       },

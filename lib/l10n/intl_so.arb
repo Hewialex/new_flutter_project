@@ -449,7 +449,6 @@
   "graduate_postgraduate": "Qalin Jabinta/Jaamacad",
   "doctorate": "Dhakhtar",
   "self_taught": "Isku Baran",
-
   "administration": "Maamulka",
   "another_thing": "Shay Kale",
   "art_literary": "Fanka / Suugaanta",
@@ -469,19 +468,15 @@
   "trade": "Ganacsi",
   "transport": "Gaadiidka",
   "without_employment": "Shaqo la’aan",
-
   "self_sufficient": "Isku Filan",
   "moderate": "Celcelis",
   "saving": "Keydinta",
   "spending": "Kharashka",
-
   "single": "Keliya",
   "divorced": "Furay",
   "widowed": "Dhiig Kordhinta",
-
   "only_one_wife": "Xaaska kaliya",
   "accept_polygamy": "Waayo, guurka badan waa la aqbalaa",
-
   "male": "Lab",
   "female": "Dhedig",
   "other": "Kale"

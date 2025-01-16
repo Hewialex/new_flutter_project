@@ -10,6 +10,7 @@ import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/core/utils/form_filed_validations/email_validation.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class ForgotPasswordScreen extends StatelessWidget {
   const ForgotPasswordScreen({super.key});
@@ -29,10 +30,10 @@ class ForgotPasswordScreen extends StatelessWidget {
                   excludeLangDropDown: true,
                 ),
                 SizedBox(height: 47.h),
-                const CustomHeader(text: "Forgot your password"),
+                CustomHeader(text: S.of(context).forgotPassword),
                 SizedBox(height: 93.h),
                 Text(
-                  "Enter your Email",
+                  S.of(context).email,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 15.sp,
@@ -42,7 +43,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 Form(
                   key: formKey,
                   child: CustomTextField(
-                    text: 'Email',
+                    text: S.of(context).email,
                     controller: TextEditingController(),
                     validator: validateEmail,
                   ),
@@ -54,13 +55,13 @@ class ForgotPasswordScreen extends StatelessWidget {
                       // draw an alert dialog if code is sent successfully to email.
                       CustomAlertDialog.show(
                         context,
-                        title: 'A code has been sent to your email.',
+                        title: S.of(context).code_sent,
                         actions: [
                           CustomButton(
                             onPressed: () {
                               context.push(Routes.emailVerificationOtp);
                             },
-                            text: 'Enter Code',
+                            text: S.of(context).enter_code,
                             fontWeight: FontWeight.w600,
                             shadowColor: CustomColors.shadowBlue,
                           ),
@@ -68,7 +69,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       );
                     }
                   },
-                  text: 'Send',
+                  text: S.of(context).send,
                   fontWeight: FontWeight.w600,
                   shadowColor: CustomColors.shadowBlue,
                 ),
@@ -76,7 +77,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 CustomButton(
                   isInverted: true,
                   onPressed: () => context.push(Routes.login),
-                  text: 'Back to Login',
+                  text: S.of(context).goToHome,
                   fontWeight: FontWeight.w600,
                   shadowColor: CustomColors.shadowBlue,
                 ),

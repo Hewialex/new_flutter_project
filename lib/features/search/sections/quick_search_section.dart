@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
@@ -64,7 +63,7 @@ class QuickSearchSection extends StatelessWidget {
         ),
         SizedBox(height: 21.h),
         CustomDropdownMenu(
-          values: const <String>[ "Age"],
+          values: const <String>["Age"],
           controller: TextEditingController(),
           hintText: "Sort by",
         ),

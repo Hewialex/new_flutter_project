@@ -12,6 +12,7 @@ import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/common/widgets/filter_select.dart';
 import 'package:qismati/features/online_members/bloc/online_member_bloc.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class OnlineMembersScreen extends StatelessWidget {
   OnlineMembersScreen({super.key});
@@ -24,9 +25,9 @@ class OnlineMembersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     final bloc = context.watch<OnlineMemberBloc>();
     final state = bloc.state;
-
 
     switch (state) {
       case OnlineMemberInitial():
@@ -57,7 +58,7 @@ class OnlineMembersScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Text(
-                    'Online Members',
+                    localizations.onlineMembers,
                     style: GoogleFonts.kodchasan(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -70,13 +71,19 @@ class OnlineMembersScreen extends StatelessWidget {
                   CustomDropdownMenu(
                     values: const [],
                     controller: TextEditingController(),
-                    hintText: 'Country',
+                    hintText: localizations.country,
                   ),
                   SizedBox(height: 32.h),
                   FilterSelect(
                     currentIndex: 1,
                     onSelected: (index) {},
-                    choiceContent: const ["All", "Female", "Male"],
+                    choiceContent: [
+                      // TODO: implement the localization for the following
+                      // localizations.all,
+                      'All',
+                      localizations.female,
+                      localizations.male,
+                    ],
                   ),
                   SizedBox(height: 32.h),
                   Expanded(

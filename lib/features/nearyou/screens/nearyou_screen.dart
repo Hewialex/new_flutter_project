@@ -12,6 +12,7 @@ import 'package:qismati/features/home/widgets/home_heading.dart';
 import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';
 import 'package:qismati/features/profile/screens/profile_screen.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NearYouScreen extends StatefulWidget {
   const NearYouScreen({super.key});
@@ -41,6 +42,7 @@ class _NearYouScreenState extends State<NearYouScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -95,7 +97,7 @@ class _NearYouScreenState extends State<NearYouScreen> {
                 : (state as NearYouLoading).people;
 
             if (people.isEmpty) {
-              return const Center(
+              return Center(
                 child: SizedBox(
                   height: 200,
                   width: 200,
@@ -107,7 +109,7 @@ class _NearYouScreenState extends State<NearYouScreen> {
                         color: CustomColors.primary,
                       ),
                       Text(
-                        "No one near you",
+                        localizations.noNearbyUsers,
                         style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
@@ -127,7 +129,7 @@ class _NearYouScreenState extends State<NearYouScreen> {
                     child: Column(
                       children: [
                         SizedBox(height: 60.h),
-                        const HomeHeading(text: 'Near You'),
+                        HomeHeading(text: localizations.nearYou),
                         Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20),
                           child: SizedBox(
@@ -263,6 +265,7 @@ class NearYouPermissionDenied extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -271,13 +274,13 @@ class NearYouPermissionDenied extends StatelessWidget {
           Text(error),
           TextButton(
             onPressed: onRetry,
-            child: const Text("Retry"),
+            child: Text(localizations.retryButton),
           ),
           TextButton(
             onPressed: () {
               context.go(Routes.home);
             },
-            child: const Text("Go to Home"),
+            child: Text(localizations.goToHome),
           ),
         ],
       ),

@@ -12,12 +12,14 @@ import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/notification/model/notification_model.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       backgroundColor: CustomColors.background,
       bottomNavigationBar: const NavBar(currentIndex: 0),
@@ -64,6 +66,7 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildTopBar(BuildContext context) {
+    final localizations = S.of(context);
     return CustomTopBar(
       excludeBackButton: false,
       excludeLangDropDown: true,
@@ -71,7 +74,7 @@ class NotificationScreen extends StatelessWidget {
         children: [
           _buildCircleIcon(
             icon: Icons.delete_outline,
-            tooltip: "Clear All",
+            tooltip: localizations.clearAll,
             onPressed: () {
               context.read<NotificationBloc>().add(NotificationClearAll());
             },
@@ -79,7 +82,7 @@ class NotificationScreen extends StatelessWidget {
           SizedBox(width: 6.w),
           _buildCircleIcon(
             icon: Icons.settings_outlined,
-            tooltip: "Settings",
+            tooltip: localizations.settings,
             onPressed: () {},
           ),
         ],
@@ -88,6 +91,7 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildTitle(BuildContext context) {
+    final localizations = S.of(context);
     return SizedBox(
       width: 318.w,
       height: 90.h,
@@ -96,7 +100,7 @@ class NotificationScreen extends StatelessWidget {
           alignment: Alignment.center,
           children: [
             Text(
-              'Notification',
+              localizations.notifications,
               style: GoogleFonts.lexend(
                 textStyle: TextStyle(
                   fontWeight: FontWeight.w500,
@@ -195,6 +199,7 @@ class NotificationScreen extends StatelessWidget {
   }
 
   Widget _buildLoadMoreButton(BuildContext context, bool isLoading) {
+    final localizations = S.of(context);
     return Center(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -208,23 +213,26 @@ class NotificationScreen extends StatelessWidget {
                 onPressed: () {
                   context.read<NotificationBloc>().add(NotificationLoadMore());
                 },
-                child: const Text("More"),
+                // TODO: Use localizations
+                // child: Text(localizations.more),
+                child: const Text('More'),
               ),
       ),
     );
   }
 
   Widget _buildErrorState(BuildContext context) {
+    final localizations = S.of(context);
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Error loading notifications'),
+          Text(localizations.errorLoadingNotifications),
           IconButton(
             onPressed: () {
               context.read<NotificationBloc>().add(NotificationLoad(page: 1));
             },
-            tooltip: "Retry",
+            tooltip: localizations.retryButton,
             icon: const Icon(Icons.refresh),
           ),
         ],

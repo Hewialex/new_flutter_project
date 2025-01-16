@@ -16,6 +16,7 @@ import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
 import 'package:qismati/features/profile/screens/profile_screen.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -99,11 +100,11 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(height: 60.h),
-                  const HomeHeading(text: 'Interact With Your'),
-                  const HomeHeading(
-                    text: 'Happiness!',
-                    color: CustomColors.primary,
-                  ),
+                  HomeHeading(text: S.of(context).interactWithHappiness),
+                  // HomeHeading(
+                  //   text: S.of(context).,
+                  //   color: CustomColors.primary,
+                  // ),
                   SizedBox(height: 60.h),
                   const SearchDropdown(),
                   SizedBox(height: 70.h),
@@ -113,7 +114,7 @@ class HomeScreen extends StatelessWidget {
                       Container(
                         padding: EdgeInsets.only(left: 25.w),
                         child: Text(
-                          'Near You',
+                          S.of(context).nearYou,
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w500,
@@ -179,7 +180,7 @@ class HomeScreen extends StatelessWidget {
                                     toastAlignment: Alignment.topCenter));
                           },
                           child: Text(
-                            'View all',
+                            S.of(context).viewAll,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               color: const Color(0xFF8B8B8B),

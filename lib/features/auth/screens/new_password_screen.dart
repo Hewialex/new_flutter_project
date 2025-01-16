@@ -13,6 +13,7 @@ import 'package:qismati/features/auth/blocs/new_password_bloc/bloc/new_password_
 import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NewPasswordScreen extends StatelessWidget {
   const NewPasswordScreen({super.key});
@@ -41,9 +42,9 @@ class NewPasswordScreen extends StatelessWidget {
                           excludeLangDropDown: true,
                         ),
                         SizedBox(height: 47.h),
-                        const CustomHeader(text: 'New Password'),
+                        CustomHeader(text: S.of(context).resetPassword),
                         Text(
-                          "Enter new password",
+                          S.of(context).enterPassword,
                           style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 15.sp,
@@ -56,7 +57,7 @@ class NewPasswordScreen extends StatelessWidget {
                               controller: (state as NewPassWordInitial)
                                   .passwordController,
                               validator: validatePassword,
-                              text: 'Enter new password',
+                              text: S.of(context).password,
                               suffix: IconButton(
                                 icon: Icon(
                                   cubitState
@@ -93,7 +94,7 @@ class NewPasswordScreen extends StatelessWidget {
                               validator: context
                                   .read<NewPasswordBloc>()
                                   .validateConfirmPw,
-                              text: 'Confirm new password',
+                              text: S.of(context).confirmPassword,
                             );
                           },
                         ),
@@ -104,7 +105,7 @@ class NewPasswordScreen extends StatelessWidget {
                               context.go(Routes.login);
                             }
                           },
-                          text: 'Change Password',
+                          text: S.of(context).resetPassword,
                           shadowColor: CustomColors.shadowBlue,
                           fontWeight: FontWeight.w600,
                         ),

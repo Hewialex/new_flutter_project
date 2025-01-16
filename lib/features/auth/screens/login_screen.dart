@@ -11,6 +11,7 @@ import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/features/auth/blocs/login_status_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({super.key});
@@ -90,9 +91,9 @@ class LoginScreen extends StatelessWidget {
                       excludeLangDropDown: true,
                     ),
                     SizedBox(height: 47.h),
-                    const CustomHeader(text: "Login here"),
+                    CustomHeader(text: S.of(context).signIn),
                     Text(
-                      "Welcome back you've been missed!",
+                      S.of(context).interactWithHappiness,
                       style: TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15.sp,
@@ -103,7 +104,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         context.push(Routes.loginWithPassword);
                       },
-                      text: 'Sign in With Email',
+                      text: S.of(context).continueWithEmail,
                       shadowColor: CustomColors.shadowBlue,
                       elevation: 5,
                       fontWeight: FontWeight.w600,
@@ -113,7 +114,7 @@ class LoginScreen extends StatelessWidget {
                       onPressed: () {
                         //
                       },
-                      text: 'Sign in Via Google',
+                      text: S.of(context).continueWithGoogle,
                       shadowColor: CustomColors.shadowBlue,
                       elevation: 5,
                       fontWeight: FontWeight.w600,
@@ -132,7 +133,7 @@ class LoginScreen extends StatelessWidget {
                         }
                       },
                       child: Text(
-                        "Create new account",
+                        S.of(context).createAccount,
                         style: TextStyle(
                           fontSize: 12.sp,
                           fontWeight: FontWeight.w600,
@@ -150,7 +151,7 @@ class LoginScreen extends StatelessWidget {
       default:
         return Scaffold(
           body: Center(
-            child: Text("Unimplemented state $state"),
+            child: Text(S.of(context).unimplementedState),
           ),
         );
     }

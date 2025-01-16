@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,6 +6,7 @@ import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/contactus/widgets/stylish_title.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class FeaturesScreen extends StatelessWidget {
   const FeaturesScreen({super.key});
@@ -27,7 +27,7 @@ class FeaturesScreen extends StatelessWidget {
                     excludeLangDropDown: true,
                   ),
                   Text(
-                    'Features',
+                    S.of(context).features,
                     style: GoogleFonts.kodchasan(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -37,44 +37,42 @@ class FeaturesScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 26.h),
                   _buildFeatureListItem(
-                    content: 'Receive message.',
+                    content: S.of(context).receiveMessage,
                     enable: true,
                   ),
                   _buildFeatureListItem(
-                    content: 'Send message to any member.',
+                    content: S.of(context).sendMessageToAny,
                     enable: false,
                   ),
                   _buildFeatureListItem(
-                    content: 'Send message to member from your country.',
+                    content: S.of(context).sendMessageToCountry,
                     enable: true,
                   ),
                   _buildFeatureListItem(
-                    content: 'Message who added you to his favorite list.',
+                    content: S.of(context).messageWhoFavorited,
                     enable: true,
                   ),
                   _buildFeatureListItem(
-                    content: 'Reply to message.',
+                    content: S.of(context).replyToMessage,
                     enable: true,
                   ),
                   _buildFeatureListItem(
-                    content: 'Control who can message you. ',
+                    content: S.of(context).controlMessaging,
                     enable: false,
                   ),
                   _buildFeatureListItem(
-                    content: 'Control who can message you. ',
+                    content: S.of(context).controlMessaging,
                     enable: true,
                   ),
                   _buildFeatureListItem(
-                    content: 'Remove add.',
+                    content: S.of(context).removeAds,
                     enable: false,
                   ),
                   SizedBox(height: 26.h),
-                  const StyledTitle(title: "Premium Package"),
+                  StyledTitle(title: S.of(context).premium),
                   SizedBox(height: 26.h),
                   Text(
-                    '''By subscribing to the premium package, you will activate
-                    all the available features and thus increase your efficiency
-                     in the application to reach your goal faster .''',
+                    S.of(context).premiumDescription,
                     style: GoogleFonts.kodchasan(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -83,7 +81,7 @@ class FeaturesScreen extends StatelessWidget {
                     ),
                   ),
                   SizedBox(height: 26.h),
-                  CustomButton(onPressed: () {}, text: 'Subscribe Now'),
+                  CustomButton(onPressed: () {}, text: S.of(context).subscribeNow),
                   SizedBox(height: 26.h),
                 ],
               ),

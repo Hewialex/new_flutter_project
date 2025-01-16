@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class LooksSection extends StatelessWidget {
   const LooksSection({
@@ -20,10 +21,11 @@ class LooksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Column(
       children: [
         Text(
-          'Your Look',
+          localizations.your_look,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.sp,
@@ -31,25 +33,25 @@ class LooksSection extends StatelessWidget {
         ),
         SizedBox(height: 25.h),
         CustomTextField(
-          text: "Weight-kg",
+          text: "${localizations.weight}-kg",
           controller: weightController,
         ),
         SizedBox(height: 25.h),
         CustomTextField(
-          text: "Height-cm",
+          text: "${localizations.height}-cm",
           controller: heightController,
         ),
         SizedBox(height: 25.h),
         CustomDropdownMenu(
           values: skinColorDropdownValues,
           controller: skinColorController,
-          hintText: "Skin Color",
+          hintText: localizations.skin_color,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
           values: bodyShapeDropdownValues,
           controller: bodyShapeController,
-          hintText: "Body Shape",
+          hintText: localizations.body_shape,
         ),
       ],
     );

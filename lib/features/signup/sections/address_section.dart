@@ -2,6 +2,7 @@ import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class AddressSection extends StatelessWidget {
   const AddressSection({
@@ -17,6 +18,7 @@ class AddressSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Column(
       children: [
         SizedBox(height: 20.h),

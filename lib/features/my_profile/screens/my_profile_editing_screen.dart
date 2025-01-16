@@ -4,6 +4,7 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
 import 'package:qismati/features/my_profile/model/editable_profile_model.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class ProfileEditingScreen extends StatefulWidget {
   final ProfileModel profile;
@@ -64,8 +65,8 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
         TextEditingController(text: widget.profile.monthlyIncome.toString());
     healthCaseController =
         TextEditingController(text: widget.profile.healthCase);
-    religiousCommitmentController =
-        TextEditingController(text: widget.profile.religiousCommitment.toString());
+    religiousCommitmentController = TextEditingController(
+        text: widget.profile.religiousCommitment.toString());
     veilOrBeardController = TextEditingController(
       text: widget.profile.gender == "female"
           ? widget.profile.viel
@@ -98,6 +99,7 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -110,10 +112,9 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
         iconTheme: const IconThemeData(
           color: CustomColors.background,
         ),
-
-        title: const Text(
-          "Edit Profile",
-          style: TextStyle(
+        title: Text(
+          localizations.editProfile,
+          style: const TextStyle(
             color: CustomColors.background,
           ),
         ),
@@ -124,33 +125,42 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildSectionHeader('Personal Information'),
-            _buildEditableField('Nationality', nationalityController),
-            _buildEditableField('Place of Residence', countryController),
-            _buildEditableField('City', cityController),
-            _buildEditableField('Age', ageController, isNumber: true),
-            _buildSectionHeader('Family Details'),
-            _buildEditableField('Marital Status', maritalStatusController),
-            _buildEditableField('Child Count', childrenController,
-                isNumber: true),
-            _buildEditableField('Marriage Type', marriageTypeController),
-            _buildSectionHeader('Physical Attributes'),
-            _buildEditableField('Height (cm)', heightController,
-                isNumber: true),
-            _buildEditableField('Weight (kg)', weightController,
-                isNumber: true),
-            _buildEditableField('Skin Color', skinColorController),
-            _buildEditableField('Body Shape', bodyShapeController),
-            _buildSectionHeader('Professional Details'),
-            _buildEditableField('Job', jobController),
-            _buildEditableField('Educational Qualification',
-                educationalQualificationController),
-            _buildEditableField('Financial Status', financialStatusController),
-            _buildEditableField('Monthly Income', monthlyIncomeController),
-            _buildSectionHeader('Additional Information'),
-            _buildEditableField('Health Case', healthCaseController),
+            _buildSectionHeader(localizations.personalInformation),
             _buildEditableField(
-              widget.profile.gender == "female" ? 'Veil' : 'Beard',
+                localizations.nationality, nationalityController),
+            _buildEditableField(localizations.country, countryController),
+            _buildEditableField(localizations.city, cityController),
+            _buildEditableField(localizations.age, ageController,
+                isNumber: true),
+            _buildSectionHeader(localizations.maritalStatus),
+            _buildEditableField(
+                localizations.maritalStatus, maritalStatusController),
+            _buildEditableField(localizations.children, childrenController,
+                isNumber: true),
+            _buildEditableField(
+                localizations.marriageType, marriageTypeController),
+            // TODO: Uncomment this later
+            // _buildSectionHeader(localizations.physicalAttributes),
+            _buildEditableField(localizations.height, heightController,
+                isNumber: true),
+            _buildEditableField(localizations.weight, weightController,
+                isNumber: true),
+            _buildEditableField(localizations.skinColor, skinColorController),
+            _buildEditableField(localizations.bodyShape, bodyShapeController),
+            _buildSectionHeader(localizations.professionalDetails),
+            _buildEditableField(localizations.job, jobController),
+            _buildEditableField(localizations.educationalQualification,
+                educationalQualificationController),
+            _buildEditableField(
+                localizations.financialStatus, financialStatusController),
+            _buildEditableField(
+                localizations.monthlyIncome, monthlyIncomeController),
+            _buildSectionHeader(localizations.additionalInformation),
+            _buildEditableField(localizations.healthCase, healthCaseController),
+            _buildEditableField(
+              widget.profile.gender == "female"
+                  ? localizations.veil
+                  : localizations.beard,
               veilOrBeardController,
             ),
           ],
@@ -158,7 +168,7 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _saveProfile,
-        label: const Text('Save'),
+        label: Text(localizations.save),
         icon: const Icon(Icons.save),
         backgroundColor: CustomColors.primary,
       ),
@@ -218,9 +228,11 @@ class ProfileEditingScreenState extends State<ProfileEditingScreen> {
       job: jobController.text,
       educationalQualification: educationalQualificationController.text,
       financialStatus: financialStatusController.text,
-      monthlyIncome: int.tryParse(monthlyIncomeController.text) ?? widget.profile.monthlyIncome,
+      monthlyIncome: int.tryParse(monthlyIncomeController.text) ??
+          widget.profile.monthlyIncome,
       healthCase: healthCaseController.text,
-      religiousCommitment: bool.tryParse(religiousCommitmentController.text) ?? widget.profile.religiousCommitment,
+      religiousCommitment: bool.tryParse(religiousCommitmentController.text) ??
+          widget.profile.religiousCommitment,
       viel:
           widget.profile.gender == "female" ? veilOrBeardController.text : null,
       beard:

@@ -15,6 +15,7 @@ import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 import 'package:qismati/features/signup/widgets/text_field_info.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class BasicSection extends StatelessWidget {
   const BasicSection({
@@ -38,6 +39,7 @@ class BasicSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     final formKey = GlobalKey<FormState>();
     return Column(
       children: [
@@ -45,33 +47,32 @@ class BasicSection extends StatelessWidget {
             key: formKey,
             child: Column(children: [
               CustomTextField(
-                text: "Username",
+                text: localizations.username,
                 controller: usernameController,
               ),
               SizedBox(height: 21.h),
-              const TextFieldInfo(
-                info:
-                    'The user name is the nick name that appears to all members it must be decent and respectfull, and it can’t exceed 15 characters.',
+              TextFieldInfo(
+                info: localizations.username_info,
               ),
               SizedBox(height: 20.h),
               CustomDropdownMenu(
                 values: genderDropdownValues,
                 controller: genederController,
-                hintText: "Gender",
+                hintText: localizations.gender,
               ),
               SizedBox(height: 20.h),
               CustomTextField(
-                text: "Full name",
+                text: localizations.full_name,
                 controller: fullNameController,
               ),
               SizedBox(height: 20.h),
               CustomTextField(
-                text: "Phone Number",
+                text: localizations.phone_number,
                 controller: phoneNumberController,
               ),
               SizedBox(height: 20.h),
               CustomTextField(
-                text: "Email",
+                text: localizations.email,
                 controller: emailController,
               ),
               SizedBox(height: 20.h),
@@ -80,7 +81,7 @@ class BasicSection extends StatelessWidget {
                   return CustomTextField(
                     controller: passwordController,
                     validator: validatePassword,
-                    text: 'password',
+                    text: localizations.password,
                     suffix: IconButton(
                       icon: Icon(
                         cubitState ? Icons.visibility : Icons.visibility_off,
@@ -112,13 +113,12 @@ class BasicSection extends StatelessWidget {
                     ),
                     obscureText: confirmCubitState,
                     validator: context.read<SignupBloc>().validateConfirmPw,
-                    text: 'Confirm password',
+                    text: localizations.confirm_password,
                   );
                 },
               ),
-              const TextFieldInfo(
-                info:
-                    'It must at least 6 characters long and must not contain special characters.',
+              TextFieldInfo(
+                info: localizations.password_info,
               ),
             ])),
         SizedBox(height: 20.h),
@@ -128,7 +128,7 @@ class BasicSection extends StatelessWidget {
               // draw an alert dialog if code is sent successfully to email.
               CustomAlertDialog.show(
                 context,
-                title: 'A code has been sent to your email.',
+                title: localizations.code_sent,
                 actions: [
                   CustomButton(
                     onPressed: () {
@@ -142,7 +142,7 @@ class BasicSection extends StatelessWidget {
                         ),
                       );
                     },
-                    text: 'Enter Code',
+                    text: localizations.enter_code,
                     fontWeight: FontWeight.w600,
                     shadowColor: CustomColors.shadowBlue,
                   ),
@@ -150,7 +150,7 @@ class BasicSection extends StatelessWidget {
               );
             }
           },
-          text: 'Confirm',
+          text: localizations.confirm,
           fontWeight: FontWeight.w600,
           shadowColor: CustomColors.shadowBlue,
         ),
@@ -158,7 +158,7 @@ class BasicSection extends StatelessWidget {
         Column(
           children: [
             Text(
-              "Do you have an account?  ",
+              "${localizations.account_exist}  ",
               style: TextStyle(
                 fontSize: 12.sp,
                 fontWeight: FontWeight.w600,
@@ -168,7 +168,7 @@ class BasicSection extends StatelessWidget {
             TextButton(
               onPressed: () => context.pushNamed(Routes.login),
               child: Text(
-                "Login",
+                localizations.login,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w600,

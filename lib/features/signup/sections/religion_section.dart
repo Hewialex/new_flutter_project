@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class ReligionSection extends StatelessWidget {
   const ReligionSection({
@@ -23,9 +24,10 @@ class ReligionSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Column(children: [
       Text(
-        'Religion',
+        localizations.religion,
         style: TextStyle(
           fontWeight: FontWeight.w500,
           fontSize: 16.sp,
@@ -35,33 +37,33 @@ class ReligionSection extends StatelessWidget {
       CustomDropdownMenu(
         values: religiousCommitmentDropdownValues,
         controller: religionCommitmentController,
-        hintText: "Religion Commitment",
+        hintText: localizations.religion_commitment,
       ),
       SizedBox(height: 20.h),
       CustomDropdownMenu(
         values: prayerDropdownValues,
         controller: prayerController,
-        hintText: "Prayer",
+        hintText: localizations.prayer,
       ),
       SizedBox(height: 20.h),
       CustomDropdownMenu(
         values: smokingDropdownValues,
         controller: smokingController,
-        hintText: "Smoking",
+        hintText: localizations.smoking,
       ),
       SizedBox(height: 20.h),
-      gender == "Male"
+      gender == localizations.male
           ? CustomDropdownMenu(
               values: beardDropdownValues,
               controller: beardController,
-              hintText: "Beard",
+              hintText: localizations.beard,
             )
           : Container(),
-      gender == "Female"
+      gender == localizations.female
           ? CustomDropdownMenu(
               values: veilDropdownValues,
               controller: vielController,
-              hintText: "Veil",
+              hintText: localizations.veil,
             )
           : Container(),
     ]);

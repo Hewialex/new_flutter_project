@@ -14,6 +14,7 @@ import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/features/auth/blocs/new_password_bloc/bloc/new_password_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class EmailVerificationOtpScreen extends StatelessWidget {
   const EmailVerificationOtpScreen({
@@ -47,9 +48,9 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                         excludeLangDropDown: true,
                       ),
                       SizedBox(height: 47.h),
-                      const CustomHeader(text: 'Verification'),
+                      CustomHeader(text: S.of(context).verifyEmail),
                       Text(
-                        "Enter Verification Code",
+                        S.of(context).enterVerificationCode,
                         style: TextStyle(
                           fontWeight: FontWeight.w500,
                           fontSize: 15.sp,
@@ -64,7 +65,7 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            "If you didn’t receive a code, ",
+                            S.of(context).didntReceiveCode,
                             style: TextStyle(
                               fontWeight: FontWeight.w500,
                               fontSize: 15.sp,
@@ -75,7 +76,7 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                               // TODO: add the resend logic here.
                             },
                             child: Text(
-                              "Resend",
+                              S.of(context).resendCode,
                               style: TextStyle(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 15.sp,
@@ -100,7 +101,7 @@ class EmailVerificationOtpScreen extends StatelessWidget {
                             );
                           }
                         },
-                        text: 'Verify',
+                        text: S.of(context).verifyEmail,
                         shadowColor: CustomColors.shadowBlue,
                         fontWeight: FontWeight.w600,
                       ),

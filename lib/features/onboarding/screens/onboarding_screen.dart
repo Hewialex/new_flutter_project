@@ -5,6 +5,7 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/features/onboarding/widgets/slide_point.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -14,23 +15,6 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final title = [
-    'Find your partner with us',
-    'Marriage is a great relationship',
-    'Find your perfect life partner'
-  ];
-
-  final images = [
-    'assets/images/onboarding_one.png',
-    'assets/images/onboarding_two.png',
-    'assets/images/onboarding_three.png'
-  ];
-
-  final description = [
-    'Discover your soulmate with ease and confidence',
-    'The foundation of love, trust, and lifelong companionship',
-    'Guided by faith, united for a lifetime in blessings'
-  ];
   int currentIndex = 0;
   @override
   void initState() {
@@ -51,6 +35,24 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
+    final title = [
+      localizations.findPartner,
+      localizations.marriageRelationship,
+      localizations.perfectLifePartner
+    ];
+
+    final images = [
+      'assets/images/onboarding_one.png',
+      'assets/images/onboarding_two.png',
+      'assets/images/onboarding_three.png'
+    ];
+
+    final description = [
+      localizations.discoverSoulmate,
+      localizations.foundationOfLove,
+      localizations.guidedByFaith
+    ];
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
@@ -117,7 +119,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 SizedBox(height: 30.h),
                 CustomButton(
                   onPressed: changePage,
-                  text: currentIndex < 2 ? 'Next' : 'Get Started',
+                  text: currentIndex < 2 ? localizations.next : localizations.getStarted,
                 ),
               ],
             ),

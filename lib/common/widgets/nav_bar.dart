@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_nav_bar_item.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({
@@ -35,25 +36,25 @@ class NavBar extends StatelessWidget {
         BottomNavigationBarItem(
             label: '',
             icon: currentIndex == 0
-                ? const CustomNavBarItem(
+                ? CustomNavBarItem(
                     icon: Icons.home,
-                    navBarTitle: "Home",
+                    navBarTitle: S.of(context).home,
                   )
                 : const Icon(Icons.home, color: CustomColors.iconsGray)),
         BottomNavigationBarItem(
             label: '',
             icon: currentIndex == 1
-                ? const CustomNavBarItem(
+                ? CustomNavBarItem(
                     icon: Icons.diamond,
-                    navBarTitle: "Premium",
+                    navBarTitle: S.of(context).premium,
                   )
                 : const Icon(Icons.diamond, color: CustomColors.iconsGray)),
         BottomNavigationBarItem(
             label: '',
             icon: currentIndex == 2
-                ? const CustomNavBarItem(
+                ? CustomNavBarItem(
                     icon: Icons.mail,
-                    navBarTitle: "Message",
+                    navBarTitle: S.of(context).chatTitle,
                   )
                 : const Icon(Icons.mail, color: CustomColors.iconsGray))
       ],
