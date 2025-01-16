@@ -1,27 +1,37 @@
-class LanguageHelper {
-  convertLocaleToLangName(String localeToConvert) {
-    String langName;
+import 'package:flutter/material.dart';
 
+class LanguageHelper {
+  Locale convertLangNameToLocale(String langNameToConvert) {
+    switch (langNameToConvert) {
+      case 'English':
+        return const Locale('en');
+      case 'Arabic':
+        return const Locale('ar');
+      case 'Amharic':
+        return const Locale('am');
+      case 'Oromo':
+        return const Locale('om');
+      case 'Somali':
+        return const Locale('so');
+      default:
+        return const Locale('en');
+    }
+  }
+
+  String convertLocaleToLangName(String localeToConvert) {
     switch (localeToConvert) {
       case 'en':
-        langName = "English";
-        break;
-      case 'am':
-        langName = "አማርኛ"; // Amharic
-        break;
-      case 'om':
-        langName = "Afaan Oromoo"; // Oromo
-        break;
-      case 'so':
-        langName = "Soomaali"; // Somali
-        break;
+        return "English";
       case 'ar':
-        langName = "العربية"; // Arabic
-        break;
+        return "Arabic";
+      case 'am':
+        return "Amharic";
+      case 'om':
+        return "Oromo";
+      case 'so':
+        return "Somali";
       default:
-        langName = "English";
+        return "English";
     }
-
-    return langName;
   }
 }
