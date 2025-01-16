@@ -18,8 +18,8 @@ class _SearchDropdownState extends State<SearchDropdown> {
   List<String> dropdownItems = [];
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     dropdownItems = [
       S.of(context).members,
       S.of(context).newMembers,

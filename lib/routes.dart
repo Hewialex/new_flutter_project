@@ -33,6 +33,7 @@ class Routes {
   static const editProfile = '/editProfile';
   static const notificationDetail = '/notificationDetail';
   static const emailVerificationOtp = '/emailVerificationOtp';
+  static const languageScreen = '/languageScreen';
   static const signupAfterEmailVerificationScreen =
       '/signupAfterEmailVerificationScreen';
 }

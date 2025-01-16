@@ -5,9 +5,12 @@ class ContentContainer extends StatelessWidget {
   const ContentContainer({
     super.key,
     required this.child,
+    this.color = Colors.white,
   });
 
   final Widget child;
+  final Color color;
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -15,7 +18,7 @@ class ContentContainer extends StatelessWidget {
         width: 341.w,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: color,
           borderRadius: BorderRadius.all(
             Radius.circular(30.r),
           ),

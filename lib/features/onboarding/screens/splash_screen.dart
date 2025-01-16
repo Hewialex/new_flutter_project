@@ -31,7 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
       if (sessionExists) {
         context.go(Routes.login);
       } else {
-        context.go(Routes.onboarding);
+        // context.go(Routes.onboarding);
+        context.go(Routes.languageScreen);
       }
     });
   }

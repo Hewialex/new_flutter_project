@@ -1,150 +1,114 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/core/database/session.dart';
+import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/language/cubit/current_data.dart';
+import 'package:qismati/generated/l10n.dart';
+import 'package:qismati/routes.dart';
 
-class LanguageScreen extends StatelessWidget {
+class LanguageScreen extends StatefulWidget {
   const LanguageScreen({super.key});
 
-  void onLangSelected(
-      BuildContext context, CurrentDataCubit cubit, String locale) {
-    Session objSession = Session();
-    objSession.setSession("local", locale);
+  @override
+  _LanguageScreenState createState() => _LanguageScreenState();
+}
 
-    cubit.changeLocale(locale);
-    // TODO: nav to next screen here
+class _LanguageScreenState extends State<LanguageScreen> {
+  String selectedLangCode = 'ar'; // Default language is Arabic
+
+  void onLangSelected(BuildContext context, String langCode) {
+    setState(() {
+      selectedLangCode = langCode;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.read<CurrentDataCubit>();
     return Scaffold(
-      backgroundColor: CustomColors.background,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              height: 300,
-              width: double.infinity,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage("assets/images/bg2.png"),
-                  fit: BoxFit.cover,
-                ),
-              ),
-              padding: const EdgeInsets.only(top: 50.0),
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 20, bottom: 10),
-              child: const Text(
-                "Welcome",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                  color: CustomColors.primary,
-                ),
-              ),
-            ),
-            BlocBuilder<CurrentDataCubit, CurrentDataState>(
-              builder: (context, state) {
-                final cubit = context.read<CurrentDataCubit>();
-                return Column(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              ContentContainer(
+                color: CustomColors.languageContainerColor,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ElevatedButton(
-                        onPressed: () => onLangSelected(context, cubit, 'en'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.primary,
-                          fixedSize: const Size(200, 40),
-                        ),
-                        child: const Text(
-                          "English",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.background,
-                          ),
+                      margin: const EdgeInsets.only(top: 20, bottom: 10),
+                      child: const Text(
+                        "Select language",
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 24,
+                          color: CustomColors.languageTextColor,
                         ),
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ElevatedButton(
-                        onPressed: () => onLangSelected(context, cubit, 'ar'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.primary,
-                          fixedSize: const Size(200, 40),
-                        ),
-                        child: const Text(
-                          "Arabic",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.background,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ElevatedButton(
-                        onPressed: () => onLangSelected(context, cubit, 'am'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.primary,
-                          fixedSize: const Size(200, 40),
-                        ),
-                        child: const Text(
-                          "Amharic",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.background,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ElevatedButton(
-                        onPressed: () => onLangSelected(context, cubit, 'om'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.primary,
-                          fixedSize: const Size(200, 40),
-                        ),
-                        child: const Text(
-                          "Oromo",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.background,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      child: ElevatedButton(
-                        onPressed: () => onLangSelected(context, cubit, 'so'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: CustomColors.primary,
-                          fixedSize: const Size(200, 40),
-                        ),
-                        child: const Text(
-                          "Somali",
-                          style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColors.background,
-                          ),
-                        ),
-                      ),
-                    ),
+                    _buildLanguageOption(context, cubit, 'English', 'en'),
+                    _buildLanguageOption(context, cubit, 'العربية', 'ar'),
+                    _buildLanguageOption(context, cubit, 'አማርኛ', 'am'),
+                    _buildLanguageOption(context, cubit, 'Afaan Oromoo', 'om'),
+                    _buildLanguageOption(context, cubit, 'Soomaali', 'so'),
+                    SizedBox(height: 20.h),
                   ],
-                );
-              },
+                ),
+              ),
+              SizedBox(height: 20.h),
+              CustomButton(
+                onPressed: () {
+                  Session objSession = Session();
+                  objSession.setSession("local", selectedLangCode);
+
+                  cubit.changeLocale(selectedLangCode);
+                  context.go(Routes.onboarding);
+                },
+                // text: 'Next',
+                text: S.of(context).next,
+                shadowColor: CustomColors.shadowBlue,
+                elevation: 5,
+                fontWeight: FontWeight.w600,
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildLanguageOption(BuildContext context, CurrentDataCubit cubit,
+      String language, String langCode) {
+    bool isSelected = selectedLangCode == langCode;
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      child: InkWell(
+        onTap: () => onLangSelected(context, langCode),
+        child: Container(
+          width: 200,
+          height: 40,
+          decoration: isSelected
+              ? BoxDecoration(
+                  color: isSelected ? CustomColors.primary : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border: isSelected
+                      ? Border.all(color: CustomColors.primary, width: 2)
+                      : null,
+                )
+              : null,
+          alignment: Alignment.center,
+          child: Text(
+            language,
+            style: TextStyle(
+              color: isSelected ? CustomColors.languageTextColor : Colors.black,
+              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
             ),
-          ],
+          ),
         ),
       ),
     );

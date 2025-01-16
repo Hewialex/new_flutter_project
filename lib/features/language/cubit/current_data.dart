@@ -28,9 +28,13 @@ class CurrentDataCubit extends Cubit<CurrentDataState> {
 
   final LanguageHelper languageHelper = LanguageHelper();
 
-  void changeLocale(String newLocale) {
-    Locale convertedLocale = languageHelper.convertLangNameToLocale(newLocale);
-    emit(state.copyWith(currentLanguage: newLocale, locale: convertedLocale));
+  void changeLocale(String langCode) {
+    emit(
+      state.copyWith(
+        currentLanguage: languageHelper.convertLocaleToLangName(langCode),
+        locale: Locale(langCode),
+      ),
+    );
   }
 
   Future<void> checkLocal() async {

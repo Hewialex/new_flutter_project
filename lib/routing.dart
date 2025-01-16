@@ -16,6 +16,7 @@ import 'package:qismati/features/interactions/screens/favorite_list_screen.dart'
 import 'package:qismati/features/interactions/screens/ignore_list.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/features/interactions/screens/who_favorite_me_screen.dart';
+import 'package:qismati/features/language/screen/language_screen.dart';
 import 'package:qismati/features/members/screens/members_photo_screen.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_editing_screen.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_screen.dart';
@@ -160,6 +161,10 @@ final GoRouter goRouter = GoRouter(routes: [
       final tipsExtra = state.extra as TipsExtra;
       return TipsScreen(tipsExtra: tipsExtra);
     },
+  ),
+  GoRoute(
+    path: Routes.languageScreen,
+    builder: (context, state) => const LanguageScreen(),
   ),
   GoRoute(
     path: Routes.editProfile,
