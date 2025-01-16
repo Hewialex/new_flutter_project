@@ -1,58 +1,54 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
-import 'package:qismati/generated/l10n.dart';
 
 class DatingCard extends StatelessWidget {
+  final String name;
+  final String gender;
+  final bool isPremium;
+  final String locationName;
+
   const DatingCard({
     super.key,
     required this.name,
+    required this.gender,
     required this.isPremium,
     required this.locationName,
-    required this.gender,
   });
-
-  final String name;
-  final bool isPremium;
-  final String gender;
-  final String locationName;
 
   Widget premiumContainer(BuildContext context) {
     return isPremium
         ? Container(
-            width: 89.w,
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20.r),
-              ),
               color: CustomColors.premiumColor,
+              borderRadius: BorderRadius.circular(5.r),
             ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                ),
-                Text(
-                  S.of(context).premium,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w300,
-                  ),
-                )
-              ],
+            child: Text(
+              'Premium',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           )
         : Container();
+  }
+
+  String getFormattedName(String name) {
+    List<String> nameParts = name.split(' ');
+    if (nameParts.length > 1) {
+      return '${nameParts[0]} ${nameParts[1][0]}.';
+    } else {
+      return nameParts[0];
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: 230.w,
-      height: 250.h,
       padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
@@ -62,25 +58,20 @@ class DatingCard extends StatelessWidget {
         ),
       ),
       child: Column(
-        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          Wrap(
             children: [
-              SizedBox(
-                width: 115.w,
-                child: Text(
-                  name,
-                  style: TextStyle(
-                    fontWeight: FontWeight.w700,
-                    fontSize: 14.sp,
-                    color: Colors.white,
-                    overflow: TextOverflow.ellipsis,
-                  ),
+              Text(
+                getFormattedName(name),
+                style: TextStyle(
+                  fontWeight: FontWeight.w700,
+                  fontSize: 14.sp,
+                  color: Colors.white,
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
+              SizedBox(width: 10.w),
               premiumContainer(context),
             ],
           ),
@@ -101,16 +92,40 @@ class DatingCard extends StatelessWidget {
               ),
             ],
           ),
-          Center(
-            child: Image.asset(
-              gender == "male"
-                  ? "assets/images/male_avatar.png"
-                  : "assets/images/female_avatar.png",
-              width: 150.w,
-              height: 150.h,
-              fit: BoxFit.contain,
-            ),
-          ),
+          const Spacer(),
+          Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Positioned(
+                top: 0, // Adjust this value as needed
+                child: Container(
+                  width: 150, // Width of the circular box
+                  height: 150, // Height of the circular box
+                  decoration: BoxDecoration(
+                    color: CustomColors.languageContainerColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset:
+                            const Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Image.asset(
+                gender == "male"
+                    ? "assets/images/male_avatar.png"
+                    : "assets/images/female_avatar.png",
+                width: double.infinity,
+                height: 150.h,
+                fit: BoxFit.cover,
+              ),
+            ],
+          )
         ],
       ),
     );

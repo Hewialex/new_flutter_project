@@ -10,6 +10,7 @@ import 'package:qismati/features/auth/blocs/login_status_bloc.dart';
 import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/chat/bloc/chat_list_bloc.dart';
+import 'package:qismati/features/home/cubit/visibility_cubit.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
 import 'package:qismati/features/nearyou/blocs/nearyou_bloc.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
@@ -133,6 +134,9 @@ class QismatiApp extends StatelessWidget {
                         create: (context) => ChatListBloc(
                           dbHelper: context.read<DatabaseHelper>(),
                         ),
+                      ),
+                      BlocProvider<VisibilityCubit>(
+                        create: (context) => VisibilityCubit(),
                       ),
                     ],
                     child: widget!,
