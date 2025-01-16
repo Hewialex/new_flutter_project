@@ -10,6 +10,7 @@ import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/signup/sections/basic_section.dart';
+import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -74,7 +75,7 @@ class SignupScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
-
+    final localizations = S.of(context);
     final bloc = context.read<SignupBloc>();
 
     return BlocConsumer<SignupBloc, SignupState>(
@@ -90,22 +91,20 @@ class SignupScreen extends StatelessWidget {
             );
 
           case SignupSuccess():
-            return const Scaffold(
+            return Scaffold(
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.done,
                       color: CustomColors.chatName,
                       size: 50,
                     ),
-
-                    // a success message
                     Text(
-                      "Signup successful",
-                      style: TextStyle(
+                      localizations.signup_successful,
+                      style: const TextStyle(
                         color: CustomColors.success,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -138,10 +137,10 @@ class SignupScreen extends StatelessWidget {
                             altRoute: Routes.login,
                             excludeLangDropDown: true,
                           ),
-                          const CustomHeader(text: 'Create Account'),
-                          CustomHeader(text: 'as $gender'),
+                          CustomHeader(text: localizations.create_account),
+                          CustomHeader(text: '${localizations.as} $gender'),
                           Text(
-                            "Create an account so you can explore all App",
+                            localizations.create_account_description,
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 12.sp,
@@ -172,7 +171,7 @@ class SignupScreen extends StatelessWidget {
             return Scaffold(
               body: Center(
                 child: Text(
-                  'Unimplemented state $state',
+                  '${localizations.unimplemented_state} $state',
                 ),
               ),
             );
@@ -183,204 +182,19 @@ class SignupScreen extends StatelessWidget {
           context.go(Routes.login);
           CustomSnackBar(
             context: context,
-            message: 'Signed up user successfully',
+            message: localizations.signed_up_user_successfully,
             type: SnackBarType.success,
           );
         }
         if (state is SignupDefault && state.error != SignupError.none) {
           CustomSnackBar(
             context: context,
-            message: 'Could not signup user ${state.errorMessage}',
+            message:
+                '${localizations.could_not_signup_user} ${state.errorMessage}',
             type: SnackBarType.success,
           );
         }
       },
     );
-    // return BlocProvider<SignupBloc>(
-    //   create: (context) => SignupBloc()..add(SignupReset()),
-    //   child: BlocBuilder<SignupBloc, SignupState>(builder: (context, state) {
-    //     switch (state) {
-    //       case SignupPending():
-    //         return const Scaffold(
-    //           body: Center(
-    //             child: CupertinoActivityIndicator(
-    //               color: CustomColors.primary,
-    //             ),
-    //           ),
-    //         );
-    //       case SignupSuccess():
-    //         Future.microtask(() {
-    //           if (context.mounted) {
-    //             context.go(Routes.home);
-    //           }
-    //         });
-    //         return const Scaffold(
-    //           body: Center(
-    //             child: Icon(
-    //               Icons.done,
-    //               color: CustomColors.chatName,
-    //               size: 50,
-    //             ),
-    //           ),
-    //         );
-    //       case SignupDefault():
-    //         Future.microtask(() {
-    //           if (context.mounted && state.err != null) {
-    //             CustomSnackBar(
-    //               context: context,
-    //               message: state.errorMessage!,
-    //               type: SnackBarType.error,
-    //             ).showSnack();
-    //           }
-    //         });
-    //         return Form(
-    //           key: formKey,
-    //           child: Scaffold(
-    //             body: SafeArea(
-    //               child: SingleChildScrollView(
-    //                 child: ContentContainer(
-    //                   child: Column(
-    //                     children: [
-    //                       const CustomTopBar(
-    //                         altRoute: Routes.login,
-    //                         excludeLangDropDown: true,
-    //                       ),
-    //                       const CustomHeader(text: 'Create Account'),
-    //                       CustomHeader(text: 'as $gender'),
-    //                       Text(
-    //                         "Create an account so you can explore all App",
-    //                         style: TextStyle(
-    //                           fontWeight: FontWeight.w400,
-    //                           fontSize: 12.sp,
-    //                         ),
-    //                       ),
-    //                       SizedBox(
-    //                         height: 31.h,
-    //                       ),
-    //                       BasicSection(
-    //                         nationality: nationality,
-    //                         cityController: state.cityController,
-    //                         confirmPasswordController:
-    //                             state.confirmPasswordController,
-    //                         countryController: state.countryController,
-    //                         emailController: state.emailController,
-    //                         fullNameController: state.fullNameController,
-    //                         nationalityController: state.nationalityController,
-    //                         passwordController: state.passwordController,
-    //                         phoneNumberController: state.phoneNumberController,
-    //                         usernameController: state.userNameController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       MaritialSection(
-    //                         nationality: nationality,
-    //                         ageController: state.ageController,
-    //                         childrenController: state.childrenController,
-    //                         maritialStatusController:
-    //                             state.maritalStatusController,
-    //                         marriageTypeController:
-    //                             state.marriageTypeController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       LooksSection(
-    //                         nationality: nationality,
-    //                         weightController: state.weightController,
-    //                         heightController: state.heightController,
-    //                         bodyShapeController: state.bodyShapeController,
-    //                         skinColorController: state.skinColorController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       ReligionSection(
-    //                         nationality: nationality,
-    //                         beardController: state.beardController,
-    //                         prayerController: state.prayerController,
-    //                         religionCommitmentController:
-    //                             state.religiousCommitmentController,
-    //                         smokingController: state.smokingController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       EducationAndWorkSection(
-    //                         nationality: nationality,
-    //                         educationalQualificationController:
-    //                             state.educationQualificationController,
-    //                         financialStatusController:
-    //                             state.financialStatusController,
-    //                         jobCategoryController: state.jobCategoryController,
-    //                         jobController: state.jobController,
-    //                         monthlyIncomeController:
-    //                             state.montlyIncomeController,
-    //                         healthCaseController: state.healthCaseController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       AboutYourPartnerSection(
-    //                         aboutYourPartnerController:
-    //                             state.aboutYourPartnerController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       TalkAboutYourSelfSection(
-    //                         aboutYourSelfController:
-    //                             state.aboutYourSelfController,
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       Text(
-    //                         'App Terms',
-    //                         style: TextStyle(
-    //                           fontWeight: FontWeight.w500,
-    //                           fontSize: 16.sp,
-    //                         ),
-    //                       ),
-    //                       SizedBox(height: 19.h),
-    //                       const ListDotItem(
-    //                         text: 'By clicking on sign up button, you agree to',
-    //                       ),
-    //                       GestureDetector(
-    //                         onTap: () {},
-    //                         child: Text(
-    //                           'Terms and Conditions',
-    //                           style: TextStyle(
-    //                             fontSize: 12.sp,
-    //                             fontWeight: FontWeight.w300,
-    //                             color: CustomColors.textRed,
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       SizedBox(height: 54.h),
-    //                       CustomButton(
-    //                         onPressed: () async {
-    //                           if (formKey.currentState!.validate()) {
-    //                             final SharedPreferences prefs =
-    //                                 await SharedPreferences.getInstance();
-    //                             final gender =
-    //                                 prefs.getString('gender') ?? "Male";
-    //                             if (gender == 'Male') {
-    //                               BlocProvider.of<SignupBloc>(context)
-    //                                   .add(AttemptSignupAsMan());
-    //                             } else {
-    //                               BlocProvider.of<SignupBloc>(context)
-    //                                   .add(AttemptSignupAsWoman());
-    //                             }
-    //                           }
-    //                         },
-    //                         text: 'Sign up',
-    //                         shadowColor: CustomColors.shadowBlue,
-    //                         elevation: 5,
-    //                         fontWeight: FontWeight.w600,
-    //                       ),
-    //                       SizedBox(height: 30.h),
-    //                     ],
-    //                   ),
-    //                 ),
-    //               ),
-    //             ),
-    //           ),
-    //         );
-    //       default:
-    //         return Scaffold(
-    //           body: Center(
-    //             child: Text("Unimplemented state: $state"),
-    //           ),
-    //         );
-    //     }
-    //   }),
-    // );
   }
 }

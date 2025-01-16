@@ -3901,6 +3901,156 @@ class S {
       args: [],
     );
   }
+
+  /// `Register`
+  String get register {
+    return Intl.message(
+      'Register',
+      name: 'register',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assalamu alaikum wa rahmatullahi`
+  String get assalamuAlaikum {
+    return Intl.message(
+      'Assalamu alaikum wa rahmatullahi',
+      name: 'assalamuAlaikum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To allow all member the opportunity to register for Qismiati, it is free of charge.`
+  String get freeOfCharge {
+    return Intl.message(
+      'To allow all member the opportunity to register for Qismiati, it is free of charge.',
+      name: 'freeOfCharge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please take an oath before registering`
+  String get takeOath {
+    return Intl.message(
+      'Please take an oath before registering',
+      name: 'takeOath',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I swear by ALLAH Almighty that I will not enter this App except for the purpose of legal marriage, and not for any other purpose. I promise ALLAH and I promise you that I will not waste the hard work of the App, and that I will not deceive the members, and that I will be honest with ALLAH and then with myself, and that I will abide by.`
+  String get oathText {
+    return Intl.message(
+      'I swear by ALLAH Almighty that I will not enter this App except for the purpose of legal marriage, and not for any other purpose. I promise ALLAH and I promise you that I will not waste the hard work of the App, and that I will not deceive the members, and that I will be honest with ALLAH and then with myself, and that I will abide by.',
+      name: 'oathText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `ALLAH is the best witness`
+  String get allahWitness {
+    return Intl.message(
+      'ALLAH is the best witness',
+      name: 'allahWitness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I've taken an oath`
+  String get takenOath {
+    return Intl.message(
+      'I\'ve taken an oath',
+      name: 'takenOath',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `I'm Male`
+  String get iAmMale {
+    return Intl.message(
+      'I\'m Male',
+      name: 'iAmMale',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write a message...`
+  String get write_a_message {
+    return Intl.message(
+      'Write a message...',
+      name: 'write_a_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Notice`
+  String get notice {
+    return Intl.message(
+      'Notice',
+      name: 'notice',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Warning: to avoid any act of scam we ask you sincerely to not send money or respond to aid requests.`
+  String get warning {
+    return Intl.message(
+      'Warning: to avoid any act of scam we ask you sincerely to not send money or respond to aid requests.',
+      name: 'warning',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To report an offensive message, tap and hold the message and select the Report the message option`
+  String get report_offensive_message {
+    return Intl.message(
+      'To report an offensive message, tap and hold the message and select the Report the message option',
+      name: 'report_offensive_message',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You can manage your privacy and chat permissions through your account settings`
+  String get manage_privacy {
+    return Intl.message(
+      'You can manage your privacy and chat permissions through your account settings',
+      name: 'manage_privacy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Accept`
+  String get accept {
+    return Intl.message(
+      'Accept',
+      name: 'accept',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `as`
+  String get as {
+    return Intl.message(
+      'as',
+      name: 'as',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

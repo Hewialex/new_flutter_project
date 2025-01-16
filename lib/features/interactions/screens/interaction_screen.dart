@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/custom_functions.dart';
 import 'package:qismati/common/models/person.dart';
-import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';

@@ -462,5 +462,42 @@
 
   "male": "ወንድ",
   "female": "ሴት",
-  "other": "ሌላ"
+  "other": "ሌላ",
+
+
+  "register": "መዝግብ",
+  "assalamuAlaikum": "ሰላም ላይክም ወራሕማትሉልላ",
+  "freeOfCharge": "ለአባላት ሁሉ የተመዘገቡ የተመዘገቡ ለተመዘገበ ነፃ ነው።",
+  "takeOath": "እባክዎን ከመዝግብ በፊት ወረዳት ይውሰዱ",
+  "oathText": "እኔ በአላህ አብይ እምነት ወይዘን እኔ ይህን መተግበር አልቻልኩም በሐሳቦች የማለው የምርጥ ጋብቻ በማድረግ ይህን አልቻልኩም።",
+  "termsAndConditionsApp": "የአፕ የዋጋና የአገልግሎት መረጃ",
+  "allahWitness": "አላህ የበለጠ ምስክር ነው",
+  "takenOath": "ወረዳውን አውርድዎት",
+  "iAmMale": "እኔ ወንድ ነኝ",
+  "iAmFemale": "እኔ ሴት ነኝ",
+  "continue_action": "ቀጥል",
+
+  "write_a_message": "መልክዕ ይጻፉ...",
+  "send": "ላክ",
+  "notice": "ማሳሰቢያ",
+  "warning": "ማሳሰብ: ከእቃ ማዕቀብ መውረድ ይቀጥሉ በእቅፍ እባክዎን ገንዘብ አትላኩ ወይም እንደማህደር ምንም አይገኝም።",
+  "report_offensive_message": "አውድ መልክዕ ማቅረብ ለመግኘት መልክዕ ይጥፉ ወምድር ወሳነ ወሳነው ይምረጡ",
+  "manage_privacy": "እቅፍ ማስታወቂያ ወእንዴት ማስታወቂያ በመለያ በሁኔታዎች ይችላሉ",
+  "accept": "አስቀድሞ",
+  "create_account": "መዝግብ ይፍጠሩ",
+  "as": "እንደ",
+  "create_account_description": "አካውንት ይፍጠሩ ወይም እንደገና ይመልከቱ ሁሉ የአፕ",
+  "signup_successful": "የመዝግብ ሂደት ተሳክቷል",
+  "unimplemented_state": "የተፈጠረ ሁኔታ",
+  "signed_up_user_successfully": "ተመዝግበ ተጠቃሚ በተሳካ ሁኔታ",
+  "could_not_signup_user": "ተጠቃሚ መዝግብ አልቻልኩም",
+  "signup_successful": "የመዝግብ ሂደት ተሳክቷል",
+  "app_terms": "የመተግበሪያ ውሎች",
+  "terms_conditions_text": "የመዝግብ እቅፍ ይጫኑ እና ተስማምተዋል",
+  "terms_conditions": "ውሎች እና አቀራረብ",
+  "sign_up": "መዝግብ",
+  "unimplemented_state": "የተፈጠረ ሁኔታ",
+  "signed_up_user_successfully": "ተመዝግበ ተጠቃሚ በተሳካ ሁኔታ",
+  "could_not_signup_user": "ተጠቃሚ መዝግብ አልቻልኩም"
+
 }

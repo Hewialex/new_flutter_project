@@ -451,6 +451,43 @@
 
   "male": "Dhalaa",
   "female": "Dubartii",
-  "other": "Kanaa"
+  "other": "Kanaa",
+
+  "register": "Galmeessi",
+  "assalamuAlaikum": "Assalamu alaikum wa rahmatullahi",
+  "freeOfCharge": "Hundi miseensota Qismiati galma'uu dandeessisuuf, bilisa ta'ee jira.",
+  "takeOath": "Galma'uu dura waaqa irratti kadhadhaa",
+  "oathText": "Ani Waaqayyo Gooftaa nan kadhadha, App kana maaliif akka galu qorannoo seera qabeessaaf qofa ta'uu fi kaan biraa hin ta'u. Ani Waaqayyo fi isin waliin waadaa nan galu, hojii App kan nama yaadachiisu hin miidhu, miseensota hin dhara'u, akkasumas Waaqayyo fi ofiituma kadhadha.",
+  "termsAndConditionsApp": "Shirtoo fi haala App kana",
+  "allahWitness": "Waaqayyo ragaa ol'aanaa dha",
+  "takenOath": "Waadaa nan galu",
+  "iAmMale": "Anin dhiiroo dha",
+  "iAmFemale": "Anin dubartii dha",
+  "continue_action": "Itti fufi",
+
+  "write_a_message": "Ergaa barreessi...",
+  "send": "Ergaa",
+  "notice": "Beeksisa",
+  "warning": "Ittigaafatama: Koottaa yaada badiin hin goone, akka si gargaarsuu hin ergine ykn maallaqa hin ergin.",
+  "report_offensive_message": "Ergaa badii ta'e gabaasaaf, ergaa irratti tuqaa fi filannoo gabaasa ergaa filadhu",
+  "manage_privacy": "Dhaabbata qabeenya keetiin fi hayyama waliigalteetii ofeeggannoo ni to'ataa",
+  "accept": "Fudhachuu",
+  "create_account": "Akaawuntii Uumu",
+  "as": "akka",
+  "create_account_description": "Akaawuntii uumuu dandeessisuuf, App hunda qorachuu dandeessu",
+  "signup_successful": "Galma'iinsa milkaa'e",
+  "unimplemented_state": "Haala hin hojiirra oolle",
+  "signed_up_user_successfully": "Fayyadamaa milkaa'een galmeessan",
+  "could_not_signup_user": "Fayyadamaa galmeessuu hin dandeenye",
+  "signup_successful": "Galma'iinsi milkaa'e",
+  "app_terms": "Shirtoo App",
+  "terms_conditions_text": "Baatu galma'aa tuqaa, waliigalteerra ni dhagahama",
+  "terms_conditions": "Shirtoo fi Haala",
+  "sign_up": "Galma'i",
+  "unimplemented_state": "Haala hin hojiirra oolle",
+  "signed_up_user_successfully": "Fayyadamaa milkaa'een galmeessan",
+  "could_not_signup_user": "Fayyadamaa galmeessuu hin dandeenye"
+
+
 
 }

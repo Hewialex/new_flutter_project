@@ -479,6 +479,43 @@
   "accept_polygamy": "Waayo, guurka badan waa la aqbalaa",
   "male": "Lab",
   "female": "Dhedig",
-  "other": "Kale"
+  "other": "Kale",
+  "register": "Isdiiwaangeli",
+  "assalamuAlaikum": "Assalamu alaikum wa rahmatullahi",
+  "freeOfCharge": "Si loo oggolaado dhammaan xubnaha inay isdiiwaangeliyaan Qismiati, waa lacag la'aan.",
+  "takeOath": "Fadlan dhaar qaado ka hor inta aadan isdiiwaangalin",
+  "oathText": "Waxaan ku dhaarannaa ALLAH Qudduus ah in aanan geli doonin Appkan ilaa ujeeddo sharci ah oo guur, oo aanan ujeeddo kale lahayn. Waxaan ballanqaadayaa ALLAH iyo idinka in aanan qashqasha u geysan doonin shaqada adag ee Appka, in aanan khiyaanayn xubnaha, in aanan daacad u ahay ALLAH iyo naftayda, in aanan ku dhaqmi doonin.",
+  "termsAndConditionsApp": "Shuruudaha iyo xaaladaha Appka",
+  "allahWitness": "ALLAH waa markhaati ugu fiican",
+  "takenOath": "Dhaar ayaan qaaday",
+  "iAmMale": "Anigu waxaan ahay nin",
+  "iAmFemale": "Anigu waxaan ahay naag",
+  "continue_action": "Sii wad",
+
+  "write_a_message": "Qor farriin...",
+  "send": "Dir",
+  "notice": "Ogeysiis",
+  "warning": "Digniin: si looga fogaado wax kasta oo khiyaano ah, si naxariis leh ayaan kuu weydiineynaa inaadan lacag dirin ama ka jawaabin codsiyada caawinaada.",
+  "report_offensive_message": "Si aad u soo sheegto farriin xadgudub ah, taabo oo hay farriinta kadibna dooro xulashada soo sheeg farriinta.",
+  "manage_privacy": "Waxaad maamuli kartaa asturnaantaada iyo rukhsadaha sheekeysigaaga adigoo maraya dejinta akoonkaaga.",
+  "accept": "Aqbal",
+  "create_account": "Samee Akoon",
+  "as": "sida",
+  "create_account_description": "Samee akoont si aad u baarto dhammaan App",
+  "signup_successful": "Isdiiwaangelinta waa guul",
+  "unimplemented_state": "Xaalad aan la hirgelin",
+  "signed_up_user_successfully": "Isticmaalaha si guul leh ayaa loo diiwaangeliyey",
+  "could_not_signup_user": "Istaqaalaha lama diiwaangelin karin",
+  "signup_successful": "Isdiiwaangelinta waa guul",
+  "app_terms": "Shuruudaha App",
+  "terms_conditions_text": "Markaad gujiso badhanka isdiiwaangelinta, waxaad ku raacsan tahay",
+  "terms_conditions": "Shuruudaha iyo Xaaladaha",
+  "sign_up": "Isdiiwaangeli",
+  "unimplemented_state": "Xaalad aan la hirgelin",
+  "signed_up_user_successfully": "Isticmaalaha si guul leh ayaa loo diiwaangeliyey",
+  "could_not_signup_user": "Istaqaalaha lama diiwaangelin karin"
+
+
+
 
 }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
-import 'package:qismati/generated/l10n.dart';
 
 class HomeHeading extends StatelessWidget {
   const HomeHeading({

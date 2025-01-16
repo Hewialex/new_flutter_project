@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Maaloo Hiriyyaa Keeti"),
         "about_your_partner_info": MessageLookupByLibrary.simpleMessage(
             "Deebii dhugaa kennuuf, maaliif immoo imeeli ykn lakkoofsa bilbilaa hin galchinaa."),
+        "accept": MessageLookupByLibrary.simpleMessage("Fudhachuu"),
         "accept_polygamy":
             MessageLookupByLibrary.simpleMessage("Poligamiin ni simata"),
         "accountExists": MessageLookupByLibrary.simpleMessage(
@@ -62,13 +63,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Barbaadi Gabaatee"),
         "age": MessageLookupByLibrary.simpleMessage("Umuri"),
         "agreeToTerms": m0,
+        "allahWitness": MessageLookupByLibrary.simpleMessage(
+            "Waaqayyo ragaa ol\'aanaa dha"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Duraan herrega qabdaa?"),
         "amputation": MessageLookupByLibrary.simpleMessage("Haqa"),
         "another_thing": MessageLookupByLibrary.simpleMessage("Waa\'ee Ka\'aa"),
-        "app_terms": MessageLookupByLibrary.simpleMessage("Kakuu App"),
+        "app_terms": MessageLookupByLibrary.simpleMessage("Shirtoo App"),
         "art_literary":
             MessageLookupByLibrary.simpleMessage("Aartii / Barreessaa"),
+        "as": MessageLookupByLibrary.simpleMessage("akka"),
+        "assalamuAlaikum": MessageLookupByLibrary.simpleMessage(
+            "Assalamu alaikum wa rahmatullahi"),
         "attachFile":
             MessageLookupByLibrary.simpleMessage("Faayilii Walitti Qabuu"),
         "autoSearcher":
@@ -151,14 +157,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ergaa nama kam irraa akka fudhattu too\'annoo gochuu dandeessa"),
         "copy": MessageLookupByLibrary.simpleMessage("Garagalchi"),
         "could_not_signup_user": MessageLookupByLibrary.simpleMessage(
-            "Uffis galmeessuu hin dandeenye"),
+            "Fayyadamaa galmeessuu hin dandeenye"),
         "countries": MessageLookupByLibrary.simpleMessage("Biyyoota"),
         "country": MessageLookupByLibrary.simpleMessage("Biyya"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Herrega Uumi"),
         "create_account":
-            MessageLookupByLibrary.simpleMessage("Akkaawunti Uumuu"),
+            MessageLookupByLibrary.simpleMessage("Akaawuntii Uumu"),
         "create_account_description": MessageLookupByLibrary.simpleMessage(
-            "Akkaawunti uumun app guutummaa ilaaluu dandeessisa"),
+            "Akaawuntii uumuu dandeessisuuf, App hunda qorachuu dandeessu"),
         "dark": MessageLookupByLibrary.simpleMessage("Dhiiraa"),
         "dark_brown": MessageLookupByLibrary.simpleMessage("Bunni Dhiiraa"),
         "delete": MessageLookupByLibrary.simpleMessage("Haquu"),
@@ -225,6 +231,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forward": MessageLookupByLibrary.simpleMessage("Dabarsuu"),
         "foundationOfLove": MessageLookupByLibrary.simpleMessage(
             "Bu\'uura jaalala, amanamummaa fi hiriyummaa jireenya guutuu"),
+        "freeOfCharge": MessageLookupByLibrary.simpleMessage(
+            "Hundi miseensota Qismiati galma\'uu dandeessisuuf, bilisa ta\'ee jira."),
         "fullName": MessageLookupByLibrary.simpleMessage("Maqaa Guutuu"),
         "full_name": MessageLookupByLibrary.simpleMessage("Maqaa Guutuu"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gaallarii"),
@@ -248,7 +256,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Mana Barumsaa Ol’aanaa"),
         "hobbies": MessageLookupByLibrary.simpleMessage("Shaakala"),
         "home": MessageLookupByLibrary.simpleMessage("Mana"),
-        "iAmFemale": MessageLookupByLibrary.simpleMessage("Ani Dubartii dha"),
+        "iAmFemale": MessageLookupByLibrary.simpleMessage("Anin dubartii dha"),
+        "iAmMale": MessageLookupByLibrary.simpleMessage("Anin dhiiroo dha"),
         "i_am_still_a_student":
             MessageLookupByLibrary.simpleMessage("Ani barataa dha"),
         "i_do_not_pray":
@@ -300,6 +309,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProfilePhoto":
             MessageLookupByLibrary.simpleMessage("Suuraa Profaayilii Godhi"),
         "male": MessageLookupByLibrary.simpleMessage("Dhalaa"),
+        "manage_privacy": MessageLookupByLibrary.simpleMessage(
+            "Dhaabbata qabeenya keetiin fi hayyama waliigalteetii ofeeggannoo ni to\'ataa"),
         "maritalStatus":
             MessageLookupByLibrary.simpleMessage("Haala Fuudhaa Heerumaa"),
         "marital_status": MessageLookupByLibrary.simpleMessage("Haala Maatii"),
@@ -364,9 +375,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "notSpecified": MessageLookupByLibrary.simpleMessage("Hin ibsamne"),
         "not_religious":
             MessageLookupByLibrary.simpleMessage("Amanti hin qabu"),
+        "notice": MessageLookupByLibrary.simpleMessage("Beeksisa"),
         "notification_settings":
             MessageLookupByLibrary.simpleMessage("Qindaa\'ina beeksisa"),
         "notifications": MessageLookupByLibrary.simpleMessage("Beeksisawwan"),
+        "oathText": MessageLookupByLibrary.simpleMessage(
+            "Ani Waaqayyo Gooftaa nan kadhadha, App kana maaliif akka galu qorannoo seera qabeessaaf qofa ta\'uu fi kaan biraa hin ta\'u. Ani Waaqayyo fi isin waliin waadaa nan galu, hojii App kan nama yaadachiisu hin miidhu, miseensota hin dhara\'u, akkasumas Waaqayyo fi ofiituma kadhadha."),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "online": MessageLookupByLibrary.simpleMessage("Marsariitii"),
         "onlineMembers":
@@ -444,6 +458,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quickSearch": MessageLookupByLibrary.simpleMessage("Barbaadi Qaqqa"),
         "receiveMessage":
             MessageLookupByLibrary.simpleMessage("Ergaa fudhachuu."),
+        "register": MessageLookupByLibrary.simpleMessage("Galmeessi"),
         "registrationSuccess":
             MessageLookupByLibrary.simpleMessage("Galmeen milkaa\'eera"),
         "religion": MessageLookupByLibrary.simpleMessage("Amantii"),
@@ -462,6 +477,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Profaayilii Gabaasi"),
         "reportUser":
             MessageLookupByLibrary.simpleMessage("Fayyadamaa Gabaasi"),
+        "report_offensive_message": MessageLookupByLibrary.simpleMessage(
+            "Ergaa badii ta\'e gabaasaaf, ergaa irratti tuqaa fi filannoo gabaasa ergaa filadhu"),
         "required": MessageLookupByLibrary.simpleMessage("Barbaachisaa"),
         "resendCode":
             MessageLookupByLibrary.simpleMessage("Koodii Irra Deebiin Ergi"),
@@ -485,7 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "App keessatti siif kennameef wanta hunda argachuuf"),
         "self_sufficient": MessageLookupByLibrary.simpleMessage("Ofiin Jira"),
         "self_taught": MessageLookupByLibrary.simpleMessage("Ofiin Baradhe"),
-        "send": MessageLookupByLibrary.simpleMessage("Ergi"),
+        "send": MessageLookupByLibrary.simpleMessage("Ergaa"),
         "sendButton": MessageLookupByLibrary.simpleMessage("Ergaa Ergi"),
         "sendMessageToAny": MessageLookupByLibrary.simpleMessage(
             "Miseensa kamiifuu ergaa erguu."),
@@ -503,11 +520,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signOutConfirmation": MessageLookupByLibrary.simpleMessage(
             "Bahuu akka barbaaddu mirkaneeffatteettaa?"),
         "signUp": MessageLookupByLibrary.simpleMessage("Galmaa\'i"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("Galmee"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("Galma\'i"),
         "signed_up_user_successfully": MessageLookupByLibrary.simpleMessage(
-            "Uffis jedhamniin galmaa\'ee jira"),
+            "Fayyadamaa milkaa\'een galmeessan"),
         "signup_successful":
-            MessageLookupByLibrary.simpleMessage("Galmee milkaa\'aa"),
+            MessageLookupByLibrary.simpleMessage("Galma\'iinsi milkaa\'e"),
         "single": MessageLookupByLibrary.simpleMessage("Tokko"),
         "skinColor": MessageLookupByLibrary.simpleMessage("Bifa Gogaa"),
         "skin_color": MessageLookupByLibrary.simpleMessage("Halluu Qoodaa"),
@@ -522,6 +539,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "status": MessageLookupByLibrary.simpleMessage("Haala"),
         "sterility": MessageLookupByLibrary.simpleMessage("Ijaaramu"),
         "subscribeNow": MessageLookupByLibrary.simpleMessage("Amma Galmaa\'i"),
+        "takeOath": MessageLookupByLibrary.simpleMessage(
+            "Galma\'uu dura waaqa irratti kadhadhaa"),
+        "takenOath": MessageLookupByLibrary.simpleMessage("Waadaa nan galu"),
         "talk_about_yourself":
             MessageLookupByLibrary.simpleMessage("Ofii Kee Irratti Dubadhu"),
         "talk_about_yourself_info": MessageLookupByLibrary.simpleMessage(
@@ -532,11 +552,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Haala fi Dambiiwwan"),
         "termsAndConditionsApp":
-            MessageLookupByLibrary.simpleMessage("Haala fi Dambiiwwan Appii"),
+            MessageLookupByLibrary.simpleMessage("Shirtoo fi haala App kana"),
         "terms_conditions":
-            MessageLookupByLibrary.simpleMessage("Haala fi ajajawwan"),
+            MessageLookupByLibrary.simpleMessage("Shirtoo fi Haala"),
         "terms_conditions_text": MessageLookupByLibrary.simpleMessage(
-            "Baniinsa galma\'ii irratti, akka ittiin hirmaachistu"),
+            "Baatu galma\'aa tuqaa, waliigalteerra ni dhagahama"),
         "to_brown": MessageLookupByLibrary.simpleMessage("Bunni Dhiiraa"),
         "trade": MessageLookupByLibrary.simpleMessage("Bittaa"),
         "transport": MessageLookupByLibrary.simpleMessage("Geessuu"),
@@ -554,7 +574,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unimplementedState":
             MessageLookupByLibrary.simpleMessage("Haalli hin hojiirra oolin"),
         "unimplemented_state":
-            MessageLookupByLibrary.simpleMessage("Haala hin raawwatamne"),
+            MessageLookupByLibrary.simpleMessage("Haala hin hojiirra oolle"),
         "unknownError": MessageLookupByLibrary.simpleMessage(
             "Dogoggora hin beekamne uumameera"),
         "unknownState":
@@ -586,6 +606,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "visual_disability":
             MessageLookupByLibrary.simpleMessage("Dadhabina Argachuu"),
         "voice": MessageLookupByLibrary.simpleMessage("Ergaa Sagalee"),
+        "warning": MessageLookupByLibrary.simpleMessage(
+            "Ittigaafatama: Koottaa yaada badiin hin goone, akka si gargaarsuu hin ergine ykn maallaqa hin ergin."),
         "weakPassword":
             MessageLookupByLibrary.simpleMessage("Jecha icciitii laafaa dha"),
         "websocketClosed": MessageLookupByLibrary.simpleMessage(
@@ -612,6 +634,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "widowed": MessageLookupByLibrary.simpleMessage("Dhiiga"),
         "without_employment":
             MessageLookupByLibrary.simpleMessage("Hojii dhabuu"),
+        "write_a_message":
+            MessageLookupByLibrary.simpleMessage("Ergaa barreessi..."),
         "yes": MessageLookupByLibrary.simpleMessage("Eeyyee"),
         "your_connect_status":
             MessageLookupByLibrary.simpleMessage("Haala waliigalaa"),

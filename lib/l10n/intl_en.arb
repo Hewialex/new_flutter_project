@@ -461,7 +461,42 @@
 
   "male": "Male",
   "female": "Female",
-  "other": "Other"
+  "other": "Other",
+
+  "register": "Register",
+  "assalamuAlaikum": "Assalamu alaikum wa rahmatullahi",
+  "freeOfCharge": "To allow all member the opportunity to register for Qismiati, it is free of charge.",
+  "takeOath": "Please take an oath before registering",
+  "oathText": "I swear by ALLAH Almighty that I will not enter this App except for the purpose of legal marriage, and not for any other purpose. I promise ALLAH and I promise you that I will not waste the hard work of the App, and that I will not deceive the members, and that I will be honest with ALLAH and then with myself, and that I will abide by.",
+  "termsAndConditionsApp": "The terms and conditions of the App",
+  "allahWitness": "ALLAH is the best witness",
+  "takenOath": "I've taken an oath",
+  "iAmMale": "I'm Male",
+  "iAmFemale": "I'm Female",
+  "continue_action": "Continue",
+  "write_a_message": "Write a message...",
+  "send": "Send",
+  "notice": "Notice",
+  "warning": "Warning: to avoid any act of scam we ask you sincerely to not send money or respond to aid requests.",
+  "report_offensive_message": "To report an offensive message, tap and hold the message and select the Report the message option",
+  "manage_privacy": "You can manage your privacy and chat permissions through your account settings",
+  "accept": "Accept",
+  "create_account": "Create Account",
+  "as": "as",
+  "create_account_description": "Create an account so you can explore all App",
+  "signup_successful": "Signup successful",
+  "unimplemented_state": "Unimplemented state",
+  "signed_up_user_successfully": "Signed up user successfully",
+  "could_not_signup_user": "Could not signup user",
+  "signup_successful": "Signup successful",
+  "app_terms": "App Terms",
+  "terms_conditions_text": "By clicking on sign up button, you agree to",
+  "terms_conditions": "Terms and Conditions",
+  "sign_up": "Sign up",
+  "unimplemented_state": "Unimplemented state",
+  "signed_up_user_successfully": "Signed up user successfully",
+  "could_not_signup_user": "Could not signup user"
+
 
 }
 

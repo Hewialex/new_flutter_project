@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("About Your Partner"),
         "about_your_partner_info": MessageLookupByLibrary.simpleMessage(
             "To provide an accurate answer, please do not enter an email or phone number."),
+        "accept": MessageLookupByLibrary.simpleMessage("Accept"),
         "accept_polygamy":
             MessageLookupByLibrary.simpleMessage("Accepts Polygamy"),
         "accountExists": MessageLookupByLibrary.simpleMessage(
@@ -63,6 +64,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Advanced Search"),
         "age": MessageLookupByLibrary.simpleMessage("Age"),
         "agreeToTerms": m0,
+        "allahWitness":
+            MessageLookupByLibrary.simpleMessage("ALLAH is the best witness"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
         "amputation": MessageLookupByLibrary.simpleMessage("Amputation"),
@@ -70,6 +73,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "app_terms": MessageLookupByLibrary.simpleMessage("App Terms"),
         "art_literary":
             MessageLookupByLibrary.simpleMessage("Art / Literature"),
+        "as": MessageLookupByLibrary.simpleMessage("as"),
+        "assalamuAlaikum": MessageLookupByLibrary.simpleMessage(
+            "Assalamu alaikum wa rahmatullahi"),
         "attachFile": MessageLookupByLibrary.simpleMessage("Attach File"),
         "autoSearcher": MessageLookupByLibrary.simpleMessage("Auto searcher"),
         "beard": MessageLookupByLibrary.simpleMessage("Beard"),
@@ -219,6 +225,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forward": MessageLookupByLibrary.simpleMessage("Forward"),
         "foundationOfLove": MessageLookupByLibrary.simpleMessage(
             "The foundation of love, trust, and lifelong companionship"),
+        "freeOfCharge": MessageLookupByLibrary.simpleMessage(
+            "To allow all member the opportunity to register for Qismiati, it is free of charge."),
         "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
         "full_name": MessageLookupByLibrary.simpleMessage("Full Name"),
         "gallery": MessageLookupByLibrary.simpleMessage("Gallery"),
@@ -241,6 +249,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hobbies": MessageLookupByLibrary.simpleMessage("Hobbies"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "iAmFemale": MessageLookupByLibrary.simpleMessage("I\'m Female"),
+        "iAmMale": MessageLookupByLibrary.simpleMessage("I\'m Male"),
         "i_am_still_a_student":
             MessageLookupByLibrary.simpleMessage("I am still a student"),
         "i_do_not_pray": MessageLookupByLibrary.simpleMessage("I do not pray"),
@@ -293,6 +302,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProfilePhoto":
             MessageLookupByLibrary.simpleMessage("Make Profile Photo"),
         "male": MessageLookupByLibrary.simpleMessage("Male"),
+        "manage_privacy": MessageLookupByLibrary.simpleMessage(
+            "You can manage your privacy and chat permissions through your account settings"),
         "maritalStatus": MessageLookupByLibrary.simpleMessage("Marital Status"),
         "marital_status":
             MessageLookupByLibrary.simpleMessage("Marital Status"),
@@ -354,11 +365,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No nearby users found"),
         "notSpecified": MessageLookupByLibrary.simpleMessage("Not Specified"),
         "not_religious": MessageLookupByLibrary.simpleMessage("Not religious"),
+        "notice": MessageLookupByLibrary.simpleMessage("Notice"),
         "notification_settings":
             MessageLookupByLibrary.simpleMessage("Notification Settings"),
         "notifications": MessageLookupByLibrary.simpleMessage("Notifications"),
         "notify_when_app_off": MessageLookupByLibrary.simpleMessage(
             "Notify me when the app is off"),
+        "oathText": MessageLookupByLibrary.simpleMessage(
+            "I swear by ALLAH Almighty that I will not enter this App except for the purpose of legal marriage, and not for any other purpose. I promise ALLAH and I promise you that I will not waste the hard work of the App, and that I will not deceive the members, and that I will be honest with ALLAH and then with myself, and that I will abide by."),
         "offline": MessageLookupByLibrary.simpleMessage("Offline"),
         "online": MessageLookupByLibrary.simpleMessage("Online"),
         "onlineMembers": MessageLookupByLibrary.simpleMessage("Online members"),
@@ -429,6 +443,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Receive message."),
         "receive_email_notifications": MessageLookupByLibrary.simpleMessage(
             "Receive notification on e-mail"),
+        "register": MessageLookupByLibrary.simpleMessage("Register"),
         "registrationSuccess":
             MessageLookupByLibrary.simpleMessage("Registration successful"),
         "religion": MessageLookupByLibrary.simpleMessage("Religion"),
@@ -444,6 +459,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Reply to message."),
         "reportProfile": MessageLookupByLibrary.simpleMessage("Report Profile"),
         "reportUser": MessageLookupByLibrary.simpleMessage("Report User"),
+        "report_offensive_message": MessageLookupByLibrary.simpleMessage(
+            "To report an offensive message, tap and hold the message and select the Report the message option"),
         "required": MessageLookupByLibrary.simpleMessage("Required"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Resend Code"),
         "resetPassword": MessageLookupByLibrary.simpleMessage("Reset Password"),
@@ -502,6 +519,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribeNow": MessageLookupByLibrary.simpleMessage("Subscribe Now"),
         "success_stories":
             MessageLookupByLibrary.simpleMessage("Success Stories"),
+        "takeOath": MessageLookupByLibrary.simpleMessage(
+            "Please take an oath before registering"),
+        "takenOath":
+            MessageLookupByLibrary.simpleMessage("I\'ve taken an oath"),
         "talk_about_yourself":
             MessageLookupByLibrary.simpleMessage("Talk About Yourself"),
         "talk_about_yourself_info": MessageLookupByLibrary.simpleMessage(
@@ -562,6 +583,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "visual_disability":
             MessageLookupByLibrary.simpleMessage("Visual Disability"),
         "voice": MessageLookupByLibrary.simpleMessage("Voice Message"),
+        "warning": MessageLookupByLibrary.simpleMessage(
+            "Warning: to avoid any act of scam we ask you sincerely to not send money or respond to aid requests."),
         "weakPassword":
             MessageLookupByLibrary.simpleMessage("Password is too weak"),
         "websocketClosed": MessageLookupByLibrary.simpleMessage(
@@ -590,6 +613,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "widowed": MessageLookupByLibrary.simpleMessage("Widowed"),
         "without_employment":
             MessageLookupByLibrary.simpleMessage("Without Employment"),
+        "write_a_message":
+            MessageLookupByLibrary.simpleMessage("Write a message..."),
         "yes": MessageLookupByLibrary.simpleMessage("Yes"),
         "your_connect_status":
             MessageLookupByLibrary.simpleMessage("Your connect status"),

@@ -43,6 +43,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_your_partner": MessageLookupByLibrary.simpleMessage("ስለ እንግዳው"),
         "about_your_partner_info": MessageLookupByLibrary.simpleMessage(
             "እባኮትን እውነተኛ ምላሽ ለማቅረብ ኢሜይል ወይም ስልክ ቁጥር አትገቡ።"),
+        "accept": MessageLookupByLibrary.simpleMessage("አስቀድሞ"),
         "accept_polygamy":
             MessageLookupByLibrary.simpleMessage("የተወላጅነት እንደምታወቅ"),
         "accountExists":
@@ -57,12 +58,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "advancedSearch": MessageLookupByLibrary.simpleMessage("አዘምን ፈልግ"),
         "age": MessageLookupByLibrary.simpleMessage("ዕድሜ"),
         "agreeToTerms": m0,
+        "allahWitness":
+            MessageLookupByLibrary.simpleMessage("አላህ የበለጠ ምስክር ነው"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("አስቀድሞ መለያ አለዎት?"),
         "amputation": MessageLookupByLibrary.simpleMessage("የቀለበይ"),
         "another_thing": MessageLookupByLibrary.simpleMessage("ሌላ ነገር"),
-        "app_terms": MessageLookupByLibrary.simpleMessage("መግቢ መንገዶች"),
+        "app_terms": MessageLookupByLibrary.simpleMessage("የመተግበሪያ ውሎች"),
         "art_literary": MessageLookupByLibrary.simpleMessage("አርት / ምርጥ"),
+        "as": MessageLookupByLibrary.simpleMessage("እንደ"),
+        "assalamuAlaikum":
+            MessageLookupByLibrary.simpleMessage("ሰላም ላይክም ወራሕማትሉልላ"),
         "attachFile": MessageLookupByLibrary.simpleMessage("ፋይል አያይዝ"),
         "autoSearcher": MessageLookupByLibrary.simpleMessage("ራስሰር ፈላጊ"),
         "beard": MessageLookupByLibrary.simpleMessage("ድምብ"),
@@ -136,13 +142,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "እርስዎ ማን ልክ መልእክቶች እንደሚላኩኝ በመቆጣጠር መታወቂያዎን ማንበብ ትችላላችሁ"),
         "copy": MessageLookupByLibrary.simpleMessage("ቅዳ"),
         "could_not_signup_user":
-            MessageLookupByLibrary.simpleMessage("አልተሳካም ተጠቃሚ"),
+            MessageLookupByLibrary.simpleMessage("ተጠቃሚ መዝግብ አልቻልኩም"),
         "countries": MessageLookupByLibrary.simpleMessage("ሀገሮች"),
         "country": MessageLookupByLibrary.simpleMessage("ሀገር"),
         "createAccount": MessageLookupByLibrary.simpleMessage("መለያ ፍጠር"),
-        "create_account": MessageLookupByLibrary.simpleMessage("ማንበብ አካውንት"),
+        "create_account": MessageLookupByLibrary.simpleMessage("መዝግብ ይፍጠሩ"),
         "create_account_description": MessageLookupByLibrary.simpleMessage(
-            "አካውንት ማቋቋም እንደዚህ ሁሉን ማሳየት ይቻላል"),
+            "አካውንት ይፍጠሩ ወይም እንደገና ይመልከቱ ሁሉ የአፕ"),
         "dark": MessageLookupByLibrary.simpleMessage("ጨለማ"),
         "dark_brown": MessageLookupByLibrary.simpleMessage("ጨለማ ቡና"),
         "delete": MessageLookupByLibrary.simpleMessage("ሰርዝ"),
@@ -200,6 +206,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forward": MessageLookupByLibrary.simpleMessage("አስተላልፍ"),
         "foundationOfLove": MessageLookupByLibrary.simpleMessage(
             "የፍቅር፣ የእምነት እና የዘላለም አጋርነት መሰረት"),
+        "freeOfCharge": MessageLookupByLibrary.simpleMessage(
+            "ለአባላት ሁሉ የተመዘገቡ የተመዘገቡ ለተመዘገበ ነፃ ነው።"),
         "fullName": MessageLookupByLibrary.simpleMessage("ሙሉ ስም"),
         "full_name": MessageLookupByLibrary.simpleMessage("አንደኛ ስም"),
         "gallery": MessageLookupByLibrary.simpleMessage("ጋለሪ"),
@@ -221,7 +229,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "high_school": MessageLookupByLibrary.simpleMessage("የከፍተኛ ቤተማ"),
         "hobbies": MessageLookupByLibrary.simpleMessage("ሆቢዎች"),
         "home": MessageLookupByLibrary.simpleMessage("ቤት"),
-        "iAmFemale": MessageLookupByLibrary.simpleMessage("ሴት ነኝ"),
+        "iAmFemale": MessageLookupByLibrary.simpleMessage("እኔ ሴት ነኝ"),
+        "iAmMale": MessageLookupByLibrary.simpleMessage("እኔ ወንድ ነኝ"),
         "i_am_still_a_student":
             MessageLookupByLibrary.simpleMessage("እኔ እስካለው ተማሪ ነኝ"),
         "i_do_not_pray": MessageLookupByLibrary.simpleMessage("አልጸልየም"),
@@ -272,6 +281,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProfilePhoto":
             MessageLookupByLibrary.simpleMessage("የመገለጫ ፎቶ አድርግ"),
         "male": MessageLookupByLibrary.simpleMessage("ወንድ"),
+        "manage_privacy": MessageLookupByLibrary.simpleMessage(
+            "እቅፍ ማስታወቂያ ወእንዴት ማስታወቂያ በመለያ በሁኔታዎች ይችላሉ"),
         "maritalStatus": MessageLookupByLibrary.simpleMessage("የጋብቻ ሁኔታ"),
         "marital_status": MessageLookupByLibrary.simpleMessage("የጋብቻ ሁኔታ"),
         "marriageRelationship":
@@ -327,11 +338,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("በአቅራቢያ ያሉ ተጠቃሚዎች አልተገኙም"),
         "notSpecified": MessageLookupByLibrary.simpleMessage("አልተገለጸም"),
         "not_religious": MessageLookupByLibrary.simpleMessage("የሃይማኖት የለም"),
+        "notice": MessageLookupByLibrary.simpleMessage("ማሳሰቢያ"),
         "notification_settings":
             MessageLookupByLibrary.simpleMessage("ማሳሰቢያ ስርዓት"),
         "notifications": MessageLookupByLibrary.simpleMessage("ማሳወቂያዎች"),
         "notify_when_app_off":
             MessageLookupByLibrary.simpleMessage("እባኮት ለተለያዩ ሰነት"),
+        "oathText": MessageLookupByLibrary.simpleMessage(
+            "እኔ በአላህ አብይ እምነት ወይዘን እኔ ይህን መተግበር አልቻልኩም በሐሳቦች የማለው የምርጥ ጋብቻ በማድረግ ይህን አልቻልኩም።"),
         "offline": MessageLookupByLibrary.simpleMessage("መስመር ውጭ"),
         "online": MessageLookupByLibrary.simpleMessage("መስመር ላይ"),
         "onlineMembers":
@@ -400,6 +414,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "receiveMessage": MessageLookupByLibrary.simpleMessage("መልእክት ተቀበል።"),
         "receive_email_notifications":
             MessageLookupByLibrary.simpleMessage("ማስታወቂያ በኢሜል እንዲታወቅ"),
+        "register": MessageLookupByLibrary.simpleMessage("መዝግብ"),
         "registrationSuccess":
             MessageLookupByLibrary.simpleMessage("ምዝገባው በተሳካ ሁኔታ ተጠናቅቋል"),
         "religion": MessageLookupByLibrary.simpleMessage("ሃይማኖት"),
@@ -414,6 +429,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "replyToMessage": MessageLookupByLibrary.simpleMessage("መልእክት መመለስ።"),
         "reportProfile": MessageLookupByLibrary.simpleMessage("መገለጫ ሪፖርት አድርግ"),
         "reportUser": MessageLookupByLibrary.simpleMessage("ተጠቃሚውን ሪፖርት አድርግ"),
+        "report_offensive_message": MessageLookupByLibrary.simpleMessage(
+            "አውድ መልክዕ ማቅረብ ለመግኘት መልክዕ ይጥፉ ወምድር ወሳነ ወሳነው ይምረጡ"),
         "required": MessageLookupByLibrary.simpleMessage("አስፈላጊ"),
         "resendCode": MessageLookupByLibrary.simpleMessage("ኮዱን እንደገና ላክ"),
         "resetPassword":
@@ -452,11 +469,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "signOutConfirmation":
             MessageLookupByLibrary.simpleMessage("እርግጠኛ ነዎት መውጣት ይፈልጋሉ?"),
         "signUp": MessageLookupByLibrary.simpleMessage("ተመዝገብ"),
-        "sign_up": MessageLookupByLibrary.simpleMessage("መመዝገብ"),
+        "sign_up": MessageLookupByLibrary.simpleMessage("መዝግብ"),
         "signed_up_user_successfully":
-            MessageLookupByLibrary.simpleMessage("ተሳካ ተመዝግቧል"),
+            MessageLookupByLibrary.simpleMessage("ተመዝግበ ተጠቃሚ በተሳካ ሁኔታ"),
         "signup_successful":
-            MessageLookupByLibrary.simpleMessage("ተመዝግቧል በተሳካ ሁኔታ"),
+            MessageLookupByLibrary.simpleMessage("የመዝግብ ሂደት ተሳክቷል"),
         "single": MessageLookupByLibrary.simpleMessage("ብዙ"),
         "skinColor": MessageLookupByLibrary.simpleMessage("የቆዳ ቀለም"),
         "skin_color": MessageLookupByLibrary.simpleMessage("የቆዳ ቀለም"),
@@ -470,6 +487,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sterility": MessageLookupByLibrary.simpleMessage("የውይይት"),
         "subscribeNow": MessageLookupByLibrary.simpleMessage("አሁን ይመዝገቡ"),
         "success_stories": MessageLookupByLibrary.simpleMessage("ስኬት ታሪኮች"),
+        "takeOath":
+            MessageLookupByLibrary.simpleMessage("እባክዎን ከመዝግብ በፊት ወረዳት ይውሰዱ"),
+        "takenOath": MessageLookupByLibrary.simpleMessage("ወረዳውን አውርድዎት"),
         "talk_about_yourself":
             MessageLookupByLibrary.simpleMessage("ስለ እርስዎ ንገሩ"),
         "talk_about_yourself_info": MessageLookupByLibrary.simpleMessage(
@@ -480,11 +500,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("የአገልግሎት ውሎች"),
         "termsAndConditionsApp":
-            MessageLookupByLibrary.simpleMessage("የመተግበሪያው ውሎች እና ሁኔታዎች"),
+            MessageLookupByLibrary.simpleMessage("የአፕ የዋጋና የአገልግሎት መረጃ"),
         "terms_conditions":
-            MessageLookupByLibrary.simpleMessage("ሁሉንም ሁኔታዎች በመመስከል"),
-        "terms_conditions_text": MessageLookupByLibrary.simpleMessage(
-            "በመመዝገብ ቁልፍ ማስተካከል ሲደርስ እንደ ተሳካ ትስስር ተመለከቱ"),
+            MessageLookupByLibrary.simpleMessage("ውሎች እና አቀራረብ"),
+        "terms_conditions_text":
+            MessageLookupByLibrary.simpleMessage("የመዝግብ እቅፍ ይጫኑ እና ተስማምተዋል"),
         "to_brown": MessageLookupByLibrary.simpleMessage("ጨለማ"),
         "trade": MessageLookupByLibrary.simpleMessage("ንግድ"),
         "transport": MessageLookupByLibrary.simpleMessage("የዋንድዌት"),
@@ -499,7 +519,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unimplementedState":
             MessageLookupByLibrary.simpleMessage("ያልተተገበረ ሁኔታ"),
         "unimplemented_state":
-            MessageLookupByLibrary.simpleMessage("ተቀምጧል ሁኔታ"),
+            MessageLookupByLibrary.simpleMessage("የተፈጠረ ሁኔታ"),
         "unknownError":
             MessageLookupByLibrary.simpleMessage("ያልታወቀ ስህተት ተከስቷል"),
         "unknownState": MessageLookupByLibrary.simpleMessage("ያልታወቀ ሁኔታ"),
@@ -524,6 +544,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "viewProfile": MessageLookupByLibrary.simpleMessage("መገለጫ ተመልከት"),
         "visual_disability": MessageLookupByLibrary.simpleMessage("የእንደ እንቅልፍ"),
         "voice": MessageLookupByLibrary.simpleMessage("የድምጽ መልእክት"),
+        "warning": MessageLookupByLibrary.simpleMessage(
+            "ማሳሰብ: ከእቃ ማዕቀብ መውረድ ይቀጥሉ በእቅፍ እባክዎን ገንዘብ አትላኩ ወይም እንደማህደር ምንም አይገኝም።"),
         "weakPassword": MessageLookupByLibrary.simpleMessage("የይለፍ ቃሉ ደካማ ነው"),
         "websocketClosed":
             MessageLookupByLibrary.simpleMessage("የWebsocket ግንኙነት ተዘግቷል።"),
@@ -550,6 +572,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "widowed": MessageLookupByLibrary.simpleMessage("የሞት ብዙ"),
         "without_employment":
             MessageLookupByLibrary.simpleMessage("በሥራ ውስጥ የለም"),
+        "write_a_message": MessageLookupByLibrary.simpleMessage("መልክዕ ይጻፉ..."),
         "yes": MessageLookupByLibrary.simpleMessage("አዎን"),
         "your_connect_status":
             MessageLookupByLibrary.simpleMessage("የእርስዎ እባብ ሁኔታ"),

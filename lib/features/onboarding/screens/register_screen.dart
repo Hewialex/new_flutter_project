@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -22,6 +23,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
@@ -39,7 +41,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               children: [
                 SizedBox(height: 42.h),
                 Text(
-                  'Register',
+                  localizations.register,
                   style: TextStyle(
                     fontWeight: FontWeight.w700,
                     fontSize: 20.sp,
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Assalamu alaikum wa rahmatullahi',
+                        localizations.assalamuAlaikum,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.red,
@@ -64,7 +66,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                       SizedBox(height: 14.h),
                       Text(
-                        'To allow all member the opportunity to register for Qismiati, it is free of charge.',
+                        localizations.freeOfCharge,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.sp,
@@ -80,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   width: 280,
                   fontSize: 12,
                   height: 46,
-                  text: 'Please take an oath before registering',
+                  text: localizations.takeOath,
                 ),
                 SizedBox(height: 28.h),
                 SizedBox(
@@ -88,7 +90,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'I swear by ALLAH Almighty that I will not enter this App except for the purpose of legal marriage, and not for any other purpose . I promise ALLAH and I promise you  that I will not waste the hard work of the App , and that I will not deceive the members, and that I will be honest with ALLAH and then with my self, and that I will abide by.',
+                        localizations.oathText,
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           fontSize: 12.sp,
@@ -100,7 +102,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         style:
                             TextButton.styleFrom(foregroundColor: Colors.red),
                         child: Text(
-                          'The terms and conditions of the App',
+                          localizations.termsAndConditionsApp,
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontWeight: FontWeight.w300,
@@ -112,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
                 SizedBox(height: 16.h),
                 Text(
-                  'ALLAH is the best witness',
+                  localizations.allahWitness,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     decoration: TextDecoration.underline,
@@ -123,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 SizedBox(height: 40.h),
                 ListTile(
                   title: Text(
-                    "I've taken an oath",
+                    localizations.takenOath,
                     style: TextStyle(
                       fontSize: 12.sp,
                       fontWeight: FontWeight.w300,
@@ -150,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isFemaleSelected = false;
                     });
                   },
-                  text: "I'm Male",
+                  text: localizations.iAmMale,
                   isInverted: !isMaleSelected,
                 ),
                 SizedBox(height: 20.h),
@@ -163,7 +165,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       isMaleSelected = false;
                     });
                   },
-                  text: "I'm Female",
+                  text: localizations.iAmFemale,
                   isInverted: !isFemaleSelected,
                 ),
                 (isSelected && (isFemaleSelected || isMaleSelected))
@@ -182,7 +184,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             context.push(Routes.login);
                           }
                         },
-                        child: const Text('Continue'))
+                        child: Text(localizations.continue_action))
                     : Container()
               ],
             ),

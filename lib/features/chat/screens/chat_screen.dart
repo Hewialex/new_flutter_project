@@ -9,6 +9,7 @@ import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class ChatScreen extends StatelessWidget {
   const ChatScreen({super.key});
@@ -16,6 +17,7 @@ class ChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = context.read<ChatBloc>();
+    final localizations = S.of(context);
 
     bloc.add(GiveMeData(id: '1234'));
     return BlocConsumer<ChatBloc, ChatState>(
@@ -101,9 +103,9 @@ class ChatScreen extends StatelessWidget {
                             Expanded(
                               child: TextField(
                                 controller: state.messageController,
-                                decoration: const InputDecoration(
-                                  hintText: "Write a message...",
-                                  hintStyle: TextStyle(color: Colors.black54),
+                                decoration: InputDecoration(
+                                  hintText: localizations.write_a_message,
+                                  hintStyle: const TextStyle(color: Colors.black54),
                                   border: InputBorder.none,
                                 ),
                               ),
@@ -143,7 +145,7 @@ class ChatScreen extends StatelessWidget {
             default:
               return Scaffold(
                 body: Center(
-                  child: Text('Unimplemented $state'),
+                  child: Text('${localizations.unimplemented_state} $state'),
                 ),
               );
           }
@@ -308,6 +310,7 @@ class ChatNoticeCard extends StatelessWidget {
   final VoidCallback onPressed;
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Container(
       width: 318.w,
       decoration: BoxDecoration(
@@ -320,7 +323,7 @@ class ChatNoticeCard extends StatelessWidget {
         children: [
           SizedBox(height: 25.h),
           Text(
-            'Notice',
+            localizations.notice,
             style: GoogleFonts.lexend(
               textStyle: TextStyle(
                 fontSize: 16.sp,
@@ -329,28 +332,25 @@ class ChatNoticeCard extends StatelessWidget {
             ),
           ),
           SizedBox(height: 36.h),
-          const ListTileInfo(
+          ListTileInfo(
             icon: Icons.warning,
-            text:
-                'Warning : to avoid any act of scam we ask you sincerely to not send money or respond to aid requests.',
+            text: localizations.warning,
           ),
           const Divider(color: Colors.white),
-          const ListTileInfo(
+          ListTileInfo(
             icon: Icons.description,
-            text:
-                'To report an offensive message, tap and hold the message and select the Report the message option',
+            text: localizations.report_offensive_message,
           ),
           const Divider(color: Colors.white),
-          const ListTileInfo(
+          ListTileInfo(
             icon: Icons.verified_user,
-            text:
-                'You can manage your privacy and chat permissions through your account settings',
+            text: localizations.manage_privacy,
           ),
           const Divider(color: Colors.white),
           SizedBox(height: 10.h),
           CustomButton(
             onPressed: onPressed,
-            text: 'Accept',
+            text: localizations.accept,
             shadowColor: CustomColors.shadowBlue,
             elevation: 5,
             fontWeight: FontWeight.w600,
@@ -390,3 +390,4 @@ class ListTileInfo extends StatelessWidget {
     );
   }
 }
+

@@ -44,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "about_your_partner": MessageLookupByLibrary.simpleMessage("عن شريكك"),
         "about_your_partner_info": MessageLookupByLibrary.simpleMessage(
             "لتقديم إجابة حقيقية، من فضلك لا تقم بإدخال البريد الإلكتروني أو رقم الهاتف."),
+        "accept": MessageLookupByLibrary.simpleMessage("قبول"),
         "accept_polygamy": MessageLookupByLibrary.simpleMessage("يقبل التعدد"),
         "accountExists": MessageLookupByLibrary.simpleMessage(
             "يوجد حساب مسجل بهذا البريد الإلكتروني"),
@@ -58,12 +59,17 @@ class MessageLookup extends MessageLookupByLibrary {
         "advancedSearch": MessageLookupByLibrary.simpleMessage("بحث متقدم"),
         "age": MessageLookupByLibrary.simpleMessage("العمر"),
         "agreeToTerms": m0,
+        "allahWitness":
+            MessageLookupByLibrary.simpleMessage("الله هو أفضل شاهد"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("لديك حساب بالفعل؟"),
         "amputation": MessageLookupByLibrary.simpleMessage("بتر"),
         "another_thing": MessageLookupByLibrary.simpleMessage("شيء آخر"),
         "app_terms": MessageLookupByLibrary.simpleMessage("شروط التطبيق"),
         "art_literary": MessageLookupByLibrary.simpleMessage("فن / أدب"),
+        "as": MessageLookupByLibrary.simpleMessage("كـ"),
+        "assalamuAlaikum":
+            MessageLookupByLibrary.simpleMessage("السلام عليكم ورحمة الله"),
         "attachFile": MessageLookupByLibrary.simpleMessage("إرفاق ملف"),
         "autoSearcher": MessageLookupByLibrary.simpleMessage("الباحث التلقائي"),
         "beard": MessageLookupByLibrary.simpleMessage("اللحية"),
@@ -135,7 +141,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "المتابعة باستخدام البريد الإلكتروني"),
         "continueWithGoogle":
             MessageLookupByLibrary.simpleMessage("المتابعة باستخدام جوجل"),
-        "continue_action": MessageLookupByLibrary.simpleMessage("استمرار"),
+        "continue_action": MessageLookupByLibrary.simpleMessage("تابع"),
         "controlMessaging":
             MessageLookupByLibrary.simpleMessage("التحكم في من يمكنه مراسلتك."),
         "control_messages": MessageLookupByLibrary.simpleMessage(
@@ -148,7 +154,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "createAccount": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "create_account": MessageLookupByLibrary.simpleMessage("إنشاء حساب"),
         "create_account_description": MessageLookupByLibrary.simpleMessage(
-            "إنشاء حساب حتى تتمكن من استكشاف التطبيق بالكامل"),
+            "قم بإنشاء حساب حتى تتمكن من استكشاف جميع ميزات التطبيق"),
         "dark": MessageLookupByLibrary.simpleMessage("غامق"),
         "dark_brown": MessageLookupByLibrary.simpleMessage("بني غامق"),
         "delete": MessageLookupByLibrary.simpleMessage("حذف"),
@@ -209,6 +215,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forward": MessageLookupByLibrary.simpleMessage("إعادة توجيه"),
         "foundationOfLove": MessageLookupByLibrary.simpleMessage(
             "أساس الحب والثقة والرفقة مدى الحياة"),
+        "freeOfCharge": MessageLookupByLibrary.simpleMessage(
+            "لتوفير الفرصة لجميع الأعضاء للتسجيل في قسميتي، فهو مجاني."),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
         "full_name": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
         "gallery": MessageLookupByLibrary.simpleMessage("المعرض"),
@@ -231,6 +239,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "hobbies": MessageLookupByLibrary.simpleMessage("الهوايات"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "iAmFemale": MessageLookupByLibrary.simpleMessage("أنا أنثى"),
+        "iAmMale": MessageLookupByLibrary.simpleMessage("أنا ذكر"),
         "i_am_still_a_student":
             MessageLookupByLibrary.simpleMessage("أنا لا زلت طالبًا"),
         "i_do_not_pray": MessageLookupByLibrary.simpleMessage("لا أصلي"),
@@ -282,6 +291,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProfilePhoto":
             MessageLookupByLibrary.simpleMessage("جعلها صورة الملف الشخصي"),
         "male": MessageLookupByLibrary.simpleMessage("ذكر"),
+        "manage_privacy": MessageLookupByLibrary.simpleMessage(
+            "يمكنك إدارة خصوصيتك وأذونات الدردشة من خلال إعدادات حسابك."),
         "maritalStatus":
             MessageLookupByLibrary.simpleMessage("الحالة الاجتماعية"),
         "marital_status":
@@ -340,11 +351,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("لا يوجد مستخدمين قريبين"),
         "notSpecified": MessageLookupByLibrary.simpleMessage("غير محدد"),
         "not_religious": MessageLookupByLibrary.simpleMessage("غير متدين"),
+        "notice": MessageLookupByLibrary.simpleMessage("إشعار"),
         "notification_settings":
             MessageLookupByLibrary.simpleMessage("إعدادات الإشعارات"),
         "notifications": MessageLookupByLibrary.simpleMessage("الإشعارات"),
         "notify_when_app_off": MessageLookupByLibrary.simpleMessage(
             "إعلامي عندما يكون التطبيق مغلقًا"),
+        "oathText": MessageLookupByLibrary.simpleMessage(
+            "أقسم بالله العظيم أنني لن أدخل هذا التطبيق إلا لغرض الزواج الشرعي، وليس لأي غرض آخر. أعد الله وأعدكم أنني لن أضيع الجهد الكبير للتطبيق، وأنني لن أُخدع الأعضاء، وأنني سأكون صادقًا مع الله ثم مع نفسي، وأنني سألتزم بذلك."),
         "offline": MessageLookupByLibrary.simpleMessage("غير متصل"),
         "online": MessageLookupByLibrary.simpleMessage("متصل"),
         "onlineMembers":
@@ -419,6 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("استقبال الرسائل."),
         "receive_email_notifications": MessageLookupByLibrary.simpleMessage(
             "تلقي الإشعارات عبر البريد الإلكتروني"),
+        "register": MessageLookupByLibrary.simpleMessage("سجل"),
         "registrationSuccess":
             MessageLookupByLibrary.simpleMessage("تم التسجيل بنجاح"),
         "religion": MessageLookupByLibrary.simpleMessage("الدين"),
@@ -436,6 +451,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الإبلاغ عن الملف الشخصي"),
         "reportUser":
             MessageLookupByLibrary.simpleMessage("الإبلاغ عن المستخدم"),
+        "report_offensive_message": MessageLookupByLibrary.simpleMessage(
+            "للتبليغ عن رسالة مسيئة، اضغط مع الاستمرار على الرسالة واختر خيار الإبلاغ عن الرسالة."),
         "required": MessageLookupByLibrary.simpleMessage("مطلوب"),
         "resendCode": MessageLookupByLibrary.simpleMessage("إعادة إرسال الرمز"),
         "resetPassword":
@@ -459,7 +476,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "لمشاهدة جميع الميزات المخصصة لك في التطبيق"),
         "self_sufficient": MessageLookupByLibrary.simpleMessage("مكتفي ذاتيًا"),
         "self_taught": MessageLookupByLibrary.simpleMessage("تعلمت بنفسي"),
-        "send": MessageLookupByLibrary.simpleMessage("إرسال"),
+        "send": MessageLookupByLibrary.simpleMessage("أرسل"),
         "sendButton": MessageLookupByLibrary.simpleMessage("إرسال الرسالة"),
         "sendMessageToAny":
             MessageLookupByLibrary.simpleMessage("إرسال رسالة إلى أي عضو."),
@@ -494,6 +511,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "sterility": MessageLookupByLibrary.simpleMessage("عقم"),
         "subscribeNow": MessageLookupByLibrary.simpleMessage("اشترك الآن"),
         "success_stories": MessageLookupByLibrary.simpleMessage("قصص النجاح"),
+        "takeOath":
+            MessageLookupByLibrary.simpleMessage("يرجى أخذ قسم قبل التسجيل"),
+        "takenOath": MessageLookupByLibrary.simpleMessage("لقد أخذت قسمًا"),
         "talk_about_yourself":
             MessageLookupByLibrary.simpleMessage("تحدث عن نفسك"),
         "talk_about_yourself_info": MessageLookupByLibrary.simpleMessage(
@@ -508,7 +528,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "terms_conditions":
             MessageLookupByLibrary.simpleMessage("الشروط والأحكام"),
         "terms_conditions_text": MessageLookupByLibrary.simpleMessage(
-            "عند النقر على زر التسجيل، فإنك توافق على"),
+            "بالنقر على زر التسجيل، فإنك توافق على"),
         "to_brown": MessageLookupByLibrary.simpleMessage("بني داكن"),
         "trade": MessageLookupByLibrary.simpleMessage("تجارة"),
         "transport": MessageLookupByLibrary.simpleMessage("نقل"),
@@ -525,7 +545,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "unimplementedState":
             MessageLookupByLibrary.simpleMessage("حالة غير منفذة"),
         "unimplemented_state":
-            MessageLookupByLibrary.simpleMessage("حالة غير مفعلة"),
+            MessageLookupByLibrary.simpleMessage("حالة غير مُنفذة"),
         "unknownError":
             MessageLookupByLibrary.simpleMessage("حدث خطأ غير معروف"),
         "unknownState": MessageLookupByLibrary.simpleMessage("حالة غير معروفة"),
@@ -554,6 +574,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "visual_disability":
             MessageLookupByLibrary.simpleMessage("إعاقة بصرية"),
         "voice": MessageLookupByLibrary.simpleMessage("رسالة صوتية"),
+        "warning": MessageLookupByLibrary.simpleMessage(
+            "تحذير: لتجنب أي عملية احتيال، نطلب منك بصدق عدم إرسال الأموال أو الاستجابة لطلبات المساعدة."),
         "weakPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور ضعيفة"),
         "websocketClosed":
@@ -580,6 +602,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("من يمكنه إرسال رسائل لك؟"),
         "widowed": MessageLookupByLibrary.simpleMessage("أرمل"),
         "without_employment": MessageLookupByLibrary.simpleMessage("بدون عمل"),
+        "write_a_message":
+            MessageLookupByLibrary.simpleMessage("اكتب رسالة..."),
         "yes": MessageLookupByLibrary.simpleMessage("نعم"),
         "your_connect_status":
             MessageLookupByLibrary.simpleMessage("حالة الاتصال الخاصة بك"),

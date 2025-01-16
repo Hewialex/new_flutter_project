@@ -103,14 +103,14 @@ class _NearYouScreenState extends State<NearYouScreen> {
                   width: 200,
                   child: Column(
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.person_search,
                         size: 100,
                         color: CustomColors.primary,
                       ),
                       Text(
                         localizations.noNearbyUsers,
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w500,
                         ),

@@ -45,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ku Saabsan Saaxiibkaa"),
         "about_your_partner_info": MessageLookupByLibrary.simpleMessage(
             "Fadlan ma jiraan wax email ah ama lambarka taleefanka ah oo la geliyo si loo bixiyo jawaab sax ah."),
+        "accept": MessageLookupByLibrary.simpleMessage("Aqbal"),
         "accept_polygamy": MessageLookupByLibrary.simpleMessage(
             "Waayo, guurka badan waa la aqbalaa"),
         "accountExists": MessageLookupByLibrary.simpleMessage(
@@ -62,13 +63,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Raadi Gabaatee"),
         "age": MessageLookupByLibrary.simpleMessage("Da\'da"),
         "agreeToTerms": m0,
+        "allahWitness": MessageLookupByLibrary.simpleMessage(
+            "ALLAH waa markhaati ugu fiican"),
         "alreadyHaveAccount":
             MessageLookupByLibrary.simpleMessage("Horey ma u leedahay akoon?"),
         "amputation": MessageLookupByLibrary.simpleMessage("Goyn"),
         "another_thing": MessageLookupByLibrary.simpleMessage("Shay Kale"),
-        "app_terms": MessageLookupByLibrary.simpleMessage("Shuruudaha App-ka"),
+        "app_terms": MessageLookupByLibrary.simpleMessage("Shuruudaha App"),
         "art_literary":
             MessageLookupByLibrary.simpleMessage("Fanka / Suugaanta"),
+        "as": MessageLookupByLibrary.simpleMessage("sida"),
+        "assalamuAlaikum": MessageLookupByLibrary.simpleMessage(
+            "Assalamu alaikum wa rahmatullahi"),
         "attachFile": MessageLookupByLibrary.simpleMessage("Ku lifaaq Faylka"),
         "autoSearcher":
             MessageLookupByLibrary.simpleMessage("Raadiyaha Auto-ga ah"),
@@ -148,13 +154,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Waxaad xakameyn kartaa cidda kuu soo diri karta fariimaha"),
         "copy": MessageLookupByLibrary.simpleMessage("Koopi"),
         "could_not_signup_user": MessageLookupByLibrary.simpleMessage(
-            "Isticmaalaha lama diiwaan gelin karin"),
+            "Istaqaalaha lama diiwaangelin karin"),
         "countries": MessageLookupByLibrary.simpleMessage("Dalimaha"),
         "country": MessageLookupByLibrary.simpleMessage("Wadanka"),
         "createAccount": MessageLookupByLibrary.simpleMessage("Samee Akoon"),
         "create_account": MessageLookupByLibrary.simpleMessage("Samee Akoon"),
         "create_account_description": MessageLookupByLibrary.simpleMessage(
-            "Samee akoontada si aad u baarto dhammaan App-ka"),
+            "Samee akoont si aad u baarto dhammaan App"),
         "dark": MessageLookupByLibrary.simpleMessage("Madow"),
         "dark_brown": MessageLookupByLibrary.simpleMessage("Bunni Madow"),
         "delete": MessageLookupByLibrary.simpleMessage("Tirtir"),
@@ -218,6 +224,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "forward": MessageLookupByLibrary.simpleMessage("Gudbi"),
         "foundationOfLove": MessageLookupByLibrary.simpleMessage(
             "Aasaaska jacaylka, kalsoonida iyo wehelnimada nolosha"),
+        "freeOfCharge": MessageLookupByLibrary.simpleMessage(
+            "Si loo oggolaado dhammaan xubnaha inay isdiiwaangeliyaan Qismiati, waa lacag la\'aan."),
         "fullName": MessageLookupByLibrary.simpleMessage("Magaca Buuxa"),
         "full_name": MessageLookupByLibrary.simpleMessage("Magaca Buuxa"),
         "gallery": MessageLookupByLibrary.simpleMessage("Galari"),
@@ -242,7 +250,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "high_school": MessageLookupByLibrary.simpleMessage("Dugsiga Sare"),
         "hobbies": MessageLookupByLibrary.simpleMessage("Hiwaayadaha"),
         "home": MessageLookupByLibrary.simpleMessage("Guriga"),
-        "iAmFemale": MessageLookupByLibrary.simpleMessage("Waxaan ahay Dumar"),
+        "iAmFemale":
+            MessageLookupByLibrary.simpleMessage("Anigu waxaan ahay naag"),
+        "iAmMale":
+            MessageLookupByLibrary.simpleMessage("Anigu waxaan ahay nin"),
         "i_am_still_a_student":
             MessageLookupByLibrary.simpleMessage("Waa inaan wax ka bartaa"),
         "i_do_not_pray": MessageLookupByLibrary.simpleMessage("Ma kiciyaayo"),
@@ -294,6 +305,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "makeProfilePhoto":
             MessageLookupByLibrary.simpleMessage("Ka dhig sawirka Profile-ka"),
         "male": MessageLookupByLibrary.simpleMessage("Lab"),
+        "manage_privacy": MessageLookupByLibrary.simpleMessage(
+            "Waxaad maamuli kartaa asturnaantaada iyo rukhsadaha sheekeysigaaga adigoo maraya dejinta akoonkaaga."),
         "maritalStatus": MessageLookupByLibrary.simpleMessage("Xaalada Guurka"),
         "marital_status":
             MessageLookupByLibrary.simpleMessage("Xaaladda Guurka"),
@@ -359,9 +372,12 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ma jiraan isticmaale kuu dhow"),
         "notSpecified": MessageLookupByLibrary.simpleMessage("Lama cayimin"),
         "not_religious": MessageLookupByLibrary.simpleMessage("Diin ma leh"),
+        "notice": MessageLookupByLibrary.simpleMessage("Ogeysiis"),
         "notification_settings":
             MessageLookupByLibrary.simpleMessage("Dejinta Wargelinta"),
         "notifications": MessageLookupByLibrary.simpleMessage("Ogeysiisyada"),
+        "oathText": MessageLookupByLibrary.simpleMessage(
+            "Waxaan ku dhaarannaa ALLAH Qudduus ah in aanan geli doonin Appkan ilaa ujeeddo sharci ah oo guur, oo aanan ujeeddo kale lahayn. Waxaan ballanqaadayaa ALLAH iyo idinka in aanan qashqasha u geysan doonin shaqada adag ee Appka, in aanan khiyaanayn xubnaha, in aanan daacad u ahay ALLAH iyo naftayda, in aanan ku dhaqmi doonin."),
         "offline": MessageLookupByLibrary.simpleMessage("Ku xirin"),
         "online": MessageLookupByLibrary.simpleMessage("Xiriir"),
         "onlineMembers":
@@ -438,6 +454,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "quadriplegia": MessageLookupByLibrary.simpleMessage("Naafonimo Jir"),
         "quickSearch": MessageLookupByLibrary.simpleMessage("Raadi Qaqqa"),
         "receiveMessage": MessageLookupByLibrary.simpleMessage("Fariin hel."),
+        "register": MessageLookupByLibrary.simpleMessage("Isdiiwaangeli"),
         "registrationSuccess": MessageLookupByLibrary.simpleMessage(
             "Diiwaangelinta waa la dhammeeyay"),
         "religion": MessageLookupByLibrary.simpleMessage("Diinta"),
@@ -456,6 +473,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ka warbix Profile-ka"),
         "reportUser":
             MessageLookupByLibrary.simpleMessage("Ka warbixin Isticmaalaha"),
+        "report_offensive_message": MessageLookupByLibrary.simpleMessage(
+            "Si aad u soo sheegto farriin xadgudub ah, taabo oo hay farriinta kadibna dooro xulashada soo sheeg farriinta."),
         "required": MessageLookupByLibrary.simpleMessage("Loo baahan yahay"),
         "resendCode": MessageLookupByLibrary.simpleMessage("Dib u Dir Koodka"),
         "resetPassword":
@@ -498,9 +517,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "signUp": MessageLookupByLibrary.simpleMessage("Is Diiwaan Geli"),
         "sign_up": MessageLookupByLibrary.simpleMessage("Isdiiwaangeli"),
         "signed_up_user_successfully": MessageLookupByLibrary.simpleMessage(
-            "Isticmaalaha si guul leh ayaa loogu diiwaan geliyey"),
-        "signup_successful": MessageLookupByLibrary.simpleMessage(
-            "Isdiiwaangelinta ayaa guulaysatay"),
+            "Isticmaalaha si guul leh ayaa loo diiwaangeliyey"),
+        "signup_successful":
+            MessageLookupByLibrary.simpleMessage("Isdiiwaangelinta waa guul"),
         "single": MessageLookupByLibrary.simpleMessage("Keliya"),
         "skinColor": MessageLookupByLibrary.simpleMessage("Midabka Maqaarka"),
         "skin_color": MessageLookupByLibrary.simpleMessage("Midabka Maqaarka"),
@@ -517,6 +536,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "subscribeNow": MessageLookupByLibrary.simpleMessage("Hadda ku biir"),
         "success_stories":
             MessageLookupByLibrary.simpleMessage("Sheekooyin guuleed"),
+        "takeOath": MessageLookupByLibrary.simpleMessage(
+            "Fadlan dhaar qaado ka hor inta aadan isdiiwaangalin"),
+        "takenOath": MessageLookupByLibrary.simpleMessage("Dhaar ayaan qaaday"),
         "talk_about_yourself":
             MessageLookupByLibrary.simpleMessage("Ka Hadal Naftaada"),
         "talk_about_yourself_info": MessageLookupByLibrary.simpleMessage(
@@ -527,11 +549,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Shuruudaha iyo Xaaladaha"),
         "termsAndConditionsApp": MessageLookupByLibrary.simpleMessage(
-            "Shuruudaha iyo xaaladaha App-ka"),
+            "Shuruudaha iyo xaaladaha Appka"),
         "terms_conditions":
             MessageLookupByLibrary.simpleMessage("Shuruudaha iyo Xaaladaha"),
         "terms_conditions_text": MessageLookupByLibrary.simpleMessage(
-            "Markaad riixdo badhanka isdiiwaangelinta, waxaad oggolaanaysaa"),
+            "Markaad gujiso badhanka isdiiwaangelinta, waxaad ku raacsan tahay"),
         "to_brown": MessageLookupByLibrary.simpleMessage("Bunni Madow"),
         "trade": MessageLookupByLibrary.simpleMessage("Ganacsi"),
         "transport": MessageLookupByLibrary.simpleMessage("Gaadiidka"),
@@ -580,6 +602,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "visual_disability":
             MessageLookupByLibrary.simpleMessage("Naafonimo Aragga"),
         "voice": MessageLookupByLibrary.simpleMessage("Fariin Cod ah"),
+        "warning": MessageLookupByLibrary.simpleMessage(
+            "Digniin: si looga fogaado wax kasta oo khiyaano ah, si naxariis leh ayaan kuu weydiineynaa inaadan lacag dirin ama ka jawaabin codsiyada caawinaada."),
         "weakPassword": MessageLookupByLibrary.simpleMessage(
             "Furaha sirta aad ayuu u daciif yahay"),
         "websocketClosed": MessageLookupByLibrary.simpleMessage(
@@ -608,6 +632,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "widowed": MessageLookupByLibrary.simpleMessage("Dhiig Kordhinta"),
         "without_employment":
             MessageLookupByLibrary.simpleMessage("Shaqo la’aan"),
+        "write_a_message":
+            MessageLookupByLibrary.simpleMessage("Qor farriin..."),
         "yes": MessageLookupByLibrary.simpleMessage("Haa"),
         "your_connect_status":
             MessageLookupByLibrary.simpleMessage("Xaaladda isku xirnaantaada"),

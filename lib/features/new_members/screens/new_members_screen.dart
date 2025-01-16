@@ -9,7 +9,6 @@ import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/common/widgets/filter_select.dart';
 import 'package:qismati/features/new_members/bloc/new_member_bloc.dart';
 import 'package:qismati/routes.dart';
 import 'package:qismati/generated/l10n.dart';

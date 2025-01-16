@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/features/signup/widgets/list_dot_item.dart';
-import 'package:qismati/generated/l10n.dart';
 
 class TipsSubTitle extends StatelessWidget {
   const TipsSubTitle({

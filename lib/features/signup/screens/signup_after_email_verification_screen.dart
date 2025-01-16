@@ -19,6 +19,7 @@ import 'package:qismati/features/signup/sections/religion_section.dart';
 import 'package:qismati/features/signup/sections/talk_about_your_self_section.dart';
 import 'package:qismati/features/signup/widgets/list_dot_item.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class SignupAfterEmailVerificationScreen extends StatelessWidget {
   const SignupAfterEmailVerificationScreen({
@@ -78,6 +79,7 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final formKey = GlobalKey<FormState>();
+    final localizations = S.of(context);
     final bloc = context.read<SignupBloc>();
     return BlocConsumer<SignupBloc, SignupState>(
       builder: (context, state) {
@@ -92,22 +94,20 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
             );
 
           case SignupSuccess():
-            return const Scaffold(
+            return Scaffold(
               body: Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Icon(
+                    const Icon(
                       Icons.done,
                       color: CustomColors.chatName,
                       size: 50,
                     ),
-
-                    // a success message
                     Text(
-                      "Signup successful",
-                      style: TextStyle(
+                      localizations.signup_successful,
+                      style: const TextStyle(
                         color: CustomColors.success,
                         fontSize: 20,
                         fontWeight: FontWeight.w600,
@@ -211,21 +211,20 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
                                     ),
                                     SizedBox(height: 19.h),
                                     Text(
-                                      'App Terms',
+                                      localizations.app_terms,
                                       style: TextStyle(
                                         fontWeight: FontWeight.w500,
                                         fontSize: 16.sp,
                                       ),
                                     ),
                                     SizedBox(height: 19.h),
-                                    const ListDotItem(
-                                      text:
-                                          'By clicking on sign up button, you agree to',
+                                    ListDotItem(
+                                      text: localizations.terms_conditions_text,
                                     ),
                                     GestureDetector(
                                       onTap: () {},
                                       child: Text(
-                                        'Terms and Conditions',
+                                        localizations.terms_conditions,
                                         style: TextStyle(
                                           fontSize: 12.sp,
                                           fontWeight: FontWeight.w300,
@@ -254,7 +253,7 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
                                           );
                                         }
                                       },
-                                      text: 'Sign up',
+                                      text: localizations.sign_up,
                                       shadowColor: CustomColors.shadowBlue,
                                       elevation: 5,
                                       fontWeight: FontWeight.w600,
@@ -278,7 +277,7 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
             return Scaffold(
               body: Center(
                 child: Text(
-                  'Unimplemented state $state',
+                  '${localizations.unimplemented_state} $state',
                 ),
               ),
             );
@@ -289,14 +288,15 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
           context.go(Routes.login);
           CustomSnackBar(
             context: context,
-            message: 'Signed up user successfully',
+            message: localizations.signed_up_user_successfully,
             type: SnackBarType.success,
           );
         }
         if (state is SignupDefault && state.error != SignupError.none) {
           CustomSnackBar(
             context: context,
-            message: 'Could not signup user ${state.errorMessage}',
+            message:
+                '${localizations.could_not_signup_user} ${state.errorMessage}',
             type: SnackBarType.success,
           );
         }
