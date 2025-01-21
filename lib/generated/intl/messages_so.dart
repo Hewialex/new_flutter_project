@@ -238,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Qalin Jabinta/Jaamacad"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(
             "Ku hagaagan diinta, ku mideysan barakada nolosha"),
+        "happiness": MessageLookupByLibrary.simpleMessage("Farxad!"),
         "healthCase": MessageLookupByLibrary.simpleMessage("Xaalada Caafimaad"),
         "health_case":
             MessageLookupByLibrary.simpleMessage("Xaaladda Caafimaadka"),
@@ -267,7 +268,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "infantile_paralysis":
             MessageLookupByLibrary.simpleMessage("Naafonimo Ilmaha"),
         "interactWithHappiness":
-            MessageLookupByLibrary.simpleMessage("La Falgal\nFarxaddaada!"),
+            MessageLookupByLibrary.simpleMessage("La xiriir"),
         "interests": MessageLookupByLibrary.simpleMessage("Danaynta"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             "Email ama furaha sirta waa khalad"),

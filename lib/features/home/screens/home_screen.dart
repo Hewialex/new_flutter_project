@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_sliding_toast/flutter_sliding_toast.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
@@ -111,6 +110,10 @@ class HomeScreen extends StatelessWidget {
                         SizedBox(height: 15.h), // Reduced height
                         HomeHeading(
                           text: S.of(context).interactWithHappiness,
+                        ),
+                        HomeHeading(
+                          text: S.of(context).happiness,
+                          color: CustomColors.primary,
                         ),
                         SizedBox(height: 30.h), // Reduced height
                         const SearchDropdown(),
@@ -263,7 +266,13 @@ class HomeScreen extends StatelessWidget {
                         (index) {
                           final ppl = profiles[index];
                           return InkWell(
-                            onTap: () => context.pushNamed(Routes.myProfile),
+                            onTap: () {
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) => const ProfileScreen(),
+                                ),
+                              );
+                            },
                             child: AllMemberCard(
                               name: ppl.fullName,
                               age: ppl.age,

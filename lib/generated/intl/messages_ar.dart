@@ -228,6 +228,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("خريج/دراسات عُليا"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(
             "بهدي الإيمان، متحدون للأبد في البركات"),
+        "happiness": MessageLookupByLibrary.simpleMessage("السعادة!"),
         "healthCase": MessageLookupByLibrary.simpleMessage("الحالة الصحية"),
         "health_case": MessageLookupByLibrary.simpleMessage("الحالة الصحية"),
         "healthy": MessageLookupByLibrary.simpleMessage("صحي"),
@@ -253,7 +254,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "infantile_paralysis":
             MessageLookupByLibrary.simpleMessage("شلل أطفال"),
         "interactWithHappiness":
-            MessageLookupByLibrary.simpleMessage("تفاعل مع\nسعادتك!"),
+            MessageLookupByLibrary.simpleMessage("تفاعل مع"),
         "interests": MessageLookupByLibrary.simpleMessage("الاهتمامات"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             "البريد الإلكتروني أو كلمة المرور غير صحيحة"),

@@ -1240,11 +1240,21 @@ class S {
     );
   }
 
-  /// `Interact With Your\nHappiness!`
+  /// `Interact With Your`
   String get interactWithHappiness {
     return Intl.message(
-      'Interact With Your\nHappiness!',
+      'Interact With Your',
       name: 'interactWithHappiness',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Happiness!`
+  String get happiness {
+    return Intl.message(
+      'Happiness!',
+      name: 'happiness',
       desc: '',
       args: [],
     );

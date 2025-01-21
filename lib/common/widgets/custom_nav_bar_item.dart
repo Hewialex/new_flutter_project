@@ -9,7 +9,7 @@ class CustomNavBarItem extends StatelessWidget {
     required this.navBarTitle,
   });
 
-  final IconData icon;
+  final Widget icon;
   final String navBarTitle;
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,8 @@ class CustomNavBarItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: CustomColors.primary),
+          icon,
+          SizedBox(width: 5.w),
           Text(
             navBarTitle,
             style: TextStyle(

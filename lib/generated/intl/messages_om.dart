@@ -245,6 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gad-aanaa/Barnoota Ol’aanaa"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(
             "Amantiidhaan qajeelfamee, eebbaan walitti hidhame"),
+        "happiness": MessageLookupByLibrary.simpleMessage("Gammachuu!"),
         "healthCase": MessageLookupByLibrary.simpleMessage("Haala Fayyaa"),
         "health_case": MessageLookupByLibrary.simpleMessage("Haala Fayyaa"),
         "healthy": MessageLookupByLibrary.simpleMessage("Fayyaa"),
@@ -270,8 +271,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "impotence": MessageLookupByLibrary.simpleMessage("Dadhabina Sanyii"),
         "infantile_paralysis":
             MessageLookupByLibrary.simpleMessage("Paralysis Ilma"),
-        "interactWithHappiness": MessageLookupByLibrary.simpleMessage(
-            "Gammachuu Kee\nWaliin Mari\'adhu!"),
+        "interactWithHappiness":
+            MessageLookupByLibrary.simpleMessage("Waliin Walqunnamti"),
         "interests": MessageLookupByLibrary.simpleMessage("Fedhiiwwan"),
         "invalidCredentials": MessageLookupByLibrary.simpleMessage(
             "Imeelii ykn jecha icciitii dogoggora"),

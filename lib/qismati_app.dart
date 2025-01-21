@@ -33,13 +33,7 @@ class QismatiApp extends StatelessWidget {
       child: BlocProvider(
         create: (context) => CurrentDataCubit()..checkLocal(),
         child: BlocConsumer<CurrentDataCubit, CurrentDataState>(
-          listener: (context, state) {
-            debugPrint(
-                'Current Language-------------: ${state.currentLanguage}');
-            debugPrint('Current local-------------: ${state.locale}');
-            debugPrint(
-                'Current Language code-------------: ${state.locale.languageCode}');
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return MaterialApp.router(
               locale: state.locale,

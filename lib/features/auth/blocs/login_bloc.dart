@@ -54,17 +54,20 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
+    // login
     const url = "${Constants.baseUrl}/auth/login";
     if (state is LoginDefault) {
       final prevLoginState = state as LoginDefault;
-
       emit(LoginVerification());
+
       final Map<String, dynamic> rawData = {
         "email": prevLoginState.emailController.text,
         "password": prevLoginState.passwordController.text,
       };
+
       final jsonData = jsonEncode(rawData);
 
+      // third request
       final res = await http.post(
         Uri.parse(url),
         body: jsonData,
@@ -74,9 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       );
 
       if (res.statusCode == 200) {
-        debugPrint("User ${prevLoginState.emailController.text} has logged in");
         final bodyResponse = jsonDecode(res.body);
-        debugPrint("Resposnse is $bodyResponse");
 
         final token = bodyResponse["data"]["token"];
 

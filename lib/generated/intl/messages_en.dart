@@ -238,6 +238,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Graduate/Postgraduate"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(
             "Guided by faith, united for a lifetime in blessings"),
+        "happiness": MessageLookupByLibrary.simpleMessage("Happiness!"),
         "healthCase": MessageLookupByLibrary.simpleMessage("Health Case"),
         "health_case": MessageLookupByLibrary.simpleMessage("Health Status"),
         "healthy": MessageLookupByLibrary.simpleMessage("Healthy"),
@@ -263,8 +264,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Increase font-size"),
         "infantile_paralysis":
             MessageLookupByLibrary.simpleMessage("Infantile Paralysis"),
-        "interactWithHappiness": MessageLookupByLibrary.simpleMessage(
-            "Interact With Your\nHappiness!"),
+        "interactWithHappiness":
+            MessageLookupByLibrary.simpleMessage("Interact With Your"),
         "interests": MessageLookupByLibrary.simpleMessage("Interests"),
         "invalidCredentials":
             MessageLookupByLibrary.simpleMessage("Invalid email or password"),

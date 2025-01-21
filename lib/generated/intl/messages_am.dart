@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("የገለም/የዝርዝር"),
         "guidedByFaith":
             MessageLookupByLibrary.simpleMessage("በእምነት የሚመራ፣ በበረከት ለዘላለም አብሮ"),
+        "happiness": MessageLookupByLibrary.simpleMessage("ደስታ!"),
         "healthCase": MessageLookupByLibrary.simpleMessage("የጤና ሁኔታ"),
         "health_case": MessageLookupByLibrary.simpleMessage("የጤና ሁኔታ"),
         "healthy": MessageLookupByLibrary.simpleMessage("ጤናማ"),
@@ -244,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ፊደልን አበርክስ"),
         "infantile_paralysis": MessageLookupByLibrary.simpleMessage("የሕፃን ዕቅፍ"),
         "interactWithHappiness":
-            MessageLookupByLibrary.simpleMessage("ከደስታዎ ጋር\nይገናኙ!"),
+            MessageLookupByLibrary.simpleMessage("ይገናኙ ከእርስዎ"),
         "interests": MessageLookupByLibrary.simpleMessage("ፍላጎቶች"),
         "invalidCredentials":
             MessageLookupByLibrary.simpleMessage("ልክ ያልሆነ ኢሜይል ወይም የይለፍ ቃል"),
