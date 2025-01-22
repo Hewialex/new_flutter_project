@@ -14,63 +14,12 @@ import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 
 class SignupScreen extends StatelessWidget {
-  SignupScreen({
+  const SignupScreen({
     super.key,
     required this.gender,
   });
 
   final String gender;
-
-  final List<String> nationality = [
-    'Afghan',
-    'Armenian',
-    'Azerbaijani',
-    'Bahraini',
-    'Cypriot',
-    'Egyptian',
-    'Georgian',
-    'Iranian',
-    'Iraqi',
-    'Israeli',
-    'Jordanian',
-    'Kuwaiti',
-    'Lebanese',
-    'Omani',
-    'Palestinian',
-    'Qatari',
-    'Syrian',
-    'Turkish',
-    'Emirati',
-    'Yemeni',
-    "+251913094212",
-    "23",
-    "male",
-    "183.2",
-    "78.2",
-    "Black",
-    "Dadbod",
-    "Healthy",
-    "Non smoker",
-    "prayer",
-    "committed",
-    "Not married",
-    "Monogamous",
-    "2",
-    "Bachelor's",
-    "Finance",
-    "Finance Analyst",
-    "700000",
-    "Wealthy",
-    "Saudi",
-    "Riyadh",
-    "Saudi Arabia",
-    "I am a chill guy",
-    "Habibi as long as you are for me I will love you",
-    "Bearded",
-    "I don't mind",
-    "24.7136",
-    "46.6753",
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -125,6 +74,9 @@ class SignupScreen extends StatelessWidget {
                 ).showSnack();
               }
             });
+            // update the state's gender with the selected geneder
+            state.genderController.text = gender;
+            state.copyWith(genderController: state.genderController);
             return Form(
               key: formKey,
               child: Scaffold(
@@ -134,11 +86,10 @@ class SignupScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           const CustomTopBar(
-                            altRoute: Routes.login,
+                            altRoute: Routes.loginWithPassword,
                             excludeLangDropDown: true,
                           ),
                           CustomHeader(text: localizations.create_account),
-                          CustomHeader(text: '${localizations.as} $gender'),
                           Text(
                             localizations.create_account_description,
                             style: TextStyle(
@@ -150,14 +101,7 @@ class SignupScreen extends StatelessWidget {
                             height: 31.h,
                           ),
                           BasicSection(
-                            confirmPasswordController:
-                                state.confirmPasswordController,
-                            emailController: state.emailController,
-                            fullNameController: state.fullNameController,
-                            passwordController: state.passwordController,
-                            phoneNumberController: state.phoneNumberController,
-                            usernameController: state.userNameController,
-                            genederController: state.genderController,
+                            state: state,
                           ),
                         ],
                       ),
@@ -179,7 +123,7 @@ class SignupScreen extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is SignupSuccess) {
-          context.go(Routes.login);
+          context.go(Routes.loginWithPassword);
           CustomSnackBar(
             context: context,
             message: localizations.signed_up_user_successfully,

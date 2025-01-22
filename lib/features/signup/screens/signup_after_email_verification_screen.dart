@@ -285,7 +285,7 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
       },
       listener: (context, state) {
         if (state is SignupSuccess) {
-          context.go(Routes.login);
+          context.go(Routes.loginWithPassword);
           CustomSnackBar(
             context: context,
             message: localizations.signed_up_user_successfully,

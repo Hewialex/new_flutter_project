@@ -102,7 +102,7 @@ class NewPasswordScreen extends StatelessWidget {
                         CustomButton(
                           onPressed: () {
                             if (formKey.currentState!.validate()) {
-                              context.go(Routes.login);
+                              context.go(Routes.loginWithPassword);
                             }
                           },
                           text: S.of(context).resetPassword,

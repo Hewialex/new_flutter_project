@@ -26,7 +26,7 @@ class ForgotPasswordScreen extends StatelessWidget {
             child: Column(
               children: [
                 const CustomTopBar(
-                  altRoute: Routes.login,
+                  altRoute: Routes.loginWithPassword,
                   excludeLangDropDown: true,
                 ),
                 SizedBox(height: 47.h),
@@ -76,7 +76,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                 SizedBox(height: 30.h),
                 CustomButton(
                   isInverted: true,
-                  onPressed: () => context.push(Routes.login),
+                  onPressed: () => context.push(Routes.loginWithPassword),
                   text: S.of(context).goToHome,
                   fontWeight: FontWeight.w600,
                   shadowColor: CustomColors.shadowBlue,

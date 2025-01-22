@@ -2,7 +2,7 @@ class Routes {
   static const initRoute = '/';
   static const onboarding = '/onboarding';
   static const register = '/register';
-  static const login = '/login';
+  // static const login = '/login';
   static const loginWithPassword = '/loginWithPassword';
   static const forgotPassword = '/forgotPassword';
   static const newPassword = '/newPassword';

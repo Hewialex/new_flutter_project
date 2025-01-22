@@ -48,6 +48,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           vielController: TextEditingController(),
           longitudeController: TextEditingController(),
           latitudeController: TextEditingController(),
+          countryCode: '',
           error: SignupError.none,
         )) {
     on<RegisterUser>(_registerUser);

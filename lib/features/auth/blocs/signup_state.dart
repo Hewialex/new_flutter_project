@@ -39,6 +39,7 @@ class SignupDefault extends SignupState {
   final TextEditingController vielController;
   final TextEditingController longitudeController;
   final TextEditingController latitudeController;
+  final String countryCode;
   final SignupError error;
   final String? errorMessage;
 
@@ -76,6 +77,7 @@ class SignupDefault extends SignupState {
     required this.vielController,
     required this.longitudeController,
     required this.latitudeController,
+    required this.countryCode,
     required this.error,
     this.errorMessage,
   });
@@ -114,6 +116,7 @@ class SignupDefault extends SignupState {
     TextEditingController? vielController,
     TextEditingController? longitudeController,
     TextEditingController? latitudeController,
+    String? countryCode,
     SignupError? error,
     String? errorMessage,
   }) {
@@ -163,6 +166,7 @@ class SignupDefault extends SignupState {
       vielController: vielController ?? this.vielController,
       longitudeController: longitudeController ?? this.longitudeController,
       latitudeController: latitudeController ?? this.latitudeController,
+      countryCode: countryCode ?? this.countryCode,
       error: error ?? this.error,
       errorMessage: errorMessage ?? this.errorMessage,
     );

@@ -8,6 +8,7 @@ import 'package:qismati/common/colors.dart';
 class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String? text;
+  final int? maxChar;
   final String? Function(String? text)? validator;
   final Widget? suffix;
   final Widget? prefix;
@@ -33,6 +34,7 @@ class CustomTextField extends StatelessWidget {
   const CustomTextField(
       {super.key,
       required this.controller,
+      this.maxChar,
       this.globalKey,
       this.validator,
       this.text,
@@ -64,6 +66,9 @@ class CustomTextField extends StatelessWidget {
         child: SizedBox(
       width: width.w,
       child: TextFormField(
+        maxLength: maxChar,
+        buildCounter:
+            (_, {int? currentLength, int? maxLength, bool? isFocused}) => null,
         key: globalKey,
         autofocus: autoFocus ?? false,
         focusNode: focusNode,

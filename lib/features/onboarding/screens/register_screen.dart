@@ -181,7 +181,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 RepositoryProvider.of<DatabaseHelper>(context);
                             databaseHelper.saveSession(gender);
 
-                            context.push(Routes.login);
+                            context.push(Routes.signup, extra: gender);
                           }
                         },
                         child: Text(localizations.continue_action))

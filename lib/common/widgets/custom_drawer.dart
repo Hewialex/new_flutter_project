@@ -287,7 +287,7 @@ class CustomDrawer extends StatelessWidget {
                         if (!context.mounted) return;
 
                         // Navigate after ensuring all tasks are completed
-                        context.go(Routes.login);
+                        context.go(Routes.loginWithPassword);
                       }
                     },
                   ),
