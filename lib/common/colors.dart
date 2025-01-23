@@ -24,6 +24,7 @@ class CustomColors {
   static const premiumColor = Color(0xFFDE8900);
   static const error = Color(0xFFEF1717);
   static const languageTextColor = Color(0xFF2A1714);
+  static const dropDownSelectedItemColor = Color(0xFFD2BBB8);
   // static const languageOptionsColor = Color(0xFF2A1714);
   static const languageContainerColor = Color(0xFFFFE4E0);
 }

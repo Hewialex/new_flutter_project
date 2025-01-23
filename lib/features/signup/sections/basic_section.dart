@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:qismati/common/models/otp_nav_model.dart';
 import 'package:qismati/common/widgets/custom_alert_dialog.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
+import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/core/utils/form_filed_validations/email_validation.dart';
 import 'package:qismati/core/utils/form_filed_validations/fullName_validator.dart';
@@ -15,6 +17,7 @@ import 'package:qismati/core/utils/form_filed_validations/phonenumber_validator.
 import 'package:qismati/core/utils/form_filed_validations/username_validator.dart';
 import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.dart';
 import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
+import 'package:qismati/features/auth/blocs/request_otp/bloc/request_otp_bloc.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/signup/widgets/phone_number_field.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
@@ -130,37 +133,61 @@ class BasicSection extends StatelessWidget {
           ),
         ),
         SizedBox(height: 20.h),
-        CustomButton(
-          onPressed: () {
-            if (formKey.currentState!.validate()) {
-              // draw an alert dialog if code is sent successfully to email.
-              CustomAlertDialog.show(
-                context,
-                title: localizations.code_sent,
-                actions: [
-                  CustomButton(
-                    onPressed: () {
-                      // remove the current dialog.
-                      context.pop();
-                      context.pushNamed(
-                        Routes.emailVerificationOtp,
-                        extra: OtpNavModel(
-                          isFromSignUp: true,
-                          isFromForgtenPassword: false,
+        BlocConsumer<RequestOtpBloc, RequestOtpState>(
+          listener: (context, otpState) {
+            debugPrint('otpState: $otpState');
+          },
+          builder: (context, otpState) {
+            return CustomButton(
+              onPressed: () {
+                // formKey.currentState!.validate()
+                if (true) {
+                  context.read<RequestOtpBloc>().add(
+                        RequestOtpThroughEmail(
+                          email: state.emailController.text,
                         ),
                       );
-                    },
-                    text: localizations.enter_code,
-                    fontWeight: FontWeight.w600,
-                    shadowColor: CustomColors.shadowBlue,
-                  ),
-                ],
-              );
-            }
+
+                  if (otpState is RequestOtpSuccess) {
+                    CustomAlertDialog.show(
+                      context,
+                      title: localizations.code_sent,
+                      actions: [
+                        CustomButton(
+                          onPressed: () {
+                            // remove the current dialog.
+                            context.pop();
+                            context.pushNamed(
+                              Routes.emailVerificationOtp,
+                              extra: OtpNavModel(
+                                isFromSignUp: true,
+                                isFromForgtenPassword: false,
+                              ),
+                            );
+                          },
+                          text: localizations.enter_code,
+                          fontWeight: FontWeight.w600,
+                          shadowColor: CustomColors.shadowBlue,
+                        ),
+                      ],
+                    );
+                  }
+                  if (otpState is RequestOtpFailure) {
+                    CustomSnackBar(
+                      context: context,
+                      message: otpState.error,
+                      type: SnackBarType.error,
+                    ).showSnack();
+                  }
+                }
+              },
+              text: otpState is RequestOtpLoading
+                  ? 'Loading...'
+                  : localizations.confirm,
+              fontWeight: FontWeight.w600,
+              shadowColor: CustomColors.shadowBlue,
+            );
           },
-          text: localizations.confirm,
-          fontWeight: FontWeight.w600,
-          shadowColor: CustomColors.shadowBlue,
         ),
         SizedBox(height: 20.h),
         Column(

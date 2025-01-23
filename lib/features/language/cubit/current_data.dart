@@ -41,10 +41,10 @@ class CurrentDataCubit extends Cubit<CurrentDataState> {
     Session objSession = Session();
     String? local = await objSession.getSession("local");
 
-    if (local == "") {
-      emit(state.copyWith(locale: const Locale("fr")));
+    if (local == "" || local == null) {
+      emit(state.copyWith(locale: const Locale("en")));
     } else {
-      emit(state.copyWith(locale: Locale(local!)));
+      emit(state.copyWith(locale: Locale(local)));
     }
   }
 

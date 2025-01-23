@@ -3,7 +3,6 @@ import 'package:qismati/common/models/otp_nav_model.dart';
 import 'package:qismati/common/models/profile.dart';
 import 'package:qismati/features/aboutus/screens/aboutus_screen.dart';
 import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
-import 'package:qismati/features/auth/screens/login_screen.dart';
 import 'package:qismati/features/auth/screens/login_with_password_screen.dart';
 import 'package:qismati/features/auth/screens/new_password_screen.dart';
 import 'package:qismati/features/auth/screens/verify_email_opt_screen.dart';
