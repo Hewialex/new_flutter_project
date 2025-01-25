@@ -62,20 +62,16 @@ class _SearchDropdownState extends State<SearchDropdown> {
           link: _layerLink,
           showWhenUnlinked: false,
           offset: Offset(0, 60.h), // Adjusted the offset for more space
-          child: Material(
-            elevation: 4.0,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10.r),
-                // border: Border.all(
-                //   color: CustomColors.primary,
-                //   width: 1,
-                // ),
-              ),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10.r),
+            ),
+            child: Material(
+              elevation: 4.0,
               child: ListView.builder(
                 shrinkWrap: true,
-                padding: EdgeInsets.zero, // Removed extra padding
+                padding: EdgeInsets.zero,
                 itemCount: dropdownItems.length,
                 itemBuilder: (context, index) {
                   final value = dropdownItems[index];
@@ -144,6 +140,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
                           if (isSelected)
                             const Icon(
                               Icons.check,
+                              color: Colors.white,
                             ),
                         ],
                       ),

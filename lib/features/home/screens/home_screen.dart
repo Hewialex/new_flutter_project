@@ -20,16 +20,38 @@ import 'package:qismati/routes.dart';
 import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/features/home/cubit/visibility_cubit.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
   @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  final PageController pageController = PageController(viewportFraction: 0.55);
+  int currentPage = 0; // Variable to track the central card
+
+  @override
+  void initState() {
+    super.initState();
+    // Listen to the page changes
+    pageController.addListener(() {
+      if (pageController.page != null) {
+        setState(() {
+          currentPage = pageController.page!.round();
+        });
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    pageController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final notificationBloc = context.read<NotificationBloc>();
-    notificationBloc.add(NotificationLoad());
-
-    final PageController pageController = PageController(viewportFraction: 0.5);
-
     return Scaffold(
       drawer: const CustomDrawer(),
       appBar: AppBar(
@@ -107,7 +129,7 @@ class HomeScreen extends StatelessWidget {
                     visible: visibilityState.firstVisible,
                     child: Column(
                       children: [
-                        SizedBox(height: 15.h), // Reduced height
+                        SizedBox(height: 15.h),
                         HomeHeading(
                           text: S.of(context).interactWithHappiness,
                         ),
@@ -115,14 +137,14 @@ class HomeScreen extends StatelessWidget {
                           text: S.of(context).happiness,
                           color: CustomColors.primary,
                         ),
-                        SizedBox(height: 30.h), // Reduced height
+                        SizedBox(height: 30.h),
                         const SearchDropdown(),
                       ],
                     ),
                   );
                 },
               ),
-              SizedBox(height: 15.h), // Reduced height
+              SizedBox(height: 15.h),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -150,8 +172,7 @@ class HomeScreen extends StatelessWidget {
                     ),
                   )
                 ],
-              ), // Reduced height
-
+              ),
               BlocBuilder<NearYouBloc, NearYouState>(
                 builder: (context, state) {
                   debugPrint("Near You State : $state");
@@ -183,56 +204,54 @@ class HomeScreen extends StatelessWidget {
                       );
                     }
 
-                    // Near You
-                    return Column(
-                      children: [
-                        SizedBox(
-                          height: 287.h, // Adjust as needed
-                          child: PageView.builder(
-                            controller: pageController,
-                            itemCount: people.length,
-                            itemBuilder: (context, index) {
-                              final person = people[index];
-                              return AnimatedBuilder(
-                                animation: pageController,
-                                builder: (context, child) {
-                                  double value = 1.0;
-                                  if (pageController.position.haveDimensions) {
-                                    value = pageController.page! - index;
-                                    value = (1 - (value.abs() * 0.3))
-                                        .clamp(0.0, 1.0);
-                                  }
-                                  return Center(
-                                    child: SizedBox(
-                                      height: Curves.easeOut.transform(value) *
-                                          287.h,
-                                      width: Curves.easeOut.transform(value) *
-                                          180.w, // Adjusted width
-                                      child: child,
-                                    ),
-                                  );
-                                },
-                                child: InkWell(
-                                  onTap: () {
-                                    Navigator.of(context).push(
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            const ProfileScreen(),
-                                      ),
-                                    );
-                                  },
-                                  child: DatingCard(
-                                    name: person.fullName,
-                                    gender: person.gender,
-                                    isPremium: true,
-                                    locationName: person.country,
-                                  ),
+                    return SizedBox(
+                      height: 300.h,
+                      child: PageView.builder(
+                        controller: pageController,
+                        itemCount: people.length,
+                        itemBuilder: (context, index) {
+                          bool isCentral = index == currentPage;
+                          final person = people[index];
+                          return AnimatedBuilder(
+                            animation: pageController,
+                            builder: (context, child) {
+                              double value = 1.0;
+                              if (pageController.position.haveDimensions) {
+                                value = pageController.page! - index;
+                                value =
+                                    (1 - (value.abs() * 0.3)).clamp(0.0, 1.0);
+                              }
+                              double height = isCentral ? 287.h : 209.h;
+                              double width = isCentral ? 248.w : 186.w;
+
+                              return Center(
+                                child: SizedBox(
+                                  height: height,
+                                  width: width,
+                                  child: child,
                                 ),
                               );
                             },
-                          ),
-                        ),
-                      ],
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => const ProfileScreen(),
+                                  ),
+                                );
+                              },
+                              child: DatingCard(
+                                name: person.fullName,
+                                gender: person.gender,
+                                isPremium: true,
+                                locationName: person.country,
+                                isCentral:
+                                    isCentral, // Pass isCentral flag here
+                              ),
+                            ),
+                          );
+                        },
+                      ),
                     );
                   } else if (state is NearYouInitial) {
                     context.read<NearYouBloc>().add(NearYouLoad(page: 1));
@@ -254,39 +273,6 @@ class HomeScreen extends StatelessWidget {
                   }
                 },
               ),
-              BlocBuilder<VisibilityCubit, VisibilityState>(
-                  builder: (context, state) {
-                return Visibility(
-                  visible: state.secondVisible,
-                  child: Column(
-                    children: [
-                      SizedBox(height: 20.h),
-                      ...List.generate(
-                        profiles.length,
-                        (index) {
-                          final ppl = profiles[index];
-                          return InkWell(
-                            onTap: () {
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => const ProfileScreen(),
-                                ),
-                              );
-                            },
-                            child: AllMemberCard(
-                              name: ppl.fullName,
-                              age: ppl.age,
-                              gender: ppl.gender,
-                              location: ppl.country,
-                            ),
-                          );
-                        },
-                      ),
-                      SizedBox(height: 30.h),
-                    ],
-                  ),
-                );
-              })
             ],
           ),
         ),

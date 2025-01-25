@@ -6,6 +6,7 @@ class DatingCard extends StatelessWidget {
   final String name;
   final String gender;
   final bool isPremium;
+  final bool isCentral;
   final String locationName;
 
   const DatingCard({
@@ -13,6 +14,7 @@ class DatingCard extends StatelessWidget {
     required this.name,
     required this.gender,
     required this.isPremium,
+    this.isCentral = false,
     required this.locationName,
   });
 
@@ -49,30 +51,37 @@ class DatingCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 10.h),
+      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        gradient: const RadialGradient(
-          colors: [Color(0x2BFFFFFF), Color(0x2B000000)],
-          radius: 0.5,
-        ),
+        color: isCentral
+            ? CustomColors.background
+            : CustomColors.background.withOpacity(0.2),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            spreadRadius: 10,
+            blurRadius: 20,
+            offset: const Offset(0, 20), // Position of the shadow
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Wrap(
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 getFormattedName(name),
                 style: TextStyle(
                   fontWeight: FontWeight.w700,
                   fontSize: 14.sp,
-                  color: Colors.white,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
               SizedBox(width: 10.w),
-              premiumContainer(context),
+              if (isCentral) premiumContainer(context),
             ],
           ),
           Row(
@@ -94,34 +103,30 @@ class DatingCard extends StatelessWidget {
           ),
           const Spacer(),
           Stack(
-            alignment: Alignment.bottomCenter,
+            alignment: Alignment.center,
             children: [
-              Positioned(
-                top: 0, // Adjust this value as needed
-                child: Container(
-                  width: 150, // Width of the circular box
-                  height: 150, // Height of the circular box
-                  decoration: BoxDecoration(
-                    color: CustomColors.languageContainerColor,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.grey.withOpacity(0.5),
-                        spreadRadius: 2,
-                        blurRadius: 5,
-                        offset:
-                            const Offset(0, 3), // changes position of shadow
-                      ),
-                    ],
-                  ),
+              Container(
+                width: double.infinity,
+                height: isCentral ? 200.h : 150.h,
+                decoration: BoxDecoration(
+                  color: CustomColors.languageContainerColor,
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withOpacity(0.5),
+                      spreadRadius: 2,
+                      blurRadius: 5,
+                      offset: const Offset(0, 3),
+                    ),
+                  ],
                 ),
               ),
               Image.asset(
                 gender == "male"
                     ? "assets/images/male_avatar.png"
                     : "assets/images/female_avatar.png",
-                width: double.infinity,
-                height: 150.h,
+                width: isCentral ? 200.h : 150.h,
+                height: isCentral ? 200.h : 150.h,
                 fit: BoxFit.cover,
               ),
             ],
