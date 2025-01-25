@@ -39,6 +39,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     final storedToken = await databaseHelper.getToken();
 
     if (storedToken != null) {
+      emit(LoginVerification());
       const url = "${Constants.baseUrl}/auth/me";
       final res = await http.get(
         Uri.parse(url),
@@ -67,54 +68,74 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
       final jsonData = jsonEncode(rawData);
 
-      // third request
-      final res = await http.post(
-        Uri.parse(url),
-        body: jsonData,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      try {
+        final res = await Future.any([
+          // third request
+          http.post(
+            Uri.parse(url),
+            body: jsonData,
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+            },
+          ),
 
-      if (res.statusCode == 200) {
-        final bodyResponse = jsonDecode(res.body);
+          Future.delayed(const Duration(seconds: 31),
+              () => throw TimeoutException('Request timed out')),
+        ]);
 
-        final token = bodyResponse["data"]["token"];
+        if (res.statusCode == 200) {
+          final bodyResponse = jsonDecode(res.body);
+          final token = bodyResponse["data"]["token"];
 
-        await databaseHelper.saveToken(token);
-        await websocketService.connect(Constants.simpleUrl, token);
-        websocketService.startListening((message) {
-          debugPrint("WebSocket message received: $message");
-          try {
-            final json = jsonDecode(message);
-            if (json["type"] == "notification") {
-              final notification = NotificationModel.fromJson(json);
-              notificationBloc.add(NotificationReceived(notification));
-            } else if (json["type"] == "message") {
-              final message = json["data"];
-              debugPrint("Message Chat: $message");
+          await databaseHelper.saveToken(token);
+          await websocketService.connect(Constants.simpleUrl, token);
+          websocketService.startListening((message) {
+            try {
+              final json = jsonDecode(message);
+              if (json["type"] == "notification") {
+                final notification = NotificationModel.fromJson(json);
+                notificationBloc.add(NotificationReceived(notification));
+              } else if (json["type"] == "message") {
+                final message = json["data"];
+                debugPrint("Message Chat: $message");
+              }
+            } catch (e) {
+              debugPrint("[X] WebSocket message parsing error: $e");
             }
-          } catch (e) {
-            debugPrint("[X] WebSocket message parsing error: $e");
-          }
-        });
+          });
 
-        debugPrint("token is $token");
+          emit(LoginSuccess());
+        } else {
+          final json = jsonDecode(res.body);
+          final String message = json["message"];
 
-        emit(LoginSuccess());
-      } else {
-        debugPrint("Couldn't login in status code: ${res.statusCode}");
-        debugPrint("Couldn't login in data: ${res.body}");
-
-        final json = jsonDecode(res.body);
-        final String message = json["message"];
+          emit(
+            LoginDefault(
+              emailController: prevLoginState.emailController,
+              passwordController: prevLoginState.passwordController,
+              err: _mapErrorCodeToLoginErr('wrong-password'),
+              errorMessage: message,
+            ),
+          );
+        }
+      } on TimeoutException catch (_) {
+        debugPrint("Login request timed out");
 
         emit(
           LoginDefault(
             emailController: prevLoginState.emailController,
             passwordController: prevLoginState.passwordController,
             err: _mapErrorCodeToLoginErr('wrong-password'),
-            errorMessage: message,
+            errorMessage: 'The request timed out. Please try again later.',
+          ),
+        );
+      } catch (e) {
+        emit(
+          LoginDefault(
+            emailController: prevLoginState.emailController,
+            passwordController: prevLoginState.passwordController,
+            err: _mapErrorCodeToLoginErr('wrong-password'),
+            errorMessage: 'Unexpected error. Please try again later.',
           ),
         );
       }
