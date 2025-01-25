@@ -49,89 +49,94 @@ class DatingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        color: isCentral
-            ? CustomColors.background
-            : CustomColors.background.withOpacity(0.2),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.1),
-            spreadRadius: 10,
-            blurRadius: 20,
-            offset: const Offset(0, 20), // Position of the shadow
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                getFormattedName(name),
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 14.sp,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-              SizedBox(width: 10.w),
-              if (isCentral) premiumContainer(context),
-            ],
-          ),
-          Row(
-            children: [
-              Icon(
-                Icons.location_on,
-                color: CustomColors.primary,
-                size: 12.sp,
-              ),
-              Text(
-                locationName,
-                style: TextStyle(
-                  color: CustomColors.primary,
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w700,
-                ),
-              ),
-            ],
-          ),
-          const Spacer(),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Container(
-                width: double.infinity,
-                height: isCentral ? 200.h : 150.h,
-                decoration: BoxDecoration(
-                  color: CustomColors.languageContainerColor,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.5),
-                      spreadRadius: 2,
-                      blurRadius: 5,
-                      offset: const Offset(0, 3),
+    return Card(
+      elevation: isCentral ? 20 : 0,
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.r)),
+          color: isCentral
+              ? CustomColors.background
+              : CustomColors.background.withOpacity(0.2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 10,
+              blurRadius: 20,
+              offset: const Offset(0, 20), // Position of the shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.sp,
+                      overflow: TextOverflow.ellipsis,
                     ),
-                  ],
+                  ),
                 ),
-              ),
-              Image.asset(
-                gender == "male"
-                    ? "assets/images/male_avatar.png"
-                    : "assets/images/female_avatar.png",
-                width: isCentral ? 200.h : 150.h,
-                height: isCentral ? 200.h : 150.h,
-                fit: BoxFit.cover,
-              ),
-            ],
-          )
-        ],
+                SizedBox(width: 10.w),
+                if (isCentral) premiumContainer(context),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on,
+                  color: CustomColors.primary,
+                  size: 12.sp,
+                ),
+                Text(
+                  locationName,
+                  style: TextStyle(
+                    color: CustomColors.primary,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: isCentral ? 200.h : 150.h,
+                  decoration: BoxDecoration(
+                    color: CustomColors.languageContainerColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                Image.asset(
+                  gender == "male"
+                      ? "assets/images/male_avatar.png"
+                      : "assets/images/female_avatar.png",
+                  width: isCentral ? 200.h : 150.h,
+                  height: isCentral ? 200.h : 150.h,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

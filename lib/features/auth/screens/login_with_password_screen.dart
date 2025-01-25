@@ -116,6 +116,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                             CustomTextField(
                               text: S.of(context).email,
                               controller: state.emailController,
+                              keyboardType: TextInputType.emailAddress,
                               validator: validateEmail,
                             ),
                             SizedBox(height: 29.h),
