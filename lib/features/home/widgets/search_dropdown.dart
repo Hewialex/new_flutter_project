@@ -62,91 +62,93 @@ class _SearchDropdownState extends State<SearchDropdown> {
           link: _layerLink,
           showWhenUnlinked: false,
           offset: Offset(0, 60.h), // Adjusted the offset for more space
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(10.r),
-            ),
-            child: Material(
-              elevation: 4.0,
-              child: ListView.builder(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                itemCount: dropdownItems.length,
-                itemBuilder: (context, index) {
-                  final value = dropdownItems[index];
-                  final isSelected = selectedValue == value;
-                  return GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        selectedValue = value;
-                        showSuggestions = false;
-                      });
-                      _overlayEntry?.remove();
-                      _overlayEntry = null;
-                      switch (value) {
-                        case 'Members':
-                          context.push(Routes.membersPhoto);
-                          break;
-                        case 'New members':
-                          context.push(Routes.newMembers);
-                          break;
-                        case 'Online members':
-                          context.push(Routes.onlineMembers);
-                          break;
-                        case 'Premium members':
-                          context.push(Routes.premiumMembers);
-                          break;
-                        case 'Auto Searcher':
-                          context.push(Routes.autoSearcher);
-                          break;
-                        default:
-                          return;
-                      }
-                    },
-                    child: Container(
-                      color: isSelected
-                          ? CustomColors.dropDownSelectedItemColor
-                          : Colors.white,
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 10.w, vertical: 8.h), // Reduced padding
-                      child: Row(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 5.w, vertical: 3.h),
-                            decoration: !isSelected
-                                ? null
-                                : BoxDecoration(
-                                    color: CustomColors.primary,
-                                    borderRadius: BorderRadius.circular(5.r),
-                                  ),
-                            child: SvgPicture.asset(
-                              dropdownImages[index],
-                              width: 22.h,
-                              height: 22.h,
-                              fit: BoxFit.contain,
-                              color: isSelected ? Colors.white : null,
+          child: ClipRRect(
+            borderRadius:
+                BorderRadius.circular(10.r), // Apply border radius here
+            child: Container(
+              decoration: const BoxDecoration(
+                color: Colors.white,
+              ),
+              child: Material(
+                elevation: 4.0,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount: dropdownItems.length,
+                  itemBuilder: (context, index) {
+                    final value = dropdownItems[index];
+                    final isSelected = selectedValue == value;
+                    return GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          selectedValue = value;
+                          showSuggestions = false;
+                        });
+                        _overlayEntry?.remove();
+                        _overlayEntry = null;
+                        switch (value) {
+                          case 'Members':
+                            context.push(Routes.membersPhoto);
+                            break;
+                          case 'New members':
+                            context.push(Routes.newMembers);
+                            break;
+                          case 'Online members':
+                            context.push(Routes.onlineMembers);
+                            break;
+                          case 'Premium members':
+                            context.push(Routes.premiumMembers);
+                            break;
+                          case 'Auto Searcher':
+                            context.push(Routes.autoSearcher);
+                            break;
+                          default:
+                            return;
+                        }
+                      },
+                      child: Container(
+                        color: isSelected
+                            ? CustomColors.dropDownSelectedItemColor
+                            : Colors.white,
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 8.h), // Reduced padding
+                        child: Row(
+                          children: [
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 5.w, vertical: 3.h),
+                              decoration: !isSelected
+                                  ? null
+                                  : BoxDecoration(
+                                      color: CustomColors.primary,
+                                      borderRadius: BorderRadius.circular(5.r),
+                                    ),
+                              child: SvgPicture.asset(
+                                dropdownImages[index],
+                                width: 22.h,
+                                height: 22.h,
+                                fit: BoxFit.contain,
+                                color: isSelected ? Colors.white : null,
+                              ),
                             ),
-                          ),
-                          SizedBox(width: 8.w), // Slightly adjusted width
-                          Text(
-                            value,
-                            style: TextStyle(
-                              color: isSelected ? Colors.white : Colors.black,
+                            SizedBox(width: 8.w), // Slightly adjusted width
+                            Text(
+                              value,
+                              style: TextStyle(
+                                color: isSelected ? Colors.white : Colors.black,
+                              ),
                             ),
-                          ),
-                          if (isSelected) const Spacer(),
-                          if (isSelected)
-                            const Icon(
-                              Icons.check,
-                              color: Colors.white,
-                            ),
-                        ],
+                            if (isSelected) const Spacer(),
+                            if (isSelected)
+                              const Icon(
+                                Icons.check,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
           ),
