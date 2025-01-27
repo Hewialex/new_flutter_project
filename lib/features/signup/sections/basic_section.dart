@@ -12,7 +12,6 @@ import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
 import 'package:qismati/core/utils/debouncer.dart';
 import 'package:qismati/core/utils/form_filed_validations/email_validation.dart';
-import 'package:qismati/core/utils/form_filed_validations/fullName_validator.dart';
 import 'package:qismati/core/utils/form_filed_validations/password_validation.dart';
 import 'package:qismati/core/utils/form_filed_validations/phonenumber_validator.dart';
 import 'package:qismati/core/utils/form_filed_validations/username_validator.dart';

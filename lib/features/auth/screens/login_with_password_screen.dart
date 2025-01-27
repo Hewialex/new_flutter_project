@@ -108,7 +108,8 @@ class LoginWithPasswordScreen extends StatelessWidget {
                               SizedBox(height: 47.h),
                               CustomHeader(text: S.of(context).signIn),
                               Text(
-                                S.of(context).enterPassword,
+                                // S.of(context).enterPassword,
+                                'Please enter your email and password',
                                 style: TextStyle(
                                   fontWeight: FontWeight.w500,
                                   fontSize: 15.sp,
