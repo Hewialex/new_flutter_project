@@ -24,9 +24,7 @@ import 'package:qismati/generated/l10n.dart';
 class SignupAfterEmailVerificationScreen extends StatelessWidget {
   const SignupAfterEmailVerificationScreen({
     super.key,
-    required this.gender,
   });
-  final String gender;
 
   SignupModel convertToSignupModel(SignupDefault state) {
     return SignupModel(
@@ -78,6 +76,8 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(
+        '-------------------gender before ----------------${(context.read<SignupBloc>().state as SignupDefault).genderController.text}');
     final formKey = GlobalKey<FormState>();
     final localizations = S.of(context);
     final bloc = context.read<SignupBloc>();
@@ -128,150 +128,129 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
                 ).showSnack();
               }
             });
-            return BlocConsumer<SignupBloc, SignupState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is SignupDefault) {
-                  return Scaffold(
-                    body: SafeArea(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              const CustomTopBar(
-                                altRoute: Routes.signup,
-                                excludeLangDropDown: true,
-                              ),
-                              Visibility(
-                                visible: state is SignupDefault,
-                                child: Column(
-                                  children: [
-                                    AddressSection(
-                                      cityController: state.cityController,
-                                      countryController:
-                                          state.countryController,
-                                      nationalityController:
-                                          state.nationalityController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    MaritialSection(
-                                      ageController: state.ageController,
-                                      childrenController:
-                                          state.childrenController,
-                                      maritialStatusController:
-                                          state.maritalStatusController,
-                                      marriageTypeController:
-                                          state.marriageTypeController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    LooksSection(
-                                      weightController: state.weightController,
-                                      heightController: state.heightController,
-                                      bodyShapeController:
-                                          state.bodyShapeController,
-                                      skinColorController:
-                                          state.skinColorController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    ReligionSection(
-                                      gender: gender,
-                                      beardController: state.beardController,
-                                      vielController: state.vielController,
-                                      prayerController: state.prayerController,
-                                      religionCommitmentController:
-                                          state.religiousCommitmentController,
-                                      smokingController:
-                                          state.smokingController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    EducationAndWorkSection(
-                                      educationalQualificationController: state
-                                          .educationalQualificationController,
-                                      financialStatusController:
-                                          state.financialStatusController,
-                                      jobCategoryController:
-                                          state.jobCategoryController,
-                                      jobController: state.jobController,
-                                      monthlyIncomeController:
-                                          state.monthlyIncomeController,
-                                      healthCaseController:
-                                          state.healthCaseController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    AboutYourPartnerSection(
-                                      aboutYourPartnerController:
-                                          state.aboutYourPartnerController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    TalkAboutYourSelfSection(
-                                      aboutYourSelfController:
-                                          state.aboutYourSelfController,
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    Text(
-                                      localizations.app_terms,
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w500,
-                                        fontSize: 16.sp,
-                                      ),
-                                    ),
-                                    SizedBox(height: 19.h),
-                                    ListDotItem(
-                                      text: localizations.terms_conditions_text,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {},
-                                      child: Text(
-                                        localizations.terms_conditions,
-                                        style: TextStyle(
-                                          fontSize: 12.sp,
-                                          fontWeight: FontWeight.w300,
-                                          color: CustomColors.textRed,
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(height: 54.h),
-                                    CustomButton(
-                                      onPressed: () async {
-                                        if (true) {
-                                          final DatabaseHelper databaseHelper =
-                                              RepositoryProvider.of<
-                                                  DatabaseHelper>(context);
-                                          final gender =
-                                              await databaseHelper.getGender();
-
-                                          final signupModel =
-                                              convertToSignupModel(state);
-
-                                          bloc.add(
-                                            RegisterUser(
-                                              signupModel: signupModel,
-                                              gender: gender,
-                                            ),
-                                          );
-                                        }
-                                      },
-                                      text: localizations.sign_up,
-                                      shadowColor: CustomColors.shadowBlue,
-                                      elevation: 5,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    SizedBox(height: 30.h),
-                                  ],
-                                ),
-                              ),
-                            ],
+            print(
+                '-------------------gender before ----------------${state.genderController.text}');
+            return Scaffold(
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: Form(
+                      key: formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          const CustomTopBar(
+                            altRoute: Routes.signup,
+                            excludeLangDropDown: true,
                           ),
-                        ),
+                          AddressSection(
+                            cityController: state.cityController,
+                            countryController: state.countryController,
+                            nationalityController: state.nationalityController,
+                          ),
+                          SizedBox(height: 19.h),
+                          MaritialSection(
+                            ageController: state.ageController,
+                            childrenController: state.childrenController,
+                            maritialStatusController:
+                                state.maritalStatusController,
+                            marriageTypeController:
+                                state.marriageTypeController,
+                          ),
+                          SizedBox(height: 19.h),
+                          LooksSection(
+                            weightController: state.weightController,
+                            heightController: state.heightController,
+                            bodyShapeController: state.bodyShapeController,
+                            skinColorController: state.skinColorController,
+                          ),
+                          SizedBox(height: 19.h),
+                          ReligionSection(
+                            beardController: state.beardController,
+                            gender: state.genderController.text,
+                            vielController: state.vielController,
+                            prayerController: state.prayerController,
+                            religionCommitmentController:
+                                state.religiousCommitmentController,
+                            smokingController: state.smokingController,
+                          ),
+                          SizedBox(height: 19.h),
+                          EducationAndWorkSection(
+                            educationalQualificationController:
+                                state.educationalQualificationController,
+                            financialStatusController:
+                                state.financialStatusController,
+                            jobCategoryController: state.jobCategoryController,
+                            jobController: state.jobController,
+                            monthlyIncomeController:
+                                state.monthlyIncomeController,
+                            healthCaseController: state.healthCaseController,
+                          ),
+                          SizedBox(height: 19.h),
+                          AboutYourPartnerSection(
+                            aboutYourPartnerController:
+                                state.aboutYourPartnerController,
+                          ),
+                          SizedBox(height: 19.h),
+                          TalkAboutYourSelfSection(
+                            aboutYourSelfController:
+                                state.aboutYourSelfController,
+                          ),
+                          SizedBox(height: 19.h),
+                          Text(
+                            localizations.app_terms,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 16.sp,
+                            ),
+                          ),
+                          SizedBox(height: 19.h),
+                          ListDotItem(
+                            text: localizations.terms_conditions_text,
+                          ),
+                          GestureDetector(
+                            onTap: () {},
+                            child: Text(
+                              localizations.terms_conditions,
+                              style: TextStyle(
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w300,
+                                color: CustomColors.textRed,
+                              ),
+                            ),
+                          ),
+                          SizedBox(height: 54.h),
+                          CustomButton(
+                            onPressed: () async {
+                              if (true) {
+                                final DatabaseHelper databaseHelper =
+                                    RepositoryProvider.of<DatabaseHelper>(
+                                        context);
+                                final gender = await databaseHelper.getGender();
+
+                                final signupModel = convertToSignupModel(state);
+
+                                bloc.add(
+                                  RegisterUser(
+                                    signupModel: signupModel,
+                                    gender: gender,
+                                  ),
+                                );
+                              }
+                            },
+                            text: localizations.sign_up,
+                            shadowColor: CustomColors.shadowBlue,
+                            elevation: 5,
+                            fontWeight: FontWeight.w600,
+                          ),
+                          SizedBox(height: 30.h),
+                        ],
                       ),
                     ),
-                  );
-                }
-                // incase something went bad and the state is not as expected.
-                return const SizedBox.shrink();
-              },
+                  ),
+                ),
+              ),
             );
           default:
             return Scaffold(

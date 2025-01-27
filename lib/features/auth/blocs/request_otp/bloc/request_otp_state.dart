@@ -12,7 +12,7 @@ class RequestOtpInitial extends RequestOtpState {}
 class RequestOtpSuccess extends RequestOtpState {
   final String otp;
 
-  const RequestOtpSuccess(this.otp);
+  const RequestOtpSuccess({required this.otp});
 
   @override
   List<Object> get props => [otp];

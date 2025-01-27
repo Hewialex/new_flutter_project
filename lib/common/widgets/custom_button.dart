@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
@@ -14,6 +15,7 @@ class CustomButton extends StatelessWidget {
     this.isInverted = false,
     this.elevation = 0,
     this.fontWeight = FontWeight.w300,
+    this.isLoading = false, // New parameter for loading state
   });
 
   final VoidCallback onPressed;
@@ -25,6 +27,7 @@ class CustomButton extends StatelessWidget {
   final double elevation;
   final Color? shadowColor;
   final FontWeight fontWeight;
+  final bool isLoading; // New parameter for loading state
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +47,7 @@ class CustomButton extends StatelessWidget {
         width: width.w,
         height: height.h,
         child: ElevatedButton(
-          onPressed: onPressed,
+          onPressed: isLoading ? null : onPressed, // Disable when loading
           style: ElevatedButton.styleFrom(
             backgroundColor: isInverted ? Colors.white : CustomColors.primary,
             elevation: elevation,
@@ -58,17 +61,20 @@ class CustomButton extends StatelessWidget {
                   : BorderSide.none,
             ),
           ),
-          child: Text(
-            text,
-            style: TextStyle(
-              fontWeight: fontWeight,
-              color: isInverted ? CustomColors.primary : Colors.white,
-              fontSize: fontSize.sp,
-            ),
-          ),
+          child: isLoading // Show loading indicator if loading
+              ? const CupertinoActivityIndicator(
+                  color: CustomColors.primary,
+                )
+              : Text(
+                  text,
+                  style: TextStyle(
+                    fontWeight: fontWeight,
+                    color: isInverted ? CustomColors.primary : Colors.white,
+                    fontSize: fontSize.sp,
+                  ),
+                ),
         ),
       ),
     );
   }
 }
-

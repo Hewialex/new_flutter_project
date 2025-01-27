@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,11 +19,13 @@ import 'package:qismati/features/auth/blocs/confirm_password_visibility_cubit.da
 import 'package:qismati/features/auth/blocs/password_visibility_cubit.dart';
 import 'package:qismati/features/auth/blocs/request_otp/bloc/request_otp_bloc.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
+import 'package:qismati/features/auth/models/signup_before_verification_model.dart';
 import 'package:qismati/features/signup/widgets/phone_number_field.dart';
 import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
 import 'package:qismati/features/signup/widgets/text_field_info.dart';
 import 'package:qismati/routes.dart';
 import 'package:qismati/generated/l10n.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class BasicSection extends StatelessWidget {
   const BasicSection({
@@ -34,6 +37,17 @@ class BasicSection extends StatelessWidget {
 
   void onCountryCodeChanged(var value) {
     state.copyWith(countryCode: value);
+  }
+
+  SignupBeforeVerificationModel convertToSignupModel(SignupDefault state) {
+    return SignupBeforeVerificationModel(
+      userName: state.userNameController.text,
+      gender: state.genderController.text,
+      fullName: state.fullNameController.text,
+      phoneNumber: state.phoneNumberController.text,
+      email: state.emailController.text,
+      password: state.passwordController.text,
+    );
   }
 
   @override
@@ -59,7 +73,7 @@ class BasicSection extends StatelessWidget {
               SizedBox(height: 20.h),
               CustomDropdownMenu(
                 values: genderDropdownValues,
-                controller: state.genderController..text,
+                controller: state.genderController,
                 hintText: localizations.gender,
               ),
               SizedBox(height: 20.h),
@@ -78,6 +92,7 @@ class BasicSection extends StatelessWidget {
               SizedBox(height: 20.h),
               CustomTextField(
                 text: localizations.email,
+                keyboardType: TextInputType.emailAddress,
                 controller: state.emailController,
                 validator: validateEmail,
               ),
@@ -133,56 +148,98 @@ class BasicSection extends StatelessWidget {
         ),
         SizedBox(height: 20.h),
         BlocConsumer<RequestOtpBloc, RequestOtpState>(
-          listener: (context, otpState) {
+          listener: (context, otpState) async {
             debugPrint('otpState: $otpState');
+
+            if (otpState is RequestOtpSuccess) {
+              // update the changed gender
+              final SharedPreferences prefs =
+                  await SharedPreferences.getInstance();
+              final gender = state.genderController.text;
+              prefs.setString('gender', gender);
+
+              // update the state with the selected gender
+              state.copyWith(genderController: state.genderController);
+
+              CustomAlertDialog.show(
+                context,
+                title: localizations.code_sent,
+                actions: [
+                  CustomButton(
+                    onPressed: () {
+                      // remove the current dialog.
+                      context.pop();
+                      context.pushNamed(
+                        Routes.emailVerificationOtp,
+                        extra: OtpNavModel(
+                          isFromSignUp: true,
+                          isFromForgtenPassword: false,
+                          email: state.emailController.text,
+                          otp: otpState.otp,
+                        ),
+                      );
+                    },
+                    text: localizations.enter_code,
+                    fontWeight: FontWeight.w600,
+                    shadowColor: CustomColors.shadowBlue,
+                  ),
+                ],
+              );
+            }
+            if (otpState is RequestOtpFailure) {
+              CustomSnackBar(
+                context: context,
+                message: otpState.error,
+                type: SnackBarType.error,
+              ).showSnack();
+            }
           },
           builder: (context, otpState) {
             return CustomButton(
               onPressed: () {
-                // formKey.currentState!.validate()
-                if (true) {
+                if (formKey.currentState!.validate()) {
                   context.read<RequestOtpBloc>().add(
                         RequestOtpThroughEmail(
-                          email: state.emailController.text,
+                          signupBeforeVerificationModel:
+                              convertToSignupModel(state),
                         ),
                       );
 
-                  if (otpState is RequestOtpSuccess) {
-                    CustomAlertDialog.show(
-                      context,
-                      title: localizations.code_sent,
-                      actions: [
-                        CustomButton(
-                          onPressed: () {
-                            // remove the current dialog.
-                            context.pop();
-                            context.pushNamed(
-                              Routes.emailVerificationOtp,
-                              extra: OtpNavModel(
-                                isFromSignUp: true,
-                                isFromForgtenPassword: false,
-                              ),
-                            );
-                          },
-                          text: localizations.enter_code,
-                          fontWeight: FontWeight.w600,
-                          shadowColor: CustomColors.shadowBlue,
-                        ),
-                      ],
-                    );
-                  }
-                  if (otpState is RequestOtpFailure) {
-                    CustomSnackBar(
-                      context: context,
-                      message: otpState.error,
-                      type: SnackBarType.error,
-                    ).showSnack();
-                  }
+                  // if (otpState is RequestOtpSuccess) {
+                  //   CustomAlertDialog.show(
+                  //     context,
+                  //     title: localizations.code_sent,
+                  //     actions: [
+                  //       CustomButton(
+                  //         onPressed: () {
+                  //           // remove the current dialog.
+                  //           context.pop();
+                  //           context.pushNamed(
+                  //             Routes.emailVerificationOtp,
+                  //             extra: OtpNavModel(
+                  //               isFromSignUp: true,
+                  //               isFromForgtenPassword: false,
+                  //             ),
+                  //           );
+                  //         },
+                  //         text: localizations.enter_code,
+                  //         fontWeight: FontWeight.w600,
+                  //         shadowColor: CustomColors.shadowBlue,
+                  //       ),
+                  //     ],
+                  //   );
+                  // }
+                  // if (otpState is RequestOtpFailure) {
+                  //   CustomSnackBar(
+                  //     context: context,
+                  //     message: otpState.error,
+                  //     type: SnackBarType.error,
+                  //   ).showSnack();
+                  // }
                 }
               },
-              text: otpState is RequestOtpLoading
-                  ? 'Loading...'
-                  : localizations.confirm,
+              isLoading: otpState is RequestOtpLoading,
+              text: localizations.confirm,
               fontWeight: FontWeight.w600,
               shadowColor: CustomColors.shadowBlue,
             );

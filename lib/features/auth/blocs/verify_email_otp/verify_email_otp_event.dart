@@ -7,11 +7,11 @@ abstract class VerifyEmailOtpEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class VerifyEmailOtpVerify extends VerifyEmailOtpEvent {
+class VerifyEmailOtpRequestEvent extends VerifyEmailOtpEvent {
   final String otp;
   final String email;
 
-  const VerifyEmailOtpVerify({
+  const VerifyEmailOtpRequestEvent({
     required this.otp,
     required this.email,
   });

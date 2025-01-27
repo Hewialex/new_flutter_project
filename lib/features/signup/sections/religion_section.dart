@@ -52,14 +52,14 @@ class ReligionSection extends StatelessWidget {
         hintText: localizations.smoking,
       ),
       SizedBox(height: 20.h),
-      gender == localizations.male
+      gender == 'Male'
           ? CustomDropdownMenu(
               values: beardDropdownValues,
               controller: beardController,
               hintText: localizations.beard,
             )
           : Container(),
-      gender == localizations.female
+      gender == 'Female'
           ? CustomDropdownMenu(
               values: veilDropdownValues,
               controller: vielController,

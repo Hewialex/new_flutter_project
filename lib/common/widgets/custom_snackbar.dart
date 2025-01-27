@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart'; // Ensure your custom color file is imported
 
-
-void showCustomSnackbar() {
-
-}
+void showCustomSnackbar() {}
 
 class CustomSnackBar {
   final BuildContext context;
@@ -41,7 +38,7 @@ class CustomSnackBar {
         backgroundColor: _backgroundColors[type],
         duration: duration,
       ),
-    ) as Widget;
+    );
   }
 }
 

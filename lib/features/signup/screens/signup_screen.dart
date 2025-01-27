@@ -23,9 +23,7 @@ class SignupScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
     final localizations = S.of(context);
-    final bloc = context.read<SignupBloc>();
 
     return BlocConsumer<SignupBloc, SignupState>(
       builder: (context, state) {
@@ -77,34 +75,31 @@ class SignupScreen extends StatelessWidget {
             // update the state's gender with the selected geneder
             state.genderController.text = gender;
             state.copyWith(genderController: state.genderController);
-            return Form(
-              key: formKey,
-              child: Scaffold(
-                body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: ContentContainer(
-                      child: Column(
-                        children: [
-                          const CustomTopBar(
-                            altRoute: Routes.loginWithPassword,
-                            excludeLangDropDown: true,
+            return Scaffold(
+              body: SafeArea(
+                child: SingleChildScrollView(
+                  child: ContentContainer(
+                    child: Column(
+                      children: [
+                        const CustomTopBar(
+                          altRoute: Routes.loginWithPassword,
+                          excludeLangDropDown: true,
+                        ),
+                        CustomHeader(text: localizations.create_account),
+                        Text(
+                          localizations.create_account_description,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w400,
+                            fontSize: 12.sp,
                           ),
-                          CustomHeader(text: localizations.create_account),
-                          Text(
-                            localizations.create_account_description,
-                            style: TextStyle(
-                              fontWeight: FontWeight.w400,
-                              fontSize: 12.sp,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 31.h,
-                          ),
-                          BasicSection(
-                            state: state,
-                          ),
-                        ],
-                      ),
+                        ),
+                        SizedBox(
+                          height: 31.h,
+                        ),
+                        BasicSection(
+                          state: state,
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -115,7 +110,7 @@ class SignupScreen extends StatelessWidget {
             return Scaffold(
               body: Center(
                 child: Text(
-                  '${localizations.unimplemented_state} $state',
+                  '${localizations.unimplemented_state} ',
                 ),
               ),
             );

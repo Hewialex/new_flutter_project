@@ -87,8 +87,6 @@ class QismatiApp extends StatelessWidget {
                           websocketService: context.read<WebsocketService>(),
                         ),
                       ),
-                      BlocProvider<SignupBloc>(
-                          create: (context) => SignupBloc()),
                       BlocProvider<PasswordVisibilityCubit>(
                           create: (context) => PasswordVisibilityCubit()),
                       BlocProvider<LoginStatusBloc>(

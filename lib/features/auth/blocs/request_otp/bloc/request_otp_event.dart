@@ -8,10 +8,10 @@ abstract class RequestOtpEvent extends Equatable {
 }
 
 class RequestOtpThroughEmail extends RequestOtpEvent {
-  final String email;
+  final SignupBeforeVerificationModel signupBeforeVerificationModel;
 
-  const RequestOtpThroughEmail({required this.email});
+  const RequestOtpThroughEmail({required this.signupBeforeVerificationModel});
 
   @override
-  List<Object> get props => [email];
+  List<Object> get props => [signupBeforeVerificationModel];
 }

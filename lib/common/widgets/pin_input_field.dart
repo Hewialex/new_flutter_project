@@ -54,8 +54,8 @@ class PinInputField extends StatelessWidget {
           animationDuration: const Duration(milliseconds: 30),
           controller: TextEditingController(),
           enabled: true,
-          onCompleted: (v) {
-            onPressed(v);
+          onCompleted: (otp) {
+            onPressed(otp);
           },
           beforeTextPaste: (text) {
             //if you return true then it will show the paste confirmation dialog. Otherwise if false, then nothing will happen.

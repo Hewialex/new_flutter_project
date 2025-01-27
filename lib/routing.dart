@@ -194,10 +194,7 @@ final GoRouter goRouter = GoRouter(routes: [
     path: '/signupAfterEmailVerificationScreen',
     name: Routes.signupAfterEmailVerificationScreen,
     builder: (context, state) {
-      final String gender = state.extra as String;
-      return SignupAfterEmailVerificationScreen(
-        gender: gender,
-      );
+      return const SignupAfterEmailVerificationScreen();
     },
   ),
 ]);
