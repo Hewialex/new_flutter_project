@@ -223,7 +223,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "gender": MessageLookupByLibrary.simpleMessage("الجنس"),
         "generalTips": MessageLookupByLibrary.simpleMessage("نصائح عامة: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("ابدأ الآن"),
-        "goToHome": MessageLookupByLibrary.simpleMessage("الذهاب إلى الرئيسية"),
+        "goToHome":
+            MessageLookupByLibrary.simpleMessage("الرجوع إلى تسجيل الدخول"),
         "graduate_postgraduate":
             MessageLookupByLibrary.simpleMessage("خريج/دراسات عُليا"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(

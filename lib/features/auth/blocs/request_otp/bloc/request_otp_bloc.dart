@@ -45,4 +45,12 @@ class RequestOtpBloc extends Bloc<RequestOtpEvent, RequestOtpState> {
       emit(RequestOtpFailure(e.toString()));
     }
   }
+
+  Future<bool> checkUsernameAvailability(String username) async {
+    // Simulate a network request (replace with actual API call)
+    await Future.delayed(
+        const Duration(seconds: 1)); // Simulating network delay
+    // Return true if username is available, false if already taken
+    return username != "takenUsername"; // Replace with actual backend logic
+  }
 }

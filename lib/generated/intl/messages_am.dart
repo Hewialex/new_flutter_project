@@ -214,7 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "gender": MessageLookupByLibrary.simpleMessage("ጾታ"),
         "generalTips": MessageLookupByLibrary.simpleMessage("አጠቃላይ ምክሮች: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("ጀምር"),
-        "goToHome": MessageLookupByLibrary.simpleMessage("ወደ መነሻ ሂድ"),
+        "goToHome": MessageLookupByLibrary.simpleMessage("ወደ መነሻ ተመለስ"),
         "graduate_postgraduate":
             MessageLookupByLibrary.simpleMessage("የገለም/የዝርዝር"),
         "guidedByFaith":

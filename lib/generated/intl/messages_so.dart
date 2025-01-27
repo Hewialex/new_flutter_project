@@ -233,7 +233,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "generalTips":
             MessageLookupByLibrary.simpleMessage("Talooyinka Guud: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("Bilow"),
-        "goToHome": MessageLookupByLibrary.simpleMessage("Aad Bogga Hore"),
+        "goToHome":
+            MessageLookupByLibrary.simpleMessage("Ku noqoshada Galitaanka"),
         "graduate_postgraduate":
             MessageLookupByLibrary.simpleMessage("Qalin Jabinta/Jaamacad"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(

@@ -7,6 +7,8 @@ import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
+import 'package:qismati/core/utils/debouncer.dart';
+import 'package:qismati/features/auth/cubit/username/username_cubit.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/signup/sections/basic_section.dart';
@@ -92,29 +94,36 @@ class SignupScreen extends StatelessWidget {
             });
             return Scaffold(
               body: SafeArea(
-                child: SingleChildScrollView(
-                  child: ContentContainer(
-                    child: Column(
-                      children: [
-                        const CustomTopBar(
-                          altRoute: Routes.loginWithPassword,
-                          excludeLangDropDown: true,
-                        ),
-                        CustomHeader(text: localizations.create_account),
-                        Text(
-                          localizations.create_account_description,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontSize: 12.sp,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(vertical: 30.h),
+                  child: SingleChildScrollView(
+                    child: ContentContainer(
+                      child: Column(
+                        children: [
+                          const CustomTopBar(
+                            altRoute: Routes.loginWithPassword,
+                            excludeLangDropDown: true,
                           ),
-                        ),
-                        SizedBox(
-                          height: 31.h,
-                        ),
-                        BasicSection(
-                          state: state,
-                        ),
-                      ],
+                          CustomHeader(text: localizations.create_account),
+                          Text(
+                            localizations.create_account_description,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontSize: 12.sp,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 31.h,
+                          ),
+                          BlocProvider(
+                            create: (context) =>
+                                UsernameCubit(Debouncer(milliseconds: 100)),
+                            child: BasicSection(
+                              state: state,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),

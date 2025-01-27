@@ -1702,10 +1702,10 @@ class S {
     );
   }
 
-  /// `Go to Home`
+  /// `Back to Login`
   String get goToHome {
     return Intl.message(
-      'Go to Home',
+      'Back to Login',
       name: 'goToHome',
       desc: '',
       args: [],

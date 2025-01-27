@@ -92,124 +92,127 @@ class LoginWithPasswordScreen extends StatelessWidget {
               return Scaffold(
                 backgroundColor: CustomColors.background,
                 body: SafeArea(
-                  child: SingleChildScrollView(
-                    child: ContentContainer(
-                      child: Form(
-                        key: formKey,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const CustomTopBar(
-                              altRoute: Routes.register,
-                              excludeLangDropDown: true,
-                            ),
-                            SizedBox(height: 47.h),
-                            CustomHeader(text: S.of(context).signIn),
-                            Text(
-                              S.of(context).enterPassword,
-                              style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 15.sp,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 30.h),
+                    child: SingleChildScrollView(
+                      child: ContentContainer(
+                        child: Form(
+                          key: formKey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const CustomTopBar(
+                                altRoute: Routes.register,
+                                excludeLangDropDown: true,
                               ),
-                            ),
-                            SizedBox(height: 95.h),
-                            CustomTextField(
-                              text: S.of(context).email,
-                              controller: state.emailController,
-                              keyboardType: TextInputType.emailAddress,
-                              validator: validateEmail,
-                            ),
-                            SizedBox(height: 29.h),
-                            BlocBuilder<PasswordVisibilityCubit, bool>(
-                              builder: (context, cubitState) {
-                                return CustomTextField(
-                                  controller: state.passwordController,
-                                  text: S.of(context).password,
-                                  suffix: IconButton(
-                                    icon: Icon(
-                                      cubitState
-                                          ? Icons.visibility
-                                          : Icons.visibility_off,
-                                      color: CustomColors.primary,
+                              SizedBox(height: 47.h),
+                              CustomHeader(text: S.of(context).signIn),
+                              Text(
+                                S.of(context).enterPassword,
+                                style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 15.sp,
+                                ),
+                              ),
+                              SizedBox(height: 95.h),
+                              CustomTextField(
+                                text: S.of(context).email,
+                                controller: state.emailController,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: validateEmail,
+                              ),
+                              SizedBox(height: 29.h),
+                              BlocBuilder<PasswordVisibilityCubit, bool>(
+                                builder: (context, cubitState) {
+                                  return CustomTextField(
+                                    controller: state.passwordController,
+                                    text: S.of(context).password,
+                                    suffix: IconButton(
+                                      icon: Icon(
+                                        cubitState
+                                            ? Icons.visibility
+                                            : Icons.visibility_off,
+                                        color: CustomColors.primary,
+                                      ),
+                                      onPressed: () => context
+                                          .read<PasswordVisibilityCubit>()
+                                          .togglePasswordVisibility(),
                                     ),
-                                    onPressed: () => context
-                                        .read<PasswordVisibilityCubit>()
-                                        .togglePasswordVisibility(),
-                                  ),
-                                  obscureText: cubitState,
-                                  validator: validatePassword,
-                                );
-                              },
-                            ),
-                            SizedBox(height: 25.h),
-                            Container(
-                              alignment: Alignment.centerRight,
-                              child: TextButton(
-                                onPressed: () {
-                                  context.push(Routes.forgotPassword);
+                                    obscureText: cubitState,
+                                    validator: validatePassword,
+                                  );
                                 },
-                                child: Text(
-                                  S.of(context).forgotPassword,
-                                  style: TextStyle(
-                                    color: CustomColors.primary,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 14.sp,
-                                  ),
-                                ),
                               ),
-                            ),
-                            SizedBox(height: 30.h),
-                            CustomButton(
-                              onPressed: () {
-                                if (formKey.currentState!.validate()) {
-                                  BlocProvider.of<LoginBloc>(context)
-                                      .add((AttemptLogin()));
-                                }
-                              },
-                              text: S.of(context).signIn,
-                              shadowColor: CustomColors.shadowBlue,
-                              elevation: 5,
-                              fontWeight: FontWeight.w600,
-                            ),
-                            SizedBox(height: 30.h),
-                            Column(
-                              children: [
-                                Text(
-                                  S.of(context).dontHaveAccount,
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontWeight: FontWeight.w600,
-                                    color: CustomColors.textBlack,
-                                  ),
-                                ),
-                                TextButton(
-                                  onPressed: () async {
-                                    final DatabaseHelper databaseHelper =
-                                        RepositoryProvider.of<DatabaseHelper>(
-                                            context);
-                                    final gender =
-                                        await databaseHelper.getGender();
-
-                                    if (context.mounted) {
-                                      context.push(Routes.signup,
-                                          extra: gender);
-                                    }
+                              SizedBox(height: 25.h),
+                              Container(
+                                alignment: Alignment.centerRight,
+                                child: TextButton(
+                                  onPressed: () {
+                                    context.push(Routes.forgotPassword);
                                   },
                                   child: Text(
-                                    S.of(context).signUp,
+                                    S.of(context).forgotPassword,
                                     style: TextStyle(
-                                      fontSize: 14.sp,
-                                      fontWeight: FontWeight.w600,
                                       color: CustomColors.primary,
-                                      decoration: TextDecoration.underline,
-                                      decorationColor:
-                                          CustomColors.primary, // Add this line
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 14.sp,
                                     ),
                                   ),
                                 ),
-                              ],
-                            )
-                          ],
+                              ),
+                              SizedBox(height: 30.h),
+                              CustomButton(
+                                onPressed: () {
+                                  if (formKey.currentState!.validate()) {
+                                    BlocProvider.of<LoginBloc>(context)
+                                        .add((AttemptLogin()));
+                                  }
+                                },
+                                text: S.of(context).signIn,
+                                shadowColor: CustomColors.shadowBlue,
+                                elevation: 5,
+                                fontWeight: FontWeight.w600,
+                              ),
+                              SizedBox(height: 30.h),
+                              Column(
+                                children: [
+                                  Text(
+                                    S.of(context).dontHaveAccount,
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontWeight: FontWeight.w600,
+                                      color: CustomColors.textBlack,
+                                    ),
+                                  ),
+                                  TextButton(
+                                    onPressed: () async {
+                                      final DatabaseHelper databaseHelper =
+                                          RepositoryProvider.of<DatabaseHelper>(
+                                              context);
+                                      final gender =
+                                          await databaseHelper.getGender();
+
+                                      if (context.mounted) {
+                                        context.push(Routes.signup,
+                                            extra: gender);
+                                      }
+                                    },
+                                    child: Text(
+                                      S.of(context).signUp,
+                                      style: TextStyle(
+                                        fontSize: 14.sp,
+                                        fontWeight: FontWeight.w600,
+                                        color: CustomColors.primary,
+                                        decoration: TextDecoration.underline,
+                                        decorationColor: CustomColors
+                                            .primary, // Add this line
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

@@ -105,4 +105,5 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     return confirmPasswordValidator(
         value, (state as SignupDefault).passwordController.text);
   }
+  
 }

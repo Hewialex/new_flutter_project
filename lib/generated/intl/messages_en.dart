@@ -233,7 +233,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "gender": MessageLookupByLibrary.simpleMessage("Gender"),
         "generalTips": MessageLookupByLibrary.simpleMessage("General Tips: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("Get Started"),
-        "goToHome": MessageLookupByLibrary.simpleMessage("Go to Home"),
+        "goToHome": MessageLookupByLibrary.simpleMessage("Back to Login"),
         "graduate_postgraduate":
             MessageLookupByLibrary.simpleMessage("Graduate/Postgraduate"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(

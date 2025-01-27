@@ -240,7 +240,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "generalTips":
             MessageLookupByLibrary.simpleMessage("Gorsa Waliigalaa: "),
         "getStarted": MessageLookupByLibrary.simpleMessage("Jalqabi"),
-        "goToHome": MessageLookupByLibrary.simpleMessage("Gara Manatti Deemi"),
+        "goToHome":
+            MessageLookupByLibrary.simpleMessage("Deebi\'i Gara Galmee"),
         "graduate_postgraduate":
             MessageLookupByLibrary.simpleMessage("Gad-aanaa/Barnoota Ol’aanaa"),
         "guidedByFaith": MessageLookupByLibrary.simpleMessage(
