@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 import 'package:qismati/features/auth/models/signup_before_verification_model.dart';
 

@@ -1,9 +1,7 @@
-import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
 
 part 'verify_email_otp_event.dart';
 part 'verify_email_otp_state.dart';

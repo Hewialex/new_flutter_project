@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
 
 part 'forgot_password_event.dart';
 part 'forgot_password_state.dart';
