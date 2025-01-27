@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
+import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/core/database/database_helper.dart';
@@ -76,8 +77,6 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('------------sign update------------');
-    print(context.read<SignupBloc>().state.props.toString());
     final formKey = GlobalKey<FormState>();
     final localizations = S.of(context);
     final bloc = context.read<SignupBloc>();
@@ -128,8 +127,6 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
                 ).showSnack();
               }
             });
-            print(
-                '-------------------gender before ----------------${state.genderController.text}');
             return Scaffold(
               body: SafeArea(
                 child: SingleChildScrollView(
@@ -144,6 +141,17 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
                             altRoute: Routes.signup,
                             excludeLangDropDown: true,
                           ),
+                          //   CustomHeader(text: localizations.create_account),
+                          //   Text(
+                          //   localizations.create_account_description,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.w400,
+                          //     fontSize: 12.sp,
+                          //   ),
+                          // ),
+                          // SizedBox(
+                          //   height: 31.h,
+                          // ),
                           AddressSection(
                             cityController: state.cityController,
                             countryController: state.countryController,
