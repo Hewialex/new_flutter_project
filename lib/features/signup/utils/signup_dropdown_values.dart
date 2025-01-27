@@ -145,5 +145,4 @@ List<String> marriageTypeDropdownValues = [
 List<String> genderDropdownValues = [
   S.current.male,
   S.current.female,
-  S.current.other,
 ];

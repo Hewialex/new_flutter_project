@@ -26,6 +26,24 @@ class SignupScreen extends StatelessWidget {
     final localizations = S.of(context);
 
     return BlocConsumer<SignupBloc, SignupState>(
+      listener: (context, state) {
+        if (state is SignupSuccess) {
+          context.go(Routes.loginWithPassword);
+          CustomSnackBar(
+            context: context,
+            message: localizations.signed_up_user_successfully,
+            type: SnackBarType.success,
+          );
+        }
+        if (state is SignupDefault && state.error != SignupError.none) {
+          CustomSnackBar(
+            context: context,
+            message:
+                '${localizations.could_not_signup_user} ${state.errorMessage}',
+            type: SnackBarType.success,
+          );
+        }
+      },
       builder: (context, state) {
         switch (state) {
           case SignupLoading():
@@ -72,9 +90,6 @@ class SignupScreen extends StatelessWidget {
                 ).showSnack();
               }
             });
-            // update the state's gender with the selected geneder
-            state.genderController.text = gender;
-            state.copyWith(genderController: state.genderController);
             return Scaffold(
               body: SafeArea(
                 child: SingleChildScrollView(
@@ -114,24 +129,6 @@ class SignupScreen extends StatelessWidget {
                 ),
               ),
             );
-        }
-      },
-      listener: (context, state) {
-        if (state is SignupSuccess) {
-          context.go(Routes.loginWithPassword);
-          CustomSnackBar(
-            context: context,
-            message: localizations.signed_up_user_successfully,
-            type: SnackBarType.success,
-          );
-        }
-        if (state is SignupDefault && state.error != SignupError.none) {
-          CustomSnackBar(
-            context: context,
-            message:
-                '${localizations.could_not_signup_user} ${state.errorMessage}',
-            type: SnackBarType.success,
-          );
         }
       },
     );

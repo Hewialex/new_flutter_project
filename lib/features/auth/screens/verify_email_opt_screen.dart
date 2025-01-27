@@ -9,6 +9,7 @@ import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/pin_input_field.dart';
+import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/auth/blocs/verify_email_otp/verify_email_otp_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
@@ -42,6 +43,9 @@ class _EmailVerificationOtpScreenState
 
   @override
   Widget build(BuildContext context) {
+    print(
+        '-------------------gender before ----------------${(context.read<SignupBloc>().state as SignupDefault).genderController.text}');
+
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(

@@ -44,6 +44,7 @@ class AddressSection extends StatelessWidget {
               cityController.text = city ?? '';
             },
             countryDropdownLabel: "Nationality",
+            stateDropdownLabel: "Country",
           ),
         ),
       ],

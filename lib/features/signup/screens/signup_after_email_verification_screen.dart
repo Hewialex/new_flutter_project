@@ -76,8 +76,8 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(
-        '-------------------gender before ----------------${(context.read<SignupBloc>().state as SignupDefault).genderController.text}');
+    print('------------sign update------------');
+    print(context.read<SignupBloc>().state.props.toString());
     final formKey = GlobalKey<FormState>();
     final localizations = S.of(context);
     final bloc = context.read<SignupBloc>();
