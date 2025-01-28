@@ -1,3 +1,6 @@
-abstract class SubscriptionEvent {}
+abstract class PremiumEvent {}
 
-class SubscribeEvent extends SubscriptionEvent {}
+class SubscribeEvent extends PremiumEvent {
+  final int userId;
+  SubscribeEvent(this.userId);
+}

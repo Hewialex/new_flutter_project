@@ -1,5 +1,17 @@
-abstract class SubscriptionState {}
+abstract class PremiumState {}
 
-class InitialState extends SubscriptionState {}
+class PremiumInitialState extends PremiumState {}
 
-class SubscribedState extends SubscriptionState {}
+class PremiumLoadingState extends PremiumState {}
+
+class PremiumSuccessState extends PremiumState {
+  final int newBalance;
+
+  PremiumSuccessState(this.newBalance);
+}
+
+class PremiumErrorState extends PremiumState {
+  final String error;
+
+  PremiumErrorState(this.error);
+}
