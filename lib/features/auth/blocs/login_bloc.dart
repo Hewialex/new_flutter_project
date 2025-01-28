@@ -9,7 +9,6 @@ import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
-import 'package:qismati/features/notification/model/notification_model.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -33,27 +32,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<AttemptLogin>(_attemptLogin);
     on<LoginReset>(_resetLogin);
   }
-
   FutureOr<void> _attemptLogin(event, emit) async {
     // check if token exists
-    final storedToken = await databaseHelper.getToken();
+    // final storedToken = await databaseHelper.getToken();
 
-    if (storedToken != null) {
-      emit(LoginVerification());
-      const url = "${Constants.baseUrl}/auth/me";
-      final res = await http.get(
-        Uri.parse(url),
-        headers: {
-          "Authorization": "Bearer $storedToken",
-        },
-      );
+    // if (storedToken != null) {
+    //   emit(LoginVerification());
+    //   const url = "${Constants.baseUrl}/auth/me";
 
-      if (res.statusCode == 200) {
-        //user already exists
-        emit(LoginSuccess());
-        return;
-      }
-    }
+    //   // Wrap the GET request with timeout
+    //   final res = await Future.any([
+    //     http.get(
+    //       Uri.parse(url),
+    //       headers: {
+    //         "Authorization": "Bearer $storedToken",
+    //       },
+    //     ),
+    //     Future.delayed(const Duration(seconds: 31),
+    //         () => throw TimeoutException('Request timed out')),
+    //   ]);
+
+    //   if (res.statusCode == 200) {
+    //     // user already exists
+    //     emit(LoginSuccess());
+    //     return;
+    //   }
+    // }
 
     // login
     const url = "${Constants.baseUrl}/auth/login";
@@ -69,8 +73,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       final jsonData = jsonEncode(rawData);
 
       try {
+        // Wrap the POST request with timeout
         final res = await Future.any([
-          // third request
           http.post(
             Uri.parse(url),
             body: jsonData,
@@ -78,31 +82,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
               'Content-Type': 'application/json; charset=UTF-8',
             },
           ),
-
           Future.delayed(const Duration(seconds: 31),
               () => throw TimeoutException('Request timed out')),
         ]);
-
+        print('------------------res----------------');
+        print(res.body);
         if (res.statusCode == 200) {
           final bodyResponse = jsonDecode(res.body);
           final token = bodyResponse["data"]["token"];
 
           await databaseHelper.saveToken(token);
-          await websocketService.connect(Constants.simpleUrl, token);
-          websocketService.startListening((message) {
-            try {
-              final json = jsonDecode(message);
-              if (json["type"] == "notification") {
-                final notification = NotificationModel.fromJson(json);
-                notificationBloc.add(NotificationReceived(notification));
-              } else if (json["type"] == "message") {
-                final message = json["data"];
-                debugPrint("Message Chat: $message");
-              }
-            } catch (e) {
-              debugPrint("[X] WebSocket message parsing error: $e");
-            }
-          });
+          // await websocketService.connect(Constants.simpleUrl, token);
+          // websocketService.startListening((message) {
+          //   try {
+          //     final json = jsonDecode(message);
+          //     if (json["type"] == "notification") {
+          //       final notification = NotificationModel.fromJson(json);
+          //       notificationBloc.add(NotificationReceived(notification));
+          //     } else if (json["type"] == "message") {
+          //       final message = json["data"];
+          //       debugPrint("Message Chat: $message");
+          //     }
+          //   } catch (e) {
+          //     debugPrint("[X] WebSocket message parsing error: $e");
+          //   }
+          // });
 
           emit(LoginSuccess());
         } else {

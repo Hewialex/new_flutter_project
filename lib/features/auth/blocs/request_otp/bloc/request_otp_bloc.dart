@@ -1,7 +1,9 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
-
+import 'package:http/http.dart' as http;
 import 'package:qismati/features/auth/models/signup_before_verification_model.dart';
 
 part 'request_otp_event.dart';
@@ -19,27 +21,38 @@ class RequestOtpBloc extends Bloc<RequestOtpEvent, RequestOtpState> {
     emit(RequestOtpLoading());
     const url = "${Constants.baseUrl}/auth/signup";
 
-    try {
-      // final res = await http.post(
-      //   Uri.parse(url),
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //   },
-      //   body: jsonEncode({
-      //     event.signupBeforeVerificationModel.toMap(),
-      //   }),
-      // );
+    final sendData = jsonEncode({
+      "userName": event.signupBeforeVerificationModel.userName.toString(),
+      "email": event.signupBeforeVerificationModel.email.toString(),
+      "password": event.signupBeforeVerificationModel.password.toString(),
+      "phoneNumber": event.signupBeforeVerificationModel.phoneNumber.toString(),
+      "gender": event.signupBeforeVerificationModel.gender.toString()
+    });
 
-      // if (res.statusCode == 200 || res.statusCode == 201) {
-      //   emit(RequestOtpSuccess(res.body));
-      // } else {
-      //   final json = jsonDecode(res.body);
-      //   // final String message = json["message"];
-      //   emit(const RequestOtpFailure('Failed to send OTP'));
-      // }
-      await Future.delayed(const Duration(seconds: 2));
-      emit(const RequestOtpSuccess(otp: '1234'));
+    try {
+      final res = await http.post(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: sendData,
+      );
+
+      print('----------------------sample-----------');
+
+      print(res.body);
+      print(jsonEncode(event.signupBeforeVerificationModel.toMap()));
+
+      final body = jsonDecode(res.body);
+      if (res.statusCode == 200 || res.statusCode == 201) {
+        emit(RequestOtpSuccess(otp: body["message"]));
+      } else {
+        // final String message = json["message"];
+        emit(RequestOtpFailure(body["message"]));
+      }
     } catch (e) {
+      print('------------------error------------------');
+      print(e.toString());
       emit(RequestOtpFailure(e.toString()));
     }
   }

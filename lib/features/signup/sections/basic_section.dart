@@ -48,7 +48,6 @@ class _BasicSectionState extends State<BasicSection> {
     return SignupBeforeVerificationModel(
       userName: state.userNameController.text,
       gender: state.genderController.text,
-      fullName: state.fullNameController.text,
       phoneNumber: state.phoneNumberController.text,
       email: state.emailController.text,
       password: state.passwordController.text,

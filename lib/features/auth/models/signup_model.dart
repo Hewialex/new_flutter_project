@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
 class SignupModel extends Equatable {
-  final String userName;
-  final String fullName;
-  final String email;
-  final String password;
-  final String phoneNumber;
+  final String? userName;
+  final String? fullName;
+  final String? email;
+  final String? password;
+  final String? phoneNumber;
   final int age; // String??
-  final String gender;
+  final String? gender;
   final double height;
   final double weight;
   final String skinColor;
@@ -35,13 +35,13 @@ class SignupModel extends Equatable {
   final double latitude;
 
   const SignupModel({
-    required this.userName,
-    required this.fullName,
-    required this.email,
-    required this.password,
-    required this.phoneNumber,
+    this.userName,
+    this.fullName,
+    this.email,
+    this.password,
+    this.phoneNumber,
     required this.age,
-    required this.gender,
+    this.gender,
     required this.height,
     required this.weight,
     required this.skinColor,
