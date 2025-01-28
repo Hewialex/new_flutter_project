@@ -3,9 +3,10 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/utils/form_filed_validations/password_match_validator.dart';
 import 'package:qismati/features/auth/models/signup_model.dart';
 
@@ -13,7 +14,10 @@ part 'signup_state.dart';
 part 'signup_event.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc()
+  final DatabaseHelper databaseHelper;
+  final Dio dio = Dio();
+
+  SignupBloc({required this.databaseHelper})
       : super(SignupDefault(
           userNameController: TextEditingController(),
           fullNameController: TextEditingController(),
@@ -54,48 +58,39 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<RegisterUser>(_registerUser);
   }
   FutureOr<void> _registerUser(RegisterUser event, emit) async {
-    const String url = "${Constants.baseUrl}/auth/signup";
+    const String url = "${Constants.baseUrl}/user/profile-setup";
+
     if (state is SignupDefault) {
+      final storedToken = await databaseHelper.getToken();
+
       final signupState = state as SignupDefault;
 
       emit(SignupLoading());
-      debugPrint(" [X]Signing up...");
 
-      final json = event.signupModel.toJson(event.gender.toLowerCase());
-
-      debugPrint(" [X]Converted Json: $json");
+      final json = event.signupModel.toJson();
 
       final sentData = jsonEncode(json);
-      final res = await http.post(
-        Uri.parse(url),
-        headers: <String, String>{
-          "Content-Type": "application/json",
-        },
-        body: sentData,
+      final res = await dio.patch(
+        url,
+        data: sentData,
+        options: Options(
+          headers: <String, String>{
+            "Content-Type": "application/json",
+            "Authorization": "Bearer $storedToken",
+          },
+        ),
       );
 
-      debugPrint("status code: ${res.statusCode}");
-      debugPrint("response body: ${res.body}");
-
       if (res.statusCode == 200) {
-        final body = jsonDecode(res.body) as Map<String, dynamic>;
-        debugPrint("status code: ${res.statusCode}");
-        debugPrint("response body: $body");
-        debugPrint("Registering a ${event.gender}");
         emit(SignupSuccess());
       } else {
-        debugPrint(
-          "Could not register this user, status code:  ${res.statusCode}",
-        );
-
-        final body = jsonDecode(res.body) as Map<String, dynamic>;
+        final body = jsonDecode(res.data);
         emit(
           signupState.copyWith(
             error: SignupError.input,
             errorMessage: body["message"],
           ),
         );
-        debugPrint(res.body);
       }
     }
   }
@@ -105,5 +100,4 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     return confirmPasswordValidator(
         value, (state as SignupDefault).passwordController.text);
   }
-  
 }

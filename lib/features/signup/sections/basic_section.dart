@@ -267,7 +267,9 @@ class _BasicSectionState extends State<BasicSection> {
               ),
             ),
             TextButton(
-              onPressed: () => context.pushNamed(Routes.loginWithPassword),
+              onPressed: () {
+                context.go(Routes.loginWithPassword);
+              },
               child: Text(
                 localizations.login,
                 style: TextStyle(

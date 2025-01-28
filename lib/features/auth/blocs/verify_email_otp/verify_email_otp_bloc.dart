@@ -1,16 +1,18 @@
-import 'dart:convert';
+import 'package:dio/dio.dart';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:qismati/core/database/database_helper.dart';
 
 part 'verify_email_otp_event.dart';
 part 'verify_email_otp_state.dart';
 
 class VerifyEmailOtpBloc
     extends Bloc<VerifyEmailOtpEvent, VerifyEmailOtpState> {
-  VerifyEmailOtpBloc() : super(VerifyEmailOtpInitial()) {
+  final DatabaseHelper databaseHelper;
+  VerifyEmailOtpBloc({required this.databaseHelper})
+      : super(VerifyEmailOtpInitial()) {
     on<VerifyEmailOtpRequestEvent>(_onVerifyEmailOtp);
   }
 
@@ -20,32 +22,31 @@ class VerifyEmailOtpBloc
   ) async {
     print('-----------------------loading---------------------');
     emit(VerifyEmailOtpLoading());
+    final dio = Dio();
     const url = "${Constants.baseUrl}/auth/verifyemail";
 
     try {
-      final res = await http.post(
-        Uri.parse(url),
-        headers: {
-          'Content-Type': 'application/json',
+      final res = await dio.post(
+        url,
+        data: {
+          "email": event.email,
+          "code": event.otp,
         },
-        body: jsonEncode({
-          {
-            "email": event.email,
-            "code": event.otp,
-          }
-        }),
       );
 
+      final body = res.data;
       if (res.statusCode == 200 || res.statusCode == 201) {
-        emit(VerifyEmailOtpSuccess(message: res.body.toString()));
+        final token = body["token"];
+
+        await databaseHelper.saveToken(token);
+
+        emit(VerifyEmailOtpSuccess(message: body["message"]));
       } else {
-        final json = jsonDecode(res.body);
-        // final String message = json["message"];
         emit(const VerifyEmailOtpFailure(errorMessage: 'Failed to send OTP'));
       }
-      await Future.delayed(const Duration(seconds: 4));
-      emit(const VerifyEmailOtpSuccess(message: 'success'));
-    } catch (e) {
+    } on DioException catch (e) {
+      print('-------------------error------------------');
+      print(e);
       emit(const VerifyEmailOtpFailure(
           errorMessage: ('failed to verify your code.')));
     }

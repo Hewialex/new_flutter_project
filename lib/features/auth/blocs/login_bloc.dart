@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/core/websocket/websocket.dart';
@@ -42,14 +42,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     //   // Wrap the GET request with timeout
     //   final res = await Future.any([
-    //     http.get(
-    //       Uri.parse(url),
-    //       headers: {
+    //     dio.get(
+    //       url,
+    //       options: Options(headers: {
     //         "Authorization": "Bearer $storedToken",
-    //       },
+    //       }),
     //     ),
     //     Future.delayed(const Duration(seconds: 31),
-    //         () => throw TimeoutException('Request timed out')),
+    //         () => throw DioError(requestOptions: RequestOptions(path: url), type: DioErrorType.connectTimeout)),
     //   ]);
 
     //   if (res.statusCode == 200) {
@@ -69,29 +69,31 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         "email": prevLoginState.emailController.text,
         "password": prevLoginState.passwordController.text,
       };
-
-      final jsonData = jsonEncode(rawData);
+      print('----------------------requ data:---------------');
+      print(rawData);
 
       try {
         // Wrap the POST request with timeout
-        final res = await Future.any([
-          http.post(
-            Uri.parse(url),
-            body: jsonData,
-            headers: <String, String>{
-              'Content-Type': 'application/json; charset=UTF-8',
-            },
-          ),
-          Future.delayed(const Duration(seconds: 31),
-              () => throw TimeoutException('Request timed out')),
-        ]);
-        print('------------------res----------------');
-        print(res.body);
+        final res = await dio.post(
+          url,
+          data: rawData,
+          options: Options(headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          }),
+        );
+
+        print('----------------------response data:---------------');
+        print(res.data);
+        print(res.statusCode);
+
         if (res.statusCode == 200) {
-          final bodyResponse = jsonDecode(res.body);
+          final bodyResponse = res.data;
           final token = bodyResponse["data"]["token"];
 
           await databaseHelper.saveToken(token);
+
+          //TODO: add websocket, UNCOMMENT
+
           // await websocketService.connect(Constants.simpleUrl, token);
           // websocketService.startListening((message) {
           //   try {
@@ -110,7 +112,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
           emit(LoginSuccess());
         } else {
-          final json = jsonDecode(res.body);
+          final json = res.data;
           final String message = json["message"];
 
           emit(
@@ -122,8 +124,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ),
           );
         }
-      } on TimeoutException catch (_) {
-        debugPrint("Login request timed out");
+      } on DioException catch (e) {
+        debugPrint("Login error: $e");
 
         emit(
           LoginDefault(
@@ -134,6 +136,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           ),
         );
       } catch (e) {
+        debugPrint("Login exception$e");
+
         emit(
           LoginDefault(
             emailController: prevLoginState.emailController,
@@ -170,3 +174,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 }
+
+final dio = Dio()..interceptors.add(LogInterceptor(responseBody: false));

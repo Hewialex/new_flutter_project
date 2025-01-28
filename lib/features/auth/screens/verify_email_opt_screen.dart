@@ -9,6 +9,7 @@ import 'package:qismati/common/widgets/custom_header.dart';
 import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/pin_input_field.dart';
+import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/auth/blocs/verify_email_otp/verify_email_otp_bloc.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
@@ -54,7 +55,8 @@ class _EmailVerificationOtpScreenState
             alignment: Alignment.topCenter,
             margin: EdgeInsets.only(top: 12.h),
             child: BlocProvider(
-              create: (context) => VerifyEmailOtpBloc(),
+              create: (context) =>
+                  VerifyEmailOtpBloc(databaseHelper: DatabaseHelper()),
               child: BlocConsumer<VerifyEmailOtpBloc, VerifyEmailOtpState>(
                 listener: (context, state) async {
                   if (state is VerifyEmailOtpSuccess) {

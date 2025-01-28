@@ -102,7 +102,8 @@ class QismatiApp extends StatelessWidget {
                           create: (context) =>
                               ConfirmPasswordVisibilityCubit()),
                       BlocProvider<SignupBloc>(
-                          create: (context) => SignupBloc()),
+                          create: (context) =>
+                              SignupBloc(databaseHelper: DatabaseHelper())),
                       BlocProvider<NearYouBloc>(
                           create: (context) => NearYouBloc()),
                       BlocProvider<RequestOtpBloc>(

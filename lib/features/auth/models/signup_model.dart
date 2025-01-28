@@ -69,15 +69,9 @@ class SignupModel extends Equatable {
     required this.latitude,
   });
 
-  Map<String, dynamic> toJson(String gender) {
-    final jsonData = <String, dynamic>{
-      "userName": userName,
-      "fullName": fullName,
-      "email": email,
-      "password": password,
-      "phoneNumber": phoneNumber,
+  Map<String, dynamic> toJson() {
+    Map<String, dynamic> jsonData = <String, dynamic>{
       "age": age,
-      "gender": gender,
       "height": height,
       "weight": weight,
       "skinColor": skinColor,
