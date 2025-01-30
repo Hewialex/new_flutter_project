@@ -4,6 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/error/global_exception.dart';
 
 part 'verify_email_otp_event.dart';
 part 'verify_email_otp_state.dart';
@@ -20,14 +21,12 @@ class VerifyEmailOtpBloc
     VerifyEmailOtpRequestEvent event,
     Emitter<VerifyEmailOtpState> emit,
   ) async {
-    print('-----------------------loading---------------------');
     emit(VerifyEmailOtpLoading());
     final dio = Dio();
-    const url = "${Constants.baseUrl}/auth/verifyemail";
 
     try {
       final res = await dio.post(
-        url,
+        Constants.email_verification_url,
         data: {
           "email": event.email,
           "code": event.otp,
@@ -44,11 +43,9 @@ class VerifyEmailOtpBloc
       } else {
         emit(const VerifyEmailOtpFailure(errorMessage: 'Failed to send OTP'));
       }
-    } on DioException catch (e) {
-      print('-------------------error------------------');
-      print(e);
-      emit(const VerifyEmailOtpFailure(
-          errorMessage: ('failed to verify your code.')));
+    } catch (e) {
+      emit(
+          VerifyEmailOtpFailure(errorMessage: ErrorMapper.mapError(e).message));
     }
   }
 }

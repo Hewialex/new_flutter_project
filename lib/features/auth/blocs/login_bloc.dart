@@ -1,11 +1,11 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/error/global_exception.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
@@ -60,7 +60,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     // }
 
     // login
-    const url = "${Constants.baseUrl}/auth/login";
     if (state is LoginDefault) {
       final prevLoginState = state as LoginDefault;
       emit(LoginVerification());
@@ -69,13 +68,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         "email": prevLoginState.emailController.text,
         "password": prevLoginState.passwordController.text,
       };
-      print('----------------------requ data:---------------');
-      print(rawData);
+
+      // message for success or failure
+      String message = '';
 
       try {
         // Wrap the POST request with timeout
         final res = await dio.post(
-          url,
+          Constants.login_url,
           data: rawData,
           options: Options(headers: <String, String>{
             'Content-Type': 'application/json; charset=UTF-8',
@@ -85,9 +85,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         print('----------------------response data:---------------');
         print(res.data);
         print(res.statusCode);
+        final bodyResponse = res.data;
+        message = bodyResponse["message"];
 
         if (res.statusCode == 200) {
-          final bodyResponse = res.data;
           final token = bodyResponse["data"]["token"];
 
           await databaseHelper.saveToken(token);
@@ -112,9 +113,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
           emit(LoginSuccess());
         } else {
-          final json = res.data;
-          final String message = json["message"];
-
           emit(
             LoginDefault(
               emailController: prevLoginState.emailController,
@@ -124,26 +122,13 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             ),
           );
         }
-      } on DioException catch (e) {
-        debugPrint("Login error: $e");
-
-        emit(
-          LoginDefault(
-            emailController: prevLoginState.emailController,
-            passwordController: prevLoginState.passwordController,
-            err: _mapErrorCodeToLoginErr('wrong-password'),
-            errorMessage: 'The request timed out. Please try again later.',
-          ),
-        );
       } catch (e) {
-        debugPrint("Login exception$e");
-
         emit(
           LoginDefault(
             emailController: prevLoginState.emailController,
             passwordController: prevLoginState.passwordController,
             err: _mapErrorCodeToLoginErr('wrong-password'),
-            errorMessage: 'Unexpected error. Please try again later.',
+            errorMessage: ErrorMapper.mapError(e).message,
           ),
         );
       }

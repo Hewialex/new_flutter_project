@@ -144,7 +144,7 @@ class _BasicSectionState extends State<BasicSection> {
                 builder: (context, cubitState) {
                   return CustomTextField(
                     controller: widget.state.passwordController,
-                    maxChar: 6,
+                    maxChar: 32,
                     validator: validatePassword,
                     text: localizations.password,
                     suffix: IconButton(
@@ -165,7 +165,7 @@ class _BasicSectionState extends State<BasicSection> {
                 builder: (context, confirmCubitState) {
                   return CustomTextField(
                     controller: widget.state.confirmPasswordController,
-                    maxChar: 6,
+                    maxChar: 32,
                     suffix: IconButton(
                       icon: Icon(
                         confirmCubitState

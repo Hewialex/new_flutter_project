@@ -7,6 +7,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/error/global_exception.dart';
 import 'package:qismati/core/utils/form_filed_validations/password_match_validator.dart';
 import 'package:qismati/features/auth/models/signup_model.dart';
 
@@ -58,8 +59,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
     on<RegisterUser>(_registerUser);
   }
   FutureOr<void> _registerUser(RegisterUser event, emit) async {
-    const String url = "${Constants.baseUrl}/user/profile-setup";
-
     if (state is SignupDefault) {
       final storedToken = await databaseHelper.getToken();
 
@@ -70,25 +69,34 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       final json = event.signupModel.toJson();
 
       final sentData = jsonEncode(json);
-      final res = await dio.patch(
-        url,
-        data: sentData,
-        options: Options(
-          headers: <String, String>{
-            "Content-Type": "application/json",
-            "Authorization": "Bearer $storedToken",
-          },
-        ),
-      );
+      try {
+        final res = await dio.patch(
+          Constants.profile_setup_url,
+          data: sentData,
+          options: Options(
+            headers: <String, String>{
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $storedToken",
+            },
+          ),
+        );
 
-      if (res.statusCode == 200) {
-        emit(SignupSuccess());
-      } else {
-        final body = jsonDecode(res.data);
+        if (res.statusCode == 200) {
+          emit(SignupSuccess());
+        } else {
+          final body = jsonDecode(res.data);
+          emit(
+            signupState.copyWith(
+              error: SignupError.input,
+              errorMessage: body["message"],
+            ),
+          );
+        }
+      } catch (e) {
         emit(
           signupState.copyWith(
-            error: SignupError.input,
-            errorMessage: body["message"],
+            error: SignupError.network,
+            errorMessage: ErrorMapper.mapError(e).message,
           ),
         );
       }

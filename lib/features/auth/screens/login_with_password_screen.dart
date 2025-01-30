@@ -128,6 +128,7 @@ class LoginWithPasswordScreen extends StatelessWidget {
                                   return CustomTextField(
                                     controller: state.passwordController,
                                     text: S.of(context).password,
+                                    maxChar: 32,
                                     suffix: IconButton(
                                       icon: Icon(
                                         cubitState

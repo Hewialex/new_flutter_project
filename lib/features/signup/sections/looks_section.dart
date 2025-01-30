@@ -35,11 +35,13 @@ class LooksSection extends StatelessWidget {
         CustomTextField(
           text: "${localizations.weight}-kg",
           controller: weightController,
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: 25.h),
         CustomTextField(
           text: "${localizations.height}-cm",
           controller: heightController,
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: 25.h),
         CustomDropdownMenu(

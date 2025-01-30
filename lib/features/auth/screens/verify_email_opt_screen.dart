@@ -73,6 +73,13 @@ class _EmailVerificationOtpScreenState
                       );
                     }
                   }
+                  if (state is VerifyEmailOtpFailure) {
+                    CustomSnackBar(
+                      context: context,
+                      message: state.errorMessage,
+                      type: SnackBarType.error,
+                    ).showSnack();
+                  }
                 },
                 builder: (context, state) {
                   return ContentContainer(

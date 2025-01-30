@@ -20,14 +20,12 @@ class UsernameCubit extends Cubit<UsernameState> {
     // Start the debouncing process
     debouncer.run(
       () async {
-        const String url = "${Constants.baseUrl}/auth/validateUserName";
-
         final json = {"userName": username};
 
         final sentData = jsonEncode(json);
 
         final res = await http.post(
-          Uri.parse(url),
+          Uri.parse(Constants.validate_username_url),
           headers: <String, String>{
             "Content-Type": "application/json",
           },

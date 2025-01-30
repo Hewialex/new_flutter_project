@@ -47,11 +47,13 @@ class MaritialSection extends StatelessWidget {
         CustomTextField(
           text: localizations.age,
           controller: ageController,
+          keyboardType: TextInputType.number,
         ),
         SizedBox(height: 20.h),
         CustomTextField(
           text: localizations.children,
           controller: childrenController,
+          keyboardType: TextInputType.number,
         ),
       ],
     );
