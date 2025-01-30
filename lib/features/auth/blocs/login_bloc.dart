@@ -82,9 +82,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
           }),
         );
 
-        print('----------------------response data:---------------');
-        print(res.data);
-        print(res.statusCode);
         final bodyResponse = res.data;
         message = bodyResponse["message"];
 

@@ -10,10 +10,12 @@ abstract class VerifyEmailOtpEvent extends Equatable {
 class VerifyEmailOtpRequestEvent extends VerifyEmailOtpEvent {
   final String otp;
   final String email;
+  final bool isForgotPassword;
 
   const VerifyEmailOtpRequestEvent({
     required this.otp,
     required this.email,
+    required this.isForgotPassword,
   });
 
   @override

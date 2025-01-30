@@ -8,4 +8,8 @@ class Constants {
   static const String validate_username_url = '$baseUrl/auth/validateUserName';
   static const String login_url = '$baseUrl/auth/login';
   static const String email_verification_url = '$baseUrl/auth/verifyemail';
+  static const String resend_otp_url = '$baseUrl/auth/resendemail';
+  static const String forgot_password_url = '$baseUrl/auth/forgotpassword';
+  static const String verify_reset_otp_url = '$baseUrl/auth/verify-reset-otp';
+  static const String reset_password_url = '$baseUrl/auth/resetpassword';
 }

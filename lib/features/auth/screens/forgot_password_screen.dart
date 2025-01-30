@@ -88,12 +88,13 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
                             actions: [
                               CustomButton(
                                 onPressed: () {
+                                  context.pop();
                                   context.push(Routes.emailVerificationOtp,
                                       extra: OtpNavModel(
-                                          isFromSignUp: false,
-                                          isFromForgtenPassword: true,
-                                          email: _emailController.text,
-                                          otp: state.otp));
+                                        isFromSignUp: false,
+                                        isFromForgtenPassword: true,
+                                        email: _emailController.text,
+                                      ));
                                 },
                                 text: S.of(context).enter_code,
                                 fontWeight: FontWeight.w600,

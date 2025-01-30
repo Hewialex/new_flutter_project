@@ -83,6 +83,7 @@ class NewPasswordScreen extends StatelessWidget {
                             BlocBuilder<ConfirmPasswordVisibilityCubit, bool>(
                               builder: (context, confirmCubitState) {
                                 return CustomTextField(
+                                  maxChar: 32,
                                   controller: (state as NewPassWordInitial)
                                       .confirmPasswordController,
                                   suffix: IconButton(
@@ -135,7 +136,6 @@ class NewPasswordScreen extends StatelessWidget {
                                   onPressed: () {
                                     if (formKey.currentState!.validate()) {
                                       final newpasswordData = {
-                                        "resetPasswordToken": "Yj_nxsVnYdwcM",
                                         "newPassword":
                                             (state as NewPassWordInitial)
                                                 .passwordController
