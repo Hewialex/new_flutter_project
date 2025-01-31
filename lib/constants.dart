@@ -12,4 +12,6 @@ class Constants {
   static const String forgot_password_url = '$baseUrl/auth/forgotpassword';
   static const String verify_reset_otp_url = '$baseUrl/auth/verify-reset-otp';
   static const String reset_password_url = '$baseUrl/auth/resetpassword';
+  static const String get_me_url = '$baseUrl/auth/me';
+  static const String update_profile_url = '$baseUrl/user';
 }
