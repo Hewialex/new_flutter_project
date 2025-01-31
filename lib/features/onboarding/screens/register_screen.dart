@@ -56,11 +56,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       Text(
-<<<<<<< HEAD
-                        'Assalamu Alaikum Wa Rahmatullahi',
-=======
                         localizations.assalamuAlaikum,
->>>>>>> 2c5acc9482ec94017dc8314a69712e5f38593f99
+                        
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.red,
