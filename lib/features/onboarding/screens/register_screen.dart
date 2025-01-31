@@ -8,6 +8,8 @@ import 'package:qismati/core/database/database_helper.dart';
 import 'package:qismati/routes.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+enum OathSelection { none, taken }
+
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
@@ -16,7 +18,7 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  bool isSelected = false;
+  OathSelection _oathSelection = OathSelection.none;
   bool isMaleSelected = false;
   bool isFemaleSelected = false;
 
@@ -52,7 +54,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: Column(
                     children: [
                       Text(
-                        'Assalamu alaikum wa rahmatullahi',
+                        'Assalamu Alaikum Wa Rahmatullahi',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.red,
@@ -129,15 +131,20 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       fontWeight: FontWeight.w300,
                     ),
                   ),
-                  leading: Radio(
-                    value: true,
-                    groupValue: isSelected,
-                    activeColor: CustomColors.primary,
-                    onChanged: (value) {
-                      setState(() {
-                        isSelected = !isSelected;
-                      });
-                    },
+                  leading: Theme(
+                    data: Theme.of(context).copyWith(
+                      unselectedWidgetColor: CustomColors.primary, // Custom color for unselected state
+                    ),
+                    child: Radio<OathSelection>(
+                      value: OathSelection.taken,
+                      groupValue: _oathSelection,
+                      activeColor: CustomColors.primary, // Custom color for selected state
+                      onChanged: (value) {
+                        setState(() {
+                          _oathSelection = value ?? OathSelection.none;
+                        });
+                      },
+                    ),
                   ),
                 ),
                 SizedBox(height: 18.h),
@@ -166,7 +173,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   text: "I'm Female",
                   isInverted: !isFemaleSelected,
                 ),
-                (isSelected && (isFemaleSelected || isMaleSelected))
+                (_oathSelection == OathSelection.taken &&
+                        (isFemaleSelected || isMaleSelected))
                     ? TextButton(
                         onPressed: () async {
                           final SharedPreferences prefs =

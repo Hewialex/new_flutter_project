@@ -14,31 +14,27 @@ class OnboardingScreen extends StatefulWidget {
 }
 
 class _OnboardingScreenState extends State<OnboardingScreen> {
-  final title = [
+  final List<String> titles = [
     'Find your partner with us',
     'Marriage is a great relationship',
     'Find your perfect life partner'
   ];
 
-  final images = [
+  final List<String> images = [
     'assets/images/onboarding_one.png',
     'assets/images/onboarding_two.png',
     'assets/images/onboarding_three.png'
   ];
 
   int currentIndex = 0;
-  @override
-  void initState() {
-    super.initState();
+  final PageController _pageController = PageController(); // Page Controller
 
-    currentIndex = 0;
-  }
-
-  changePage() {
+  void changePage() {
     if (currentIndex < 2) {
-      setState(() {
-        currentIndex++;
-      });
+      _pageController.nextPage(
+        duration: Duration(milliseconds: 300),
+        curve: Curves.easeInOut,
+      );
     } else {
       context.go(Routes.register);
     }
@@ -49,76 +45,88 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: 47.h),
-          Center(
-            child: Image.asset(
-              images[currentIndex],
-              width: 212.w,
-              height: 366.w,
-            ),
-          ),
-          Container(
-            width: 335.w,
-            height: 289.h,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.all(
-                Radius.circular(20.r),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(height: 47.h),
+            Expanded(
+              child: PageView.builder(
+                controller: _pageController,
+                itemCount: titles.length,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      Image.asset(
+                        images[index],
+                        width: 212.w,
+                        height: 366.w,
+                      ),
+                      Container(
+                        width: 335.w,
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.r),
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              titles[index],
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 32.sp,
+                              ),
+                            ),
+                            SizedBox(height: 10.h),
+                            SizedBox(
+                              width: 295.w,
+                              child: Text(
+                                'Amet minim mollit non deserunt sit aliqua dolor do amet sint.',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 19.sp,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              ),
+                            ),
+                            SizedBox(height: 30.h),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: List.generate(3, (index) {
+                                return Row(
+                                  children: [
+                                    SlidePoint(isHiglighted: index == currentIndex),
+                                    SizedBox(width: 5.w)
+                                  ],
+                                );
+                              }),
+                            ),
+                            SizedBox(height: 30.h),
+                            CustomButton(
+                              onPressed: changePage,
+                              text: currentIndex < 2 ? 'Next' : 'Get Started',
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
             ),
-            alignment: Alignment.center,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                SizedBox(
-                  // width: 295.w,
-                  // height: 85.h,
-                  child: Text(
-                    title[currentIndex],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 32.sp,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 10.h),
-                SizedBox(
-                  width: 295.w,
-                  child: Text(
-                    'Amet minim mollit non deserunt sit aliqua dolor do amet sint.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 19.sp,
-                      fontWeight: FontWeight.w300,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 30.h),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: List.generate(3, (index) {
-                    return Row(
-                      children: [
-                        SlidePoint(isHiglighted: index == currentIndex),
-                        SizedBox(width: 5.w)
-                      ],
-                    );
-                  }),
-                ),
-                SizedBox(height: 30.h),
-                CustomButton(
-                  onPressed: changePage,
-                  text: currentIndex < 2 ? 'Next' : 'Get Started',
-                ),
-              ],
-            ),
-          )
-        ],
-      )),
+          ],
+        ),
+      ),
     );
   }
 }
