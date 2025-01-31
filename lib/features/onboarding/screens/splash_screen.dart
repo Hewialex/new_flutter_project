@@ -24,14 +24,14 @@ class _SplashScreenState extends State<SplashScreen> {
       final DatabaseHelper databaseHelper =
           RepositoryProvider.of<DatabaseHelper>(context);
       final sessionExists = await databaseHelper.getSession();
-
       if (!mounted) {
         return;
       }
       if (sessionExists) {
-        context.go(Routes.login);
+        context.go(Routes.loginWithPassword);
       } else {
-        context.go(Routes.onboarding);
+        // context.go(Routes.onboarding);
+        context.go(Routes.languageScreen);
       }
     });
   }

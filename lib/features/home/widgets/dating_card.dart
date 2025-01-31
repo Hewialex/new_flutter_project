@@ -3,103 +3,140 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/colors.dart';
 
 class DatingCard extends StatelessWidget {
+  final String name;
+  final String gender;
+  final bool isPremium;
+  final bool isCentral;
+  final String locationName;
+
   const DatingCard({
     super.key,
     required this.name,
-    required this.isPremium,
-    required this.locationName,
     required this.gender,
+    required this.isPremium,
+    this.isCentral = false,
+    required this.locationName,
   });
 
-  final String name;
-  final bool isPremium;
-  final String gender;
-  final String locationName;
-
-  Widget premiumContainer() {
+  Widget premiumContainer(BuildContext context) {
     return isPremium
         ? Container(
-            width: 89.w,
-            margin: EdgeInsets.only(bottom: 20.h),
+            padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 2.h),
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topRight: Radius.circular(20.r),
-              ),
-              color: CustomColors.primary,
+              color: CustomColors.premiumColor,
+              borderRadius: BorderRadius.circular(5.r),
             ),
-            child: Row(
-              children: [
-                const Icon(
-                  Icons.workspace_premium,
-                  color: Colors.white,
-                ),
-                Text(
-                  'Premium',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 12.sp,
-                    fontWeight: FontWeight.w300,
-                  ),
-                )
-              ],
+            child: Text(
+              'Premium',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 10.sp,
+                fontWeight: FontWeight.w300,
+              ),
             ),
           )
         : Container();
   }
 
+  String getFormattedName(String name) {
+    List<String> nameParts = name.split(' ');
+    if (nameParts.length > 1) {
+      return '${nameParts[0]} ${nameParts[1][0]}.';
+    } else {
+      return nameParts[0];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: Alignment.center,
-      width: 253.w,
-      height: 287.h,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(20.r)),
-        gradient: const RadialGradient(
-          colors: [Color(0x2BFFFFFF), Color(0x2B000000)],
-          radius: 0.5,
+    return Card(
+      elevation: isCentral ? 20 : 0,
+      child: Container(
+        alignment: Alignment.center,
+        padding: EdgeInsets.only(left: 10.w, right: 10.w, top: 10.w),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20.r)),
+          color: isCentral
+              ? CustomColors.background
+              : CustomColors.background.withOpacity(0.2),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.1),
+              spreadRadius: 10,
+              blurRadius: 20,
+              offset: const Offset(0, 20), // Position of the shadow
+            ),
+          ],
         ),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                name,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700,
-                  fontSize: 32.sp,
-                  color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Expanded(
+                  child: Text(
+                    name,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.sp,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
-              ),
-              premiumContainer(),
-            ],
-          ),
-          Row(
-            children: [
-              const Icon(
-                Icons.location_on,
-                color: CustomColors.primary,
-              ),
-              Text(
-                locationName,
-                style: TextStyle(
+                SizedBox(width: 10.w),
+                if (isCentral) premiumContainer(context),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.location_on,
                   color: CustomColors.primary,
-                  fontSize: 14.sp,
-                  fontWeight: FontWeight.w700,
+                  size: 12.sp,
                 ),
-              ),
-            ],
-          ),
-          Image.asset(
-            gender == "male"
-                ? "assets/images/male_avatar.png"
-                : "assets/images/female_avatar.png",
-            width: 215.w,
-            height: 213.h,
-          )
-        ],
+                Text(
+                  locationName,
+                  style: TextStyle(
+                    color: CustomColors.primary,
+                    fontSize: 12.sp,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ],
+            ),
+            const Spacer(),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: isCentral ? 200.h : 150.h,
+                  decoration: BoxDecoration(
+                    color: CustomColors.languageContainerColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.5),
+                        spreadRadius: 2,
+                        blurRadius: 5,
+                        offset: const Offset(0, 3),
+                      ),
+                    ],
+                  ),
+                ),
+                Image.asset(
+                  gender == "male"
+                      ? "assets/images/male_avatar.png"
+                      : "assets/images/female_avatar.png",
+                  width: isCentral ? 200.h : 150.h,
+                  height: isCentral ? 200.h : 150.h,
+                  fit: BoxFit.cover,
+                ),
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

@@ -30,17 +30,15 @@ class NotificationModel extends Equatable {
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     // {data: {chatroomId: null, message: Hello Pal}, fromUserId: null, _id: 674f8bc5c487f543be549b40, type: system, read: false, title: Notification For Testing, userId: 674f01822c45815c3eea90fd}], page: 1, hasReachedMax: false}
-    print(json);
-    assert (json.containsKey("_id"));
-    assert (json.containsKey("title"));
-    assert (json.containsKey("type"));
-    assert (json.containsKey("data"));
-    assert (json.containsKey("createdAt"));
+    assert(json.containsKey("_id"));
+    assert(json.containsKey("title"));
+    assert(json.containsKey("type"));
+    assert(json.containsKey("data"));
+    assert(json.containsKey("createdAt"));
 
-    assert (notificationTypeMap.containsKey(json["type"]));
-    assert (json["createdAt"] is String);
-    assert (json["_id"] is String);
-
+    assert(notificationTypeMap.containsKey(json["type"]));
+    assert(json["createdAt"] is String);
+    assert(json["_id"] is String);
 
     return NotificationModel(
         id: json["_id"],

@@ -8,11 +8,13 @@ class CustomDropdownMenu extends StatefulWidget {
     required this.values,
     required this.controller,
     required this.hintText,
+    this.onChanged,
   });
 
   final List<String> values;
   final String hintText;
   final TextEditingController controller;
+  final Function(String?)? onChanged;
 
   @override
   State<CustomDropdownMenu> createState() => _CustomDropdownMenuState();
@@ -46,11 +48,12 @@ class _CustomDropdownMenuState extends State<CustomDropdownMenu> {
                 child: Text(e),
               );
             }).toList(),
-            onChanged: (value) {
-              setState(() {
-                widget.controller.text = value!;
-              });
-            },
+            onChanged: widget.onChanged ??
+                (value) {
+                  setState(() {
+                    widget.controller.text = value!;
+                  });
+                },
           ),
         ));
   }

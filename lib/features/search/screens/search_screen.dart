@@ -8,6 +8,7 @@ import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/search/sections/advanced_search_section.dart';
 import 'package:qismati/features/search/sections/quick_search_section.dart';
 import 'package:qismati/features/search/sections/search_by_username_section.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -23,6 +24,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -32,7 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 excludeLangDropDown: true,
               ),
               Text(
-                'Search',
+                localizations.search,
                 style: GoogleFonts.lexend(
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -61,8 +63,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       header: Container(
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
-                          child: const Text('Search by username')),
-                      content: SearchByUsernameSection(),
+                          child: Text(localizations.searchByUsername)),
+                      content: const SearchByUsernameSection(),
                     ),
                     AccordionSection(
                       isOpen: true,
@@ -71,8 +73,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       header: Container(
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
-                          child: const Text('Quick Search')),
-                      content: QuickSearchSection(),
+                          child: Text(localizations.quickSearch)),
+                      content: const QuickSearchSection(),
                     ),
                     AccordionSection(
                       isOpen: true,
@@ -81,8 +83,8 @@ class _SearchScreenState extends State<SearchScreen> {
                       header: Container(
                           height: 40.h,
                           padding: EdgeInsets.all(10.w),
-                          child: const Text('Advanced Search')),
-                      content: AdvancedSearchSection(),
+                          child: Text(localizations.advancedSearch)),
+                      content: const AdvancedSearchSection(),
                     ),
                   ],
                 ),

@@ -6,10 +6,9 @@ import 'package:qismati/common/custom_functions.dart';
 import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
-import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/common/widgets/filter_select.dart';
+import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 
 class MembersPhotoScreen extends StatelessWidget {
@@ -17,6 +16,7 @@ class MembersPhotoScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
@@ -28,27 +28,29 @@ class MembersPhotoScreen extends StatelessWidget {
             altRoute: Routes.home,
           ),
           SizedBox(height: 10.h),
-          Text(
-            'Members Photo',
-            style: GoogleFonts.lexend(
-              fontSize: 16.sp,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
+          // TODO: check these . this is for locals
+
+          // Text(
+          //   localizations.,
+          //   style: GoogleFonts.lexend(
+          //     fontSize: 16.sp,
+          //     fontWeight: FontWeight.w500,
+          //   ),
+          // ),
           SizedBox(height: 28.h),
-          FilterSelect(
-            currentIndex: 0,
-            onSelected: (p0) {},
-            choiceContent: const [
-              "Public Photos",
-              "Exclusive Photos",
-            ],
-          ),
+          // FilterSelect(
+          //   currentIndex: 0,
+          //   onSelected: (p0) {},
+          //   choiceContent: [
+          //     localizations.publicPhotos,
+          //     localizations.exclusivePhotos,
+          //   ],
+          // ),
           SizedBox(height: 14.h),
           CustomDropdownMenu(
             values: const [],
             controller: TextEditingController(),
-            hintText: 'Country',
+            hintText: localizations.country,
           ),
           SizedBox(height: 28.h),
           Expanded(
@@ -106,7 +108,7 @@ class MembersPhotoScreen extends StatelessWidget {
           ),
           CustomButton(
             onPressed: () {},
-            text: 'Show More',
+            text: localizations.showMore,
             shadowColor: CustomColors.shadowBlue,
             elevation: 5,
             fontWeight: FontWeight.w600,

@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_text_field.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class EducationAndWorkSection extends StatelessWidget {
   const EducationAndWorkSection({
     super.key,
-    required this.nationality,
     required this.educationalQualificationController,
     required this.financialStatusController,
     required this.jobCategoryController,
@@ -15,7 +16,6 @@ class EducationAndWorkSection extends StatelessWidget {
     required this.healthCaseController,
   });
 
-  final List<String> nationality;
   final TextEditingController educationalQualificationController;
   final TextEditingController financialStatusController;
   final TextEditingController jobCategoryController;
@@ -25,10 +25,11 @@ class EducationAndWorkSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Column(
       children: [
         Text(
-          'Education and Work',
+          localizations.education_and_work,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.sp,
@@ -36,38 +37,38 @@ class EducationAndWorkSection extends StatelessWidget {
         ),
         SizedBox(height: 25.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: educationalQualificationDropdownValues,
           controller: educationalQualificationController,
-          hintText: "Educational Qualification",
+          hintText: localizations.education_qualification,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: financialStatusDropdownValues,
           controller: financialStatusController,
-          hintText: "Financial Status",
+          hintText: localizations.financial_status,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: jobCategoryDropdownValues,
           controller: jobCategoryController,
-          hintText: "Job Category",
+          hintText: localizations.job_category,
         ),
         SizedBox(height: 20.h),
         CustomTextField(
-          text: 'Job',
+          text: localizations.job,
           controller: jobController,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: monthlyIncomeDropdownValues,
           controller: monthlyIncomeController,
-          hintText: "Monthly Income",
+          hintText: localizations.monthly_income,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: healthCaseDropdownValues,
           controller: healthCaseController,
-          hintText: "Health Case",
+          hintText: localizations.health_case,
         ),
       ],
     );

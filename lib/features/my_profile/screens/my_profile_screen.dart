@@ -8,16 +8,19 @@ import 'package:qismati/common/widgets/custom_button.dart';
 import 'package:qismati/features/my_profile/bloc/myprofile_bloc.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_editing_screen.dart';
 import 'package:qismati/features/profile/widgets/profile_info.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class MyProfileDashBoardDisplay extends StatelessWidget {
   const MyProfileDashBoardDisplay({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     final bloc = context.read<MyprofileBloc>();
     bloc.add(LoadMyProfile());
 
-    return BlocBuilder<MyprofileBloc, MyprofileState>(builder: (context, state) {
+    return BlocBuilder<MyprofileBloc, MyprofileState>(
+        builder: (context, state) {
       if (state is MyprofileInitial) {
         bloc.add(LoadMyProfile());
         return const Center(
@@ -43,7 +46,7 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
         return Center(
           child: Column(
             children: [
-              const Text("Error loading profile"),
+              Text(localizations.unableToLoadProfile),
               IconButton(
                 onPressed: () {
                   bloc.add(LoadMyProfile());
@@ -52,7 +55,7 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
                   Icons.refresh,
                   color: CustomColors.secondaryBackground,
                 ),
-                tooltip: "Refresh",
+                tooltip: localizations.retryButton,
               )
             ],
           ),
@@ -71,8 +74,8 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
           child: _buildProfileInfo(context: context, profile: state.profile),
         );
       } else {
-        return const Center(
-          child: Text("Unknown state"),
+        return Center(
+          child: Text(localizations.unimplementedState),
         );
       }
     });
@@ -83,6 +86,7 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
     required ProfileModel profile,
     bool isLoading = false,
   }) {
+    final localizations = S.of(context);
     return Stack(
       children: [
         Column(
@@ -136,13 +140,13 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
 
                       // registration data table
                       ProfileInfo(
-                        tableName: "Registration data",
+                        tableName: localizations.accountInformation,
                         tableData: {
-                          "Registration since": DateTime.now()
+                          localizations.memberSince: DateTime.now()
                               .difference(profile.createdAt)
                               .inDays
                               .toString(),
-                          "Last login data": "-",
+                          localizations.lastActive: "-",
                         },
                       ),
 
@@ -150,27 +154,31 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
 
                       // info card table
                       ProfileInfo(
-                        tableName: "Info Card",
+                        tableName: localizations.personalInformation,
                         tableData: {
-                          "Nationality": profile.nationality,
-                          "Place of residence": profile.country,
-                          "City": profile.city,
-                          "Marriage type": profile.marriageType,
-                          "Marital status": profile.maritalStatus,
-                          "Age": profile.age,
-                          "Child Count": profile.children,
-                          "Weight - Height":
+                          localizations.nationality: profile.nationality,
+                          localizations.country: profile.country,
+                          localizations.city: profile.city,
+                          localizations.marriageType: profile.marriageType,
+                          localizations.maritalStatus: profile.maritalStatus,
+                          localizations.age: profile.age,
+                          localizations.children: profile.children,
+                          "${localizations.height} - ${localizations.weight}":
                               "${profile.height} - ${profile.weight}cm",
-                          "Skin Color": profile.skinColor,
-                          "Body Shape": profile.bodyShape,
-                          "Job": profile.job,
-                          "Education qualification":
+                          localizations.skinColor: profile.skinColor,
+                          localizations.bodyShape: profile.bodyShape,
+                          localizations.job: profile.job,
+                          localizations.educationalQualification:
                               profile.educationalQualification,
-                          "Financial Status": profile.financialStatus,
-                          "Monthly income": profile.monthlyIncome,
-                          "Health Case": profile.healthCase,
-                          "Religious commitment": profile.religiousCommitment,
-                          profile.gender == "Female" ? "Veil" : "Beard":
+                          localizations.financialStatus:
+                              profile.financialStatus,
+                          localizations.monthlyIncome: profile.monthlyIncome,
+                          localizations.healthCase: profile.healthCase,
+                          localizations.religiousCommitment:
+                              profile.religiousCommitment,
+                          profile.gender == "Female"
+                                  ? localizations.veil
+                                  : localizations.beard:
                               profile.gender == "Female"
                                   ? profile.viel
                                   : profile.beard,
@@ -180,14 +188,14 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
                       const SizedBox(height: 20),
 
                       ProfileInfo(
-                        tableName: "About my ideal partner",
+                        tableName: localizations.about_your_partner,
                         data: profile.aboutYourPartner,
                       ),
 
                       const SizedBox(height: 20),
 
                       ProfileInfo(
-                        tableName: "About me",
+                        tableName: localizations.aboutMe,
                         data: profile.aboutYourSelf,
                       ),
 
@@ -197,7 +205,9 @@ class MyProfileDashBoardDisplay extends StatelessWidget {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        text: "Close",
+                        // TODO: localize
+                        // text: localizations.close,
+                        text: 'Close',
                       ),
                     ],
                   ),
@@ -286,6 +296,7 @@ class MyProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     final bloc = context.read<MyprofileBloc>();
     bloc.add(LoadMyProfile());
 
@@ -302,9 +313,9 @@ class MyProfileScreen extends StatelessWidget {
         iconTheme: const IconThemeData(
           color: CustomColors.background,
         ),
-        title: const Text(
-          "Profile",
-          style: TextStyle(
+        title: Text(
+          localizations.myProfile,
+          style: const TextStyle(
             color: CustomColors.background,
           ),
         ),
@@ -329,7 +340,7 @@ class MyProfileScreen extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: MyProfileDashBoardDisplay(),
       ),
     );

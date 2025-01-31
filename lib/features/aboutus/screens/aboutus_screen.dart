@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class AboutusScreen extends StatelessWidget {
   const AboutusScreen({super.key});
@@ -21,7 +22,7 @@ class AboutusScreen extends StatelessWidget {
                 excludeLangDropDown: true,
               ),
               Text(
-                'About us',
+                S.of(context).aboutUsTitle,
                 style: GoogleFonts.kodchasan(
                   textStyle: TextStyle(
                     fontWeight: FontWeight.w500,
@@ -32,7 +33,7 @@ class AboutusScreen extends StatelessWidget {
               ),
               SizedBox(height: 26.h),
               Text(
-                'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi.',
+                S.of(context).aboutUsDescription1,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexend(
                   textStyle: TextStyle(
@@ -43,7 +44,7 @@ class AboutusScreen extends StatelessWidget {
               ),
               SizedBox(height: 15.h),
               Text(
-                'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi.',
+                S.of(context).aboutUsDescription2,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexend(
                   textStyle: TextStyle(
@@ -54,7 +55,7 @@ class AboutusScreen extends StatelessWidget {
               ),
               SizedBox(height: 15.h),
               Text(
-                'lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi. Nulla nec purus feugiat, vestibulum nunc sit amet, ultrices nisl. Nulla facilisi.',
+                S.of(context).aboutUsDescription3,
                 textAlign: TextAlign.center,
                 style: GoogleFonts.lexend(
                   textStyle: TextStyle(

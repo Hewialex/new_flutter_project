@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
+import 'package:qismati/common/widgets/custom_text_field.dart';
+import 'package:qismati/features/signup/utils/signup_dropdown_values.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class LooksSection extends StatelessWidget {
   const LooksSection({
     super.key,
-    required this.nationality,
     required this.weightController,
     required this.heightController,
     required this.skinColorController,
     required this.bodyShapeController,
   });
 
-  final List<String> nationality;
   final TextEditingController weightController;
   final TextEditingController heightController;
   final TextEditingController skinColorController;
@@ -20,38 +21,39 @@ class LooksSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Column(
       children: [
         Text(
-          'Your Look',
+          localizations.your_look,
           style: TextStyle(
             fontWeight: FontWeight.w500,
             fontSize: 16.sp,
           ),
         ),
         SizedBox(height: 25.h),
-        CustomDropdownMenu(
-          values: nationality,
+        CustomTextField(
+          text: "${localizations.weight}-kg",
           controller: weightController,
-          hintText: "Weight-kg",
+          keyboardType: TextInputType.number,
         ),
-        SizedBox(height: 20.h),
-        CustomDropdownMenu(
-          values: nationality,
+        SizedBox(height: 25.h),
+        CustomTextField(
+          text: "${localizations.height}-cm",
           controller: heightController,
-          hintText: "Height-cm",
+          keyboardType: TextInputType.number,
         ),
-        SizedBox(height: 20.h),
+        SizedBox(height: 25.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: skinColorDropdownValues,
           controller: skinColorController,
-          hintText: "Skin Color",
+          hintText: localizations.skin_color,
         ),
         SizedBox(height: 20.h),
         CustomDropdownMenu(
-          values: nationality,
+          values: bodyShapeDropdownValues,
           controller: bodyShapeController,
-          hintText: "Body Shape",
+          hintText: localizations.body_shape,
         ),
       ],
     );

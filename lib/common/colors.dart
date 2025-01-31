@@ -10,14 +10,21 @@ class CustomColors {
   static const headingGray = Color(0xFF535353);
   static const textBlack = Color(0xFF494949);
   static const textRed = Color(0xFFEF1717);
+  static const signOutRed = Color(0xFFF30000);
   static const searchBackground = Color(0xFFFDF5F7);
   static const iconsGray = Color(0xFF484C52);
   static const chatName = Color(0xFF22172A);
+  static const pinFieldColor = Color(0xFF444444);
   static const chatBubbleColor = Color(0xFFFAF8F8);
   static const borderOutline = Color(0xFFD9BCB8);
   static const secondaryBackground = Color(0xFFFFFFFF);
   static const textGreen = Color(0xFF49C01E);
   static const success = Color(0xFF4CAF50);
   static const warning = Color(0xFFEAAE00);
+  static const premiumColor = Color(0xFFDE8900);
   static const error = Color(0xFFEF1717);
+  static const languageTextColor = Color(0xFF2A1714);
+  static const dropDownSelectedItemColor = Color(0xFFD2BBB8);
+  // static const languageOptionsColor = Color(0xFF2A1714);
+  static const languageContainerColor = Color(0xFFFFE4E0);
 }

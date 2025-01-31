@@ -37,23 +37,22 @@ class CustomTopBar extends StatelessWidget {
                 ),
               ),
         excludeLangDropDown
-            ? altIcon ??
-                Container()
+            ? altIcon ?? Container()
             : Row(
                 children: [
                   Text(
-                    'Eng',
+                    '',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 10.sp,
                     ),
                   ),
-                  IconButton(
-                    onPressed: () {
-                      //TODO: Add drop down for language
-                    },
-                    icon: const Icon(Icons.keyboard_arrow_down),
-                  )
+                  // IconButton(
+                  //   onPressed: () {
+                  //     //TODO: Add drop down for language
+                  //   },
+                  //   icon: const Icon(Icons.keyboard_arrow_down),
+                  // )
                 ],
               )
       ],

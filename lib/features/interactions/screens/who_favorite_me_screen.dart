@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:qismati/common/models/person.dart';
 import 'package:qismati/features/interactions/screens/interaction_screen.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
+import 'package:qismati/generated/l10n.dart';
 import 'package:qismati/routes.dart';
 
 class WhoFavoritedMeScreen extends StatelessWidget {
@@ -10,6 +11,7 @@ class WhoFavoritedMeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return InteractionScreen(
       onSelected: (index) {},
       onRefreshPressed: () {},
@@ -18,7 +20,7 @@ class WhoFavoritedMeScreen extends StatelessWidget {
           Routes.tips,
           extra: TipsExtra(
             routes: Routes.whoFavoritedMe,
-            screenTitle: 'Who Favorited me?',
+            screenTitle: localizations.whoFavoritedMe,
           ),
         );
       },
@@ -31,9 +33,9 @@ class WhoFavoritedMeScreen extends StatelessWidget {
           isPremium: false,
         );
       }),
-      screenTitle: 'Who Favorited me?',
-      menuOptions: const [
-        'Member Profile',
+      screenTitle: localizations.whoFavoritedMe,
+      menuOptions: [
+        localizations.memberProfile,
       ],
     );
   }

@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -73,11 +71,8 @@ class AdvancedSearchSection extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomDropdownMenu(
-                  values: List.generate(
-                    200,
-                    (index) => '${40 + index} cm',
-                    growable: false
-                  ),
+                  values: List.generate(200, (index) => '${40 + index} cm',
+                      growable: false),
                   controller: TextEditingController(),
                   hintText: "From",
                 ),
@@ -88,11 +83,8 @@ class AdvancedSearchSection extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomDropdownMenu(
-                  values: List.generate(
-                    200,
-                    (index) => '${40 + index} cm',
-                    growable: false
-                  ),
+                  values: List.generate(200, (index) => '${40 + index} cm',
+                      growable: false),
                   controller: TextEditingController(),
                   hintText: "To",
                 ),
@@ -100,7 +92,6 @@ class AdvancedSearchSection extends StatelessWidget {
             )
           ],
         ),
-
         SizedBox(height: 21.h),
         Row(
           children: [
@@ -110,11 +101,8 @@ class AdvancedSearchSection extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomDropdownMenu(
-                  values: List.generate(
-                    200,
-                    (index) => '${40 + index} kg',
-                    growable: false
-                  ),
+                  values: List.generate(200, (index) => '${40 + index} kg',
+                      growable: false),
                   controller: TextEditingController(),
                   hintText: "From",
                 ),
@@ -125,11 +113,8 @@ class AdvancedSearchSection extends StatelessWidget {
               child: SizedBox(
                 width: double.infinity,
                 child: CustomDropdownMenu(
-                  values: List.generate(
-                    200,
-                    (index) => '${40 + index} kg',
-                    growable: false
-                  ),
+                  values: List.generate(200, (index) => '${40 + index} kg',
+                      growable: false),
                   controller: TextEditingController(),
                   hintText: "To",
                 ),
@@ -154,7 +139,6 @@ class AdvancedSearchSection extends StatelessWidget {
             ),
           ),
         ),
-
         CustomDropdownMenu(
           values: const <String>["All", "Educated", "Not Educated"],
           controller: TextEditingController(),

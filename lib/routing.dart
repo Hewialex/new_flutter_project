@@ -1,11 +1,11 @@
 import 'package:go_router/go_router.dart';
+import 'package:qismati/common/models/otp_nav_model.dart';
 import 'package:qismati/common/models/profile.dart';
-import 'package:qismati/common/widgets/notifications.dart';
 import 'package:qismati/features/aboutus/screens/aboutus_screen.dart';
 import 'package:qismati/features/auth/screens/forgot_password_screen.dart';
-import 'package:qismati/features/auth/screens/login_screen.dart';
 import 'package:qismati/features/auth/screens/login_with_password_screen.dart';
 import 'package:qismati/features/auth/screens/new_password_screen.dart';
+import 'package:qismati/features/auth/screens/verify_email_opt_screen.dart';
 import 'package:qismati/features/chat/screens/chat_screen.dart';
 import 'package:qismati/features/chat/screens/chat_list_screen.dart';
 import 'package:qismati/features/contactus/screens/contactus_screen.dart';
@@ -15,6 +15,7 @@ import 'package:qismati/features/interactions/screens/favorite_list_screen.dart'
 import 'package:qismati/features/interactions/screens/ignore_list.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/features/interactions/screens/who_favorite_me_screen.dart';
+import 'package:qismati/features/language/screen/language_screen.dart';
 import 'package:qismati/features/members/screens/members_photo_screen.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_editing_screen.dart';
 import 'package:qismati/features/my_profile/screens/my_profile_screen.dart';
@@ -32,6 +33,7 @@ import 'package:qismati/features/premium_members/screens/premium_members_screen.
 import 'package:qismati/features/search/screens/search_screen.dart';
 import 'package:qismati/features/settings/screens/account_information_screen.dart';
 import 'package:qismati/features/settings/screens/account_settings_screen.dart';
+import 'package:qismati/features/signup/screens/signup_after_email_verification_screen.dart';
 import 'package:qismati/features/signup/screens/signup_screen.dart';
 import 'package:qismati/routes.dart';
 
@@ -48,7 +50,7 @@ final GoRouter goRouter = GoRouter(routes: [
     path: Routes.register,
     builder: (context, state) => const RegisterScreen(),
   ),
-  GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
+  // GoRoute(path: Routes.login, builder: (context, state) => const LoginScreen()),
   GoRoute(
     path: Routes.forgotPassword,
     builder: (context, state) => const ForgotPasswordScreen(),
@@ -160,6 +162,10 @@ final GoRouter goRouter = GoRouter(routes: [
     },
   ),
   GoRoute(
+    path: Routes.languageScreen,
+    builder: (context, state) => const LanguageScreen(),
+  ),
+  GoRoute(
     path: Routes.editProfile,
     builder: (context, state) {
       final profile = state.extra as ProfileModel;
@@ -172,6 +178,23 @@ final GoRouter goRouter = GoRouter(routes: [
       final notification = state.extra as NotificationModel;
 
       return NotificationDetailScreen(notification: notification);
+    },
+  ),
+  GoRoute(
+    path: '/emailVerificationOtp',
+    name: Routes.emailVerificationOtp,
+    builder: (context, state) {
+      final OtpNavModel otpNavModel = state.extra as OtpNavModel;
+      return EmailVerificationOtpScreen(
+        otpNavModel: otpNavModel,
+      );
+    },
+  ),
+  GoRoute(
+    path: '/signupAfterEmailVerificationScreen',
+    name: Routes.signupAfterEmailVerificationScreen,
+    builder: (context, state) {
+      return const SignupAfterEmailVerificationScreen();
     },
   ),
 ]);

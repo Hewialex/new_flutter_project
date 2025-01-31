@@ -80,8 +80,6 @@ class NotificationBloc extends Bloc<NotificationEvent, NotificationState> {
       final response = await _notificationDataProvider.getUnReadNotifications(
           page: event.page);
 
-      print(response);
-
       emit(NotificationSuccess(response.notifications, page: response.page));
     } catch (e) {
       emit(NotificationErrorState(e.toString()));

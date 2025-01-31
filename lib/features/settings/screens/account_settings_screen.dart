@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/custom_option_tile.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class AccountSettingsScreen extends StatelessWidget {
   AccountSettingsScreen({super.key});
@@ -26,6 +27,7 @@ class AccountSettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -35,33 +37,33 @@ class AccountSettingsScreen extends StatelessWidget {
               children: [
                 const CustomTopBar(excludeLangDropDown: true),
                 SizedBox(height: 5.h),
-                _buildTitle('My Settings'),
+                _buildTitle(localizations.my_settings),
                 SizedBox(height: 30.h),
 
                 // Language and Online Settings
-                CustomOptionTile(title: "Language", onTap: () {}),
-                _buildSwitchRow("Online", true, (isSelected) {}),
+                CustomOptionTile(title: localizations.language, onTap: () {}),
+                _buildSwitchRow(localizations.online, true, (isSelected) {}),
 
                 SizedBox(height: 30.h),
-                _buildTitle('Who can message you?'),
+                _buildTitle(localizations.who_can_message_you),
                 SizedBox(height: 30.h),
 
                 // Messaging Settings
-                CustomOptionTile(title: "Nationality", onTap: () {}),
+                CustomOptionTile(title: localizations.nationality, onTap: () {}),
                 SizedBox(height: 15.h),
-                CustomOptionTile(title: "Countries", onTap: () {}),
+                CustomOptionTile(title: localizations.countries, onTap: () {}),
 
                 SizedBox(height: 30.h),
-                _buildTitle('Notification Settings'),
+                _buildTitle(localizations.notification_settings),
                 SizedBox(height: 30.h),
 
                 // Notification Settings
-                _buildSwitchRow("Who added me to their favorite list?", true, (isSelected) {}),
-                _buildSwitchRow("My Profile Visits", true, (isSelected) {}),
-                _buildSwitchRow("Who added me to the ignore list?", true, (isSelected) {}),
-                _buildSwitchRow("New Messages", true, (isSelected) {}),
-                _buildSwitchRow("Who allowed me to see their photos?", true, (isSelected) {}),
-                _buildSwitchRow("Success Stories", true, (isSelected) {}),
+                _buildSwitchRow(localizations.who_added_to_favorite, true, (isSelected) {}),
+                _buildSwitchRow(localizations.my_profile_visits, true, (isSelected) {}),
+                _buildSwitchRow(localizations.who_added_to_ignore, true, (isSelected) {}),
+                _buildSwitchRow(localizations.new_messages, true, (isSelected) {}),
+                _buildSwitchRow(localizations.who_allowed_see_photos, true, (isSelected) {}),
+                _buildSwitchRow(localizations.success_stories, true, (isSelected) {}),
 
                 // Divider for section separation
                 SizedBox(height: 35.h),
@@ -69,15 +71,15 @@ class AccountSettingsScreen extends StatelessWidget {
                 SizedBox(height: 35.h),
 
                 // Ringtone & Vibration Settings
-                _buildSwitchRow("Ringtone Alert", true, (isSelected) {}),
-                _buildSwitchRow("Vibrate Alert", true, (isSelected) {}),
-                _buildSwitchRow("Notify me when the app is off", true, (isSelected) {}),
-                _buildSwitchRow("Receive notification on e-mail", true, (isSelected) {}),
+                _buildSwitchRow(localizations.ringtone_alert, true, (isSelected) {}),
+                _buildSwitchRow(localizations.vibrate_alert, true, (isSelected) {}),
+                _buildSwitchRow(localizations.notify_when_app_off, true, (isSelected) {}),
+                _buildSwitchRow(localizations.receive_email_notifications, true, (isSelected) {}),
 
                 SizedBox(height: 30.h),
-                _buildTitle('Font Settings'),
+                _buildTitle(localizations.font_settings),
                 SizedBox(height: 30.h),
-                _buildSwitchRow("Increase font-size", true, (isSelected) {}),
+                _buildSwitchRow(localizations.increase_font_size, true, (isSelected) {}),
                 SizedBox(height: 65.h),
               ],
             ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qismati/common/colors.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class ProfileInfo extends StatelessWidget {
   final String tableName;
@@ -15,6 +16,7 @@ class ProfileInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),

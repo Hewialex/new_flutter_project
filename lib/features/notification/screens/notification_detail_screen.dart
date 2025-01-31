@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qismati/common/colors.dart';
 import 'package:qismati/common/widgets/nav_bar.dart';
 import 'package:qismati/features/notification/model/notification_model.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NotificationDetailScreen extends StatelessWidget {
   final NotificationModel notification;
@@ -12,6 +13,7 @@ class NotificationDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return Scaffold(
       backgroundColor: CustomColors.background,
       bottomNavigationBar: const NavBar(currentIndex: 0),
@@ -34,8 +36,8 @@ class NotificationDetailScreen extends StatelessWidget {
         ),
         elevation: 0,
       ),
-      body: const SafeArea(
-        child: Text("notification.data[]"),
+      body: SafeArea(
+        child: Text(notification.data[localizations.messageLabel] ?? ""),
       ),
     );
   }

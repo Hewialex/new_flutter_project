@@ -4,12 +4,14 @@ import 'package:qismati/common/models/person.dart';
 import 'package:qismati/features/interactions/screens/interaction_screen.dart';
 import 'package:qismati/features/interactions/screens/tips_screen.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class IgnoreListScreen extends StatelessWidget {
   const IgnoreListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     return InteractionScreen(
       onSelected: (index) {},
       onRefreshPressed: () {},
@@ -18,7 +20,7 @@ class IgnoreListScreen extends StatelessWidget {
           Routes.tips,
           extra: TipsExtra(
             routes: Routes.ignore,
-            screenTitle: 'Ignore list',
+            screenTitle: localizations.ignoreList,
           ),
         );
       },
@@ -31,11 +33,11 @@ class IgnoreListScreen extends StatelessWidget {
           isPremium: false,
         );
       }),
-      screenTitle: 'Ignore list',
-      menuOptions: const [
-        'Member Profile',
-        'Delete from ignore list',
-        'Cancel',
+      screenTitle: localizations.ignoreList,
+      menuOptions: [
+        localizations.memberProfile,
+        localizations.deleteFromIgnoreList,
+        localizations.cancel,
       ],
     );
   }

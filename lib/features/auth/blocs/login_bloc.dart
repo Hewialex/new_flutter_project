@@ -1,15 +1,14 @@
 import 'dart:async';
-import 'dart:convert';
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/error/global_exception.dart';
 import 'package:qismati/core/websocket/websocket.dart';
 import 'package:qismati/features/chat/bloc/chat_bloc.dart';
 import 'package:qismati/features/notification/bloc/notification_bloc.dart';
-import 'package:qismati/features/notification/model/notification_model.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -33,87 +32,103 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<AttemptLogin>(_attemptLogin);
     on<LoginReset>(_resetLogin);
   }
-
   FutureOr<void> _attemptLogin(event, emit) async {
     // check if token exists
-    final storedToken = await databaseHelper.getToken();
+    // final storedToken = await databaseHelper.getToken();
 
-    if (storedToken != null) {
-      const url = "${Constants.baseUrl}/auth/me";
-      final res = await http.get(
-        Uri.parse(url),
-        headers: {
-          "Authorization": "Bearer $storedToken",
-        },
-      );
+    // if (storedToken != null) {
+    //   emit(LoginVerification());
+    //   const url = "${Constants.baseUrl}/auth/me";
 
-      if (res.statusCode == 200) {
-        //user already exists
-        emit(LoginSuccess());
-        return;
-      }
-    }
+    //   // Wrap the GET request with timeout
+    //   final res = await Future.any([
+    //     dio.get(
+    //       url,
+    //       options: Options(headers: {
+    //         "Authorization": "Bearer $storedToken",
+    //       }),
+    //     ),
+    //     Future.delayed(const Duration(seconds: 31),
+    //         () => throw DioError(requestOptions: RequestOptions(path: url), type: DioErrorType.connectTimeout)),
+    //   ]);
 
-    const url = "${Constants.baseUrl}/auth/login";
+    //   if (res.statusCode == 200) {
+    //     // user already exists
+    //     emit(LoginSuccess());
+    //     return;
+    //   }
+    // }
+
+    // login
     if (state is LoginDefault) {
       final prevLoginState = state as LoginDefault;
-
       emit(LoginVerification());
+
       final Map<String, dynamic> rawData = {
         "email": prevLoginState.emailController.text,
         "password": prevLoginState.passwordController.text,
       };
-      final jsonData = jsonEncode(rawData);
 
-      final res = await http.post(
-        Uri.parse(url),
-        body: jsonData,
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
+      // message for success or failure
+      String message = '';
 
-      if (res.statusCode == 200) {
-        debugPrint("User ${prevLoginState.emailController.text} has logged in");
-        final bodyResponse = jsonDecode(res.body);
-        debugPrint("Resposnse is $bodyResponse");
+      try {
+        // Wrap the POST request with timeout
+        final res = await dio.post(
+          Constants.login_url,
+          data: rawData,
+          options: Options(headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+          }),
+        );
 
-        final token = bodyResponse["data"]["token"];
+        print('----------------------response data:---------------');
+        print(res.data);
+        print(res.statusCode);
+        final bodyResponse = res.data;
+        message = bodyResponse["message"];
 
-        await databaseHelper.saveToken(token);
-        await websocketService.connect(Constants.simpleUrl, token);
-        websocketService.startListening((message) {
-          debugPrint("WebSocket message received: $message");
-          try {
-            final json = jsonDecode(message);
-            if (json["type"] == "notification") {
-              final notification = NotificationModel.fromJson(json);
-              notificationBloc.add(NotificationReceived(notification));
-            } else if (json["type"] == "message") {
-              final message = json["data"];
-              debugPrint("Message Chat: $message");
-            }
-          } catch (e) {
-            debugPrint("[X] WebSocket message parsing error: $e");
-          }
-        });
+        if (res.statusCode == 200) {
+          final token = bodyResponse["data"]["token"];
 
-        debugPrint("token is $token");
+          await databaseHelper.saveToken(token);
 
-        emit(LoginSuccess());
-      } else {
-        debugPrint("Couldn't login in status code: ${res.statusCode}");
-        debugPrint("Couldn't login in data: ${res.body}");
+          //TODO: add websocket, UNCOMMENT
 
-        final json = jsonDecode(res.body);
-        final String message = json["message"];
+          // await websocketService.connect(Constants.simpleUrl, token);
+          // websocketService.startListening((message) {
+          //   try {
+          //     final json = jsonDecode(message);
+          //     if (json["type"] == "notification") {
+          //       final notification = NotificationModel.fromJson(json);
+          //       notificationBloc.add(NotificationReceived(notification));
+          //     } else if (json["type"] == "message") {
+          //       final message = json["data"];
+          //       debugPrint("Message Chat: $message");
+          //     }
+          //   } catch (e) {
+          //     debugPrint("[X] WebSocket message parsing error: $e");
+          //   }
+          // });
 
+          emit(LoginSuccess());
+        } else {
+          emit(
+            LoginDefault(
+              emailController: prevLoginState.emailController,
+              passwordController: prevLoginState.passwordController,
+              err: _mapErrorCodeToLoginErr('wrong-password'),
+              errorMessage: message,
+            ),
+          );
+        }
+      } catch (e) {
         emit(
           LoginDefault(
             emailController: prevLoginState.emailController,
             passwordController: prevLoginState.passwordController,
             err: _mapErrorCodeToLoginErr('wrong-password'),
-            errorMessage: message,
+            errorMessage: ErrorMapper.mapError(e).message,
           ),
         );
       }
@@ -144,3 +159,5 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
   }
 }
+
+final dio = Dio()..interceptors.add(LogInterceptor(responseBody: false));

@@ -9,9 +9,9 @@ import 'package:qismati/common/widgets/custom_dropdown_menu.dart';
 import 'package:qismati/common/widgets/custom_list_card.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
-import 'package:qismati/common/widgets/filter_select.dart';
 import 'package:qismati/features/new_members/bloc/new_member_bloc.dart';
 import 'package:qismati/routes.dart';
+import 'package:qismati/generated/l10n.dart';
 
 class NewMembersScreen extends StatelessWidget {
   NewMembersScreen({super.key});
@@ -24,6 +24,7 @@ class NewMembersScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final localizations = S.of(context);
     final bloc = context.watch<NewMemberBloc>();
     final state = bloc.state;
 
@@ -56,7 +57,7 @@ class NewMembersScreen extends StatelessWidget {
                   ),
                   SizedBox(height: 20.h),
                   Text(
-                    'New Members',
+                    localizations.newMembers,
                     style: GoogleFonts.kodchasan(
                       textStyle: TextStyle(
                         fontWeight: FontWeight.w500,
@@ -69,14 +70,18 @@ class NewMembersScreen extends StatelessWidget {
                   CustomDropdownMenu(
                     values: const [],
                     controller: TextEditingController(),
-                    hintText: 'Country',
+                    hintText: localizations.country,
                   ),
                   SizedBox(height: 32.h),
-                  FilterSelect(
-                    currentIndex: 1,
-                    onSelected: (index) {},
-                    choiceContent: const ["Public Photos", "Exclusive Photos"],
-                  ),
+                  // TODO: check this LATER BASED ON THE DESIGN.
+                  // FilterSelect(
+                  //   currentIndex: 1,
+                  //   onSelected: (index) {},
+                  //   choiceContent: [
+                  //     localizations.publicPhotos,
+                  //     localizations.exclusivePhotos,
+                  //   ],
+                  // ),
                   SizedBox(height: 32.h),
                   Expanded(
                     child: ListView(

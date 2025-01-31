@@ -105,20 +105,15 @@ class NotificationDataProvider {
         },
       );
 
-      print(" [-] Response is : ${response.body}");
-
       if (response.statusCode != 200) {
         throw Exception("Failed to mark notification as read.");
       }
 
       final Map<String, dynamic> data = json.decode(response.body);
       final dynamic notification = data['data']['notifications'];
-      print("[-] data $data");
-      print("[-] notification $notification");
 
       return NotificationModel.fromJson(notification);
     } catch (e) {
-      print(" [-] Error is : $e");
       rethrow;
     }
   }

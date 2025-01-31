@@ -3,101 +3,109 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:qismati/constants.dart';
-import 'package:http/http.dart' as http;
+import 'package:qismati/core/database/database_helper.dart';
+import 'package:qismati/core/error/global_exception.dart';
+import 'package:qismati/core/utils/form_filed_validations/password_match_validator.dart';
 import 'package:qismati/features/auth/models/signup_model.dart';
 
 part 'signup_state.dart';
 part 'signup_event.dart';
 
 class SignupBloc extends Bloc<SignupEvent, SignupState> {
-  SignupBloc()
+  final DatabaseHelper databaseHelper;
+  final Dio dio = Dio();
+
+  SignupBloc({required this.databaseHelper})
       : super(SignupDefault(
-          userNameController: TextEditingController(text: "terraform@1234"),
-          fullNameController: TextEditingController(text: "Muhammed Abdella"),
-          emailController:
-              TextEditingController(text: "muhammed123rus@gmail.com"),
-          passwordController: TextEditingController(text: "123456789"),
-          confirmPasswordController: TextEditingController(text: "123456789"),
-          phoneNumberController: TextEditingController(text: "+251953194211"),
-          ageController: TextEditingController(text: "23"),
-          genderController: TextEditingController(text: "male"),
-          heightController: TextEditingController(text: "183.2"),
-          weightController: TextEditingController(text: "78.2"),
-          skinColorController: TextEditingController(text: "Black"),
-          bodyShapeController: TextEditingController(text: "Dadbod"),
-          healthCaseController: TextEditingController(text: "Healthy"),
-          smokingController: TextEditingController(text: "Non smoker"),
-          prayerController: TextEditingController(text: "prayer"),
-          religiousCommitmentController:
-              TextEditingController(text: "committed"),
-          maritalStatusController: TextEditingController(text: "Not married"),
-          marriageTypeController: TextEditingController(text: "Monogamous"),
-          childrenController: TextEditingController(text: "2"),
-          educationalQualificationController:
-              TextEditingController(text: "Bachelor's"),
-          jobCategoryController: TextEditingController(text: "Finance"),
-          jobController: TextEditingController(text: "Finance Analyst"),
-          monthlyIncomeController: TextEditingController(text: "700000"),
-          financialStatusController: TextEditingController(text: "Wealthy"),
-          nationalityController: TextEditingController(text: "Saudi"),
-          cityController: TextEditingController(text: "Riyadh"),
-          countryController: TextEditingController(text: "Saudi Arabia"),
-          aboutYourSelfController:
-              TextEditingController(text: "I am a chill guy"),
-          aboutYourPartnerController: TextEditingController(
-              text: "Habibi as long as you are for me I will love you"),
-          beardController: TextEditingController(text: "Bearded"),
-          vielController: TextEditingController(text: "I don't mind"),
-          longitudeController: TextEditingController(text: "24.7136"),
-          latitudeController: TextEditingController(text: "46.6753"),
+          userNameController: TextEditingController(),
+          fullNameController: TextEditingController(),
+          emailController: TextEditingController(),
+          passwordController: TextEditingController(),
+          confirmPasswordController: TextEditingController(),
+          phoneNumberController: TextEditingController(),
+          ageController: TextEditingController(),
+          genderController: TextEditingController(),
+          heightController: TextEditingController(),
+          weightController: TextEditingController(),
+          skinColorController: TextEditingController(),
+          bodyShapeController: TextEditingController(),
+          healthCaseController: TextEditingController(),
+          smokingController: TextEditingController(),
+          prayerController: TextEditingController(),
+          religiousCommitmentController: TextEditingController(),
+          maritalStatusController: TextEditingController(),
+          marriageTypeController: TextEditingController(),
+          childrenController: TextEditingController(),
+          educationalQualificationController: TextEditingController(),
+          jobCategoryController: TextEditingController(),
+          jobController: TextEditingController(),
+          monthlyIncomeController: TextEditingController(),
+          financialStatusController: TextEditingController(),
+          nationalityController: TextEditingController(),
+          cityController: TextEditingController(),
+          countryController: TextEditingController(),
+          aboutYourSelfController: TextEditingController(),
+          aboutYourPartnerController: TextEditingController(),
+          beardController: TextEditingController(),
+          vielController: TextEditingController(),
+          longitudeController: TextEditingController(),
+          latitudeController: TextEditingController(),
+          countryCode: '',
           error: SignupError.none,
         )) {
     on<RegisterUser>(_registerUser);
   }
   FutureOr<void> _registerUser(RegisterUser event, emit) async {
-    const String url = "${Constants.baseUrl}/auth/signup";
-
     if (state is SignupDefault) {
+      final storedToken = await databaseHelper.getToken();
+
       final signupState = state as SignupDefault;
 
       emit(SignupLoading());
-      debugPrint(" [X]Signing up...");
 
-      final json = event.signupModel.toJson(event.gender.toLowerCase());
-
-      debugPrint(" [X]Converted Json: $json");
+      final json = event.signupModel.toJson();
 
       final sentData = jsonEncode(json);
-      final res = await http.post(
-        Uri.parse(url),
-        headers: <String, String>{
-          "Content-Type": "application/json",
-        },
-        body: sentData,
-      );
-
-      if (res.statusCode == 200) {
-        final body = jsonDecode(res.body) as Map<String, dynamic>;
-        debugPrint("status code: ${res.statusCode}");
-        debugPrint("response body: $body");
-        debugPrint("Registering a ${event.gender}");
-        emit(SignupSuccess());
-      } else {
-        debugPrint(
-          "Could not register this user, status code:  ${res.statusCode}",
-        );
-
-        final body = jsonDecode(res.body) as Map<String, dynamic>;
-        emit(
-          signupState.copyWith(
-            error: SignupError.input,
-            errorMessage: body["message"],
+      try {
+        final res = await dio.patch(
+          Constants.profile_setup_url,
+          data: sentData,
+          options: Options(
+            headers: <String, String>{
+              "Content-Type": "application/json",
+              "Authorization": "Bearer $storedToken",
+            },
           ),
         );
-        debugPrint(res.body);
+
+        if (res.statusCode == 200) {
+          emit(SignupSuccess());
+        } else {
+          final body = jsonDecode(res.data);
+          emit(
+            signupState.copyWith(
+              error: SignupError.input,
+              errorMessage: body["message"],
+            ),
+          );
+        }
+      } catch (e) {
+        emit(
+          signupState.copyWith(
+            error: SignupError.network,
+            errorMessage: ErrorMapper.mapError(e).message,
+          ),
+        );
       }
     }
+  }
+
+  // compare the confrim password with the password field.
+  String? validateConfirmPw(String? value) {
+    return confirmPasswordValidator(
+        value, (state as SignupDefault).passwordController.text);
   }
 }

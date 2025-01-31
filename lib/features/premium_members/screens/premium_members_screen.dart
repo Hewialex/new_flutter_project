@@ -27,8 +27,6 @@ class PreimumMembersScreen extends StatelessWidget {
     final bloc = context.watch<PremiumMemberBloc>();
     final state = bloc.state;
 
-    print(state);
-
     switch (state) {
       case PremiumMemberInitial():
         bloc.add(FetchData());

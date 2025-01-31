@@ -40,7 +40,7 @@ class ContactUsScreen extends StatelessWidget {
                 SizedBox(height: 15.h),
                 const StyledTitle(title: 'Contact Us'),
                 SizedBox(height: 35.h),
-          
+
                 Form(
                   key: formKey,
                   child: Column(
@@ -53,9 +53,9 @@ class ContactUsScreen extends StatelessWidget {
                         // this is from the firebase auth not from user hence readonly
                         readOnly: true,
                       ),
-          
+
                       SizedBox(height: 15.h),
-          
+
                       // subject
                       CustomTextField(
                         text: "Subject",
@@ -67,17 +67,17 @@ class ContactUsScreen extends StatelessWidget {
                           return null;
                         },
                       ),
-          
+
                       SizedBox(height: 15.h),
-          
+
                       // message text area
                       DescriptionTextField(
                         controller: TextEditingController(),
                         placeholder: "Type your message",
                       ),
-          
+
                       SizedBox(height: 65.h),
-          
+
                       // send button
                       CustomButton(
                         onPressed: () async {
