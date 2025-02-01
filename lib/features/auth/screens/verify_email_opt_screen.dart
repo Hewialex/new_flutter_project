@@ -104,7 +104,7 @@ class _EmailVerificationOtpScreenState
                       type: SnackBarType.success,
                     ).showSnack();
                     if (widget.otpNavModel.isFromForgtenPassword) {
-                      context.pushNamed(Routes.newPassword);
+                      context.push(Routes.newPassword);
                     } else {
                       context.pushReplacementNamed(
                         Routes.signupAfterEmailVerificationScreen,
