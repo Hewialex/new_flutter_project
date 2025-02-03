@@ -70,6 +70,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
 
       final sentData = jsonEncode(json);
       try {
+        print('------------request---------------');
+        print(sentData);
         final res = await dio.patch(
           Constants.profile_setup_url,
           data: sentData,
@@ -80,7 +82,8 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
             },
           ),
         );
-
+        print('------------response---------------');
+        print(res.data);
         if (res.statusCode == 200) {
           emit(SignupSuccess());
         } else {
@@ -93,6 +96,9 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
           );
         }
       } catch (e) {
+        print('------------error---------------');
+        print(e);
+
         emit(
           signupState.copyWith(
             error: SignupError.network,
