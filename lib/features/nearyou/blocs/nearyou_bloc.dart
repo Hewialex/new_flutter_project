@@ -64,7 +64,7 @@ class NearYouBloc extends Bloc<NearyouEvent, NearYouState> {
       final nextPage = currState.page + 1;
 
       final networkInfo =
-          await NetworkInfoImpl(InternetConnectionChecker()).isConnected;
+          await NetworkInfoImpl(InternetConnectionChecker.createInstance()).isConnected;
 
       if (!networkInfo) {
         throw NetworkException();

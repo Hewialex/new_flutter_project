@@ -7,6 +7,7 @@ class Routes {
   static const forgotPassword = '/forgotPassword';
   static const newPassword = '/newPassword';
   static const home = '/home';
+  static const login = '/login';
   static const signup = '/signup';
   static const premium = '/premium';
   static const newMembers = '/newMembers';

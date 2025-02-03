@@ -8,7 +8,7 @@ class OtpNavModel {
   OtpNavModel({
     required this.isFromSignUp,
     required this.isFromForgtenPassword,
-    required this.otp,
+    this.otp,
     required this.email,
   });
 }

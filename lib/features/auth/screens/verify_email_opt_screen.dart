@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,8 +12,8 @@ import 'package:qismati/common/widgets/custom_snackbar.dart';
 import 'package:qismati/common/widgets/custom_top_bar.dart';
 import 'package:qismati/common/widgets/pin_input_field.dart';
 import 'package:qismati/core/database/database_helper.dart';
-import 'package:qismati/features/auth/blocs/signup_bloc.dart';
 import 'package:qismati/features/auth/blocs/verify_email_otp/verify_email_otp_bloc.dart';
+import 'package:qismati/features/auth/cubit/resend_code/resendotp_cubit.dart';
 import 'package:qismati/features/auth/widgets/content_container.dart';
 import 'package:qismati/routes.dart';
 import 'package:qismati/generated/l10n.dart';
@@ -31,12 +33,43 @@ class EmailVerificationOtpScreen extends StatefulWidget {
 
 class _EmailVerificationOtpScreenState
     extends State<EmailVerificationOtpScreen> {
-  // used to track the entered pin
   String? userPin;
+  int _countdown = 60; // Countdown starting value (60 seconds)
+  Timer? _timer; // Timer to handle countdown
 
-  void onCompleteOtp(
-    String otp,
-  ) {
+  @override
+  void initState() {
+    super.initState();
+    // Start countdown when the screen is displayed
+    _startCountdown();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel(); // Cancel timer when widget is disposed
+    super.dispose();
+  }
+
+  // Function to start the countdown timer
+  void _startCountdown() {
+    if (_timer != null) {
+      _timer?.cancel();
+    }
+
+    _countdown = 60; // Reset to 60 seconds
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_countdown > 0) {
+        setState(() {
+          _countdown--;
+        });
+      } else {
+        _timer?.cancel(); // Stop the timer when countdown finishes
+      }
+    });
+  }
+
+  // Function to handle OTP completion
+  void onCompleteOtp(String otp) {
     setState(() {
       userPin = otp;
     });
@@ -44,9 +77,6 @@ class _EmailVerificationOtpScreenState
 
   @override
   Widget build(BuildContext context) {
-    print(
-        '-------------------gender before ----------------${(context.read<SignupBloc>().state as SignupDefault).genderController.text}');
-
     return Scaffold(
       backgroundColor: CustomColors.background,
       body: SafeArea(
@@ -54,9 +84,17 @@ class _EmailVerificationOtpScreenState
           child: Container(
             alignment: Alignment.topCenter,
             margin: EdgeInsets.only(top: 12.h),
-            child: BlocProvider(
-              create: (context) =>
-                  VerifyEmailOtpBloc(databaseHelper: DatabaseHelper()),
+            child: MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => VerifyEmailOtpBloc(
+                    databaseHelper: DatabaseHelper(),
+                  ),
+                ),
+                BlocProvider(
+                  create: (context) => ResendotpCubit(),
+                ),
+              ],
               child: BlocConsumer<VerifyEmailOtpBloc, VerifyEmailOtpState>(
                 listener: (context, state) async {
                   if (state is VerifyEmailOtpSuccess) {
@@ -66,7 +104,7 @@ class _EmailVerificationOtpScreenState
                       type: SnackBarType.success,
                     ).showSnack();
                     if (widget.otpNavModel.isFromForgtenPassword) {
-                      context.go(Routes.newPassword);
+                      context.push(Routes.newPassword);
                     } else {
                       context.pushReplacementNamed(
                         Routes.signupAfterEmailVerificationScreen,
@@ -118,18 +156,50 @@ class _EmailVerificationOtpScreenState
                             SizedBox(
                               width: 10.h,
                             ),
-                            InkWell(
-                              onTap: () {
-                                // TODO: add the resend logic here.
+                            BlocConsumer<ResendotpCubit, ResendotpState>(
+                              listener: (context, state) {
+                                if (state is ResendotpFailure) {
+                                  CustomSnackBar(
+                                    context: context,
+                                    message: state.errorMessage,
+                                    type: SnackBarType
+                                        .error, // Adjust this based on the state type (success or failure)
+                                  ).showSnack();
+                                }
+
+                                if (state is ResendotpSuccess) {
+                                  CustomSnackBar(
+                                    context: context,
+                                    message: state.message,
+                                    type: SnackBarType
+                                        .success, // Adjust this based on the state type (success or failure)
+                                  ).showSnack();
+                                }
                               },
-                              child: Text(
-                                S.of(context).resendCode,
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 15.sp,
-                                  color: CustomColors.primary,
-                                ),
-                              ),
+                              builder: (context, state) {
+                                return InkWell(
+                                  onTap: _countdown == 0
+                                      ? () async {
+                                          await context
+                                              .read<ResendotpCubit>()
+                                              .resendCode(
+                                                  widget.otpNavModel.email ??
+                                                      '');
+                                          _startCountdown();
+                                        }
+                                      : null,
+                                  child: Text(
+                                    _countdown == 0
+                                        ? S.of(context).resendCode
+                                        : 'Resend after $_countdown s',
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 15.sp,
+                                      color: CustomColors.primary,
+                                    ),
+                                  ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -143,6 +213,10 @@ class _EmailVerificationOtpScreenState
                                       .add(VerifyEmailOtpRequestEvent(
                                         otp: userPin!,
                                         email: widget.otpNavModel.email ?? '',
+                                        isForgotPassword: widget.otpNavModel
+                                                .isFromForgtenPassword
+                                            ? true
+                                            : false,
                                       ));
                                 }
                               : () async {},

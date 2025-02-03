@@ -13,15 +13,13 @@ class ForgotPasswordLoading extends ForgotPasswordState {}
 
 class ForgotPasswordSuccess extends ForgotPasswordState {
   final String message;
-  final String otp;
 
   const ForgotPasswordSuccess({
     required this.message,
-    required this.otp,
   });
 
   @override
-  List<Object> get props => [message, otp];
+  List<Object> get props => [message];
 }
 
 class ForgotPasswordFailure extends ForgotPasswordState {

@@ -387,13 +387,13 @@ class CustomDrawer extends StatelessWidget {
   Widget _profileWidget(ProfileModel profile) {
     return Container(
       padding: const EdgeInsets.all(10),
-      // decoration: BoxDecoration(
-      //   border: Border.all(
-      //     color: CustomColors.primary,
-      //     width: 1,
-      //   ),
-      //   borderRadius: BorderRadius.circular(10),
-      // ),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: CustomColors.primary,
+          width: 1,
+        ),
+        borderRadius: BorderRadius.circular(10),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
@@ -426,7 +426,7 @@ class CustomDrawer extends StatelessWidget {
                 Row(
                   children: [
                     Text(
-                      profile.fullName,
+                      profile.userName,
                       style: TextStyle(
                         fontSize: 16.sp,
                         fontWeight: FontWeight.w500,

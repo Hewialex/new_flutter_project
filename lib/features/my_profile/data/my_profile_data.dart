@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:qismati/common/models/profile.dart';
-import 'package:http/http.dart' as http;
+import 'package:qismati/constants.dart';
 import 'package:qismati/core/database/database_helper.dart';
 import 'dart:convert';
+import 'package:dio/dio.dart';
 
 class MyProfileDataProvider {
-  final String _baseUrl = "https://dating-backend-sf1t.onrender.com/api/v1";
+  final dio = Dio();
+
   final DatabaseHelper databaseHelper = DatabaseHelper();
 
   Future<ProfileModel> getMyProfile() async {
     try {
       final String? token = await databaseHelper.getToken();
-      final response = await http.get(
-        Uri.parse("$_baseUrl/auth/me"),
-        headers: {
-          "Authorization": "Bearer $token",
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-      );
-
+      dio.options.headers["Authorization"] = "Bearer $token";
+      final response = await dio.get(Constants.get_me_url);
+      final body = response.data;
       if (response.statusCode != 200) {
-        throw Exception("Failed to load profile");
+        throw Exception(body["message"]);
       }
 
-      await Future.delayed(const Duration(seconds: 2));
-
-      final Map<String, dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = response.data;
       final Map<String, dynamic> profile = data['data']['user'];
-      debugPrint("Profile: $profile");
 
       return ProfileModel.fromJson(profile);
     } catch (e) {
@@ -38,19 +32,16 @@ class MyProfileDataProvider {
   Future<ProfileModel> updateMyProfile(ProfileModel profile) async {
     try {
       final String? token = await databaseHelper.getToken();
-      final response = await http.patch(
-
-        Uri.parse("$_baseUrl/user"),
-        headers: {
-          "Authorization": "Bearer $token",
-          'Content-Type': 'application/json; charset=UTF-8',
-        },
-        body: json.encode(profile.toJson()),
+      final dio = Dio();
+      dio.options.headers["Authorization"] = "Bearer $token";
+      final response = await dio.patch(
+        Constants.update_profile_url,
+        data: json.encode(profile.toJson()),
       );
 
-      debugPrint("Response: ${response.body}");
+      debugPrint("Response: ${response.data}");
 
-      final Map<String, dynamic> data = json.decode(response.body);
+      final Map<String, dynamic> data = response.data;
 
       return ProfileModel.fromJson(data['data']['user']);
     } catch (e) {
