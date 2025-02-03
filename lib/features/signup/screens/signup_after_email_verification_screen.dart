@@ -101,7 +101,7 @@ class SignupAfterEmailVerificationScreen extends StatelessWidget {
 
           case SignupDefault():
             Future.microtask(() {
-              if (context.mounted && state.errorMessage != null) {
+              if (state.errorMessage != null) {
                 CustomSnackBar(
                   context: context,
                   message: state.errorMessage!,
